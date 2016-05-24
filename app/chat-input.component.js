@@ -9,23 +9,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var chat_display_component_1 = require('./chat-display.component');
-var user_display_component_1 = require('./user-display.component');
-var AppComponent = (function () {
-    function AppComponent() {
+var ChatInput = (function () {
+    function ChatInput() {
     }
-    AppComponent.prototype.toggleUser = function (element) {
-        console.log(element);
-    };
-    AppComponent = __decorate([
+    ChatInput = __decorate([
         core_1.Component({
-            selector: 'my-app',
-            templateUrl: 'app/app.component.html',
-            directives: [chat_display_component_1.ChatDisplay, user_display_component_1.UserDisplay]
+            selector: 'chat-input',
+            templateUrl: 'app/chat-input.component.html'
         }), 
         __metadata('design:paramtypes', [])
-    ], AppComponent);
-    return AppComponent;
+    ], ChatInput);
+    return ChatInput;
 }());
-exports.AppComponent = AppComponent;
-//# sourceMappingURL=app.component.js.map
+exports.ChatInput = ChatInput;
+//# sourceMappingURL=chat-input.component.js.map

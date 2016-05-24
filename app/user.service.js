@@ -9,23 +9,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var chat_display_component_1 = require('./chat-display.component');
-var user_display_component_1 = require('./user-display.component');
-var AppComponent = (function () {
-    function AppComponent() {
+var mock_users_1 = require('./mock-users');
+var UserService = (function () {
+    function UserService() {
     }
-    AppComponent.prototype.toggleUser = function (element) {
-        console.log(element);
+    UserService.prototype.getUsers = function () {
+        return Promise.resolve(mock_users_1.USERS);
     };
-    AppComponent = __decorate([
-        core_1.Component({
-            selector: 'my-app',
-            templateUrl: 'app/app.component.html',
-            directives: [chat_display_component_1.ChatDisplay, user_display_component_1.UserDisplay]
-        }), 
+    UserService = __decorate([
+        core_1.Injectable(), 
         __metadata('design:paramtypes', [])
-    ], AppComponent);
-    return AppComponent;
+    ], UserService);
+    return UserService;
 }());
-exports.AppComponent = AppComponent;
-//# sourceMappingURL=app.component.js.map
+exports.UserService = UserService;
+//# sourceMappingURL=user.service.js.map

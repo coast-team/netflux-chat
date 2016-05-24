@@ -1,0 +1,9 @@
+<blockquote
+[class.blockquote-reverse]="message.fromIdUser == 1"
+[class.whisp]="message.toIdUser != 0">
+  <p>{{message.content}}</p>
+  <footer>User {{message.fromIdUser}} -
+    <i>{{message.date.toLocaleString()}}</i>
+    <span [hidden]="message.toIdUser == 0">- to User {{message.toIdUser}}</span>
+  </footer>
+</blockquote>

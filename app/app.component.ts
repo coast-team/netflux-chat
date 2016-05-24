@@ -1,6 +1,14 @@
 import { Component } from '@angular/core';
+import { ChatDisplay } from './chat-display.component';
+import { UserDisplay } from './user-display.component';
+
 @Component({
   selector: 'my-app',
-  template: '<h1>App from QuickStart</h1>'
+  templateUrl: 'app/app.component.html',
+  directives : [ChatDisplay, UserDisplay]
 })
-export class AppComponent { }
+export class AppComponent {
+  toggleUser(element){
+    console.log(element);
+  }
+}

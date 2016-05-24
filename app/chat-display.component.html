@@ -1,0 +1,9 @@
+<div class="panel-body">
+
+  <div style="max-height: 70%; min-height: 70%; overflow-y: scroll; padding-right: 2%;">
+    <message *ngFor="let message of messages" [message]="message"></message>
+  </div>
+
+  <chat-input></chat-input>
+
+</div>
