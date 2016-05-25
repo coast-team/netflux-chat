@@ -10,9 +10,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var message_1 = require('./message');
+var user_service_1 = require('./user.service');
 var MessageComponent = (function () {
-    function MessageComponent() {
+    function MessageComponent(userService) {
+        this.userService = userService;
+        this.messageNickname = function () {
+            return this.userService.getNickname(this.message.fromIdUser);
+        };
     }
+    ;
     __decorate([
         core_1.Input(), 
         __metadata('design:type', message_1.Message)
@@ -22,7 +28,7 @@ var MessageComponent = (function () {
             selector: 'message',
             templateUrl: 'app/message.component.html'
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [user_service_1.UserService])
     ], MessageComponent);
     return MessageComponent;
 }());

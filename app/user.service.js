@@ -12,9 +12,30 @@ var core_1 = require('@angular/core');
 var mock_users_1 = require('./mock-users');
 var UserService = (function () {
     function UserService() {
+        this.users = mock_users_1.USERS;
     }
     UserService.prototype.getUsers = function () {
-        return Promise.resolve(mock_users_1.USERS);
+        return this.users;
+    };
+    UserService.prototype.getNickname = function (id) {
+        /*var ret = "";
+        for(var user User in this.users){
+          if(user.id == id){
+            ret = user.nickname;
+            break;
+          }
+        }
+        return ret;*/
+        var ret = "";
+        function callback(v, i, a) {
+            if (v.id == id) {
+                ret = v.nickname;
+                return false;
+            }
+            return true;
+        }
+        this.users.every(callback);
+        return ret;
     };
     UserService = __decorate([
         core_1.Injectable(), 

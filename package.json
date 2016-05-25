@@ -27,7 +27,7 @@
     "zone.js": "^0.6.12",
     "angular2-in-memory-web-api": "0.0.9",
     "bootstrap": "^3.3.6",
-    "netflux": "~0.6.0"
+    "netflux": "^0.6.0"
   },
   "devDependencies": {
     "concurrently": "^2.0.0",

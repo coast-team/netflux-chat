@@ -9,15 +9,35 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var message_service_1 = require('./message.service');
+var message_1 = require('././message');
 var ChatInput = (function () {
-    function ChatInput() {
+    function ChatInput(messageService) {
+        this.messageService = messageService;
     }
+    ;
+    ChatInput.prototype.send = function () {
+        if (this.type != "") {
+            var chat = document.getElementById('chat');
+            var atBottom = chat.scrollTop == (chat.scrollHeight - chat.clientHeight);
+            var mes = new message_1.Message();
+            mes.content = this.type;
+            mes.fromIdUser = 1;
+            mes.toIdUser = 0;
+            mes.date = new Date();
+            this.messageService.addMessage(mes);
+            this.type = "";
+            console.log('AtBottom', atBottom);
+            setTimeout(function () { if (atBottom)
+                chat.scrollTop = chat.scrollHeight; }, 0);
+        }
+    };
     ChatInput = __decorate([
         core_1.Component({
             selector: 'chat-input',
             templateUrl: 'app/chat-input.component.html'
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [message_service_1.MessageService])
     ], ChatInput);
     return ChatInput;
 }());

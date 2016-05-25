@@ -11,9 +11,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var chat_display_component_1 = require('./chat-display.component');
 var user_display_component_1 = require('./user-display.component');
+var message_service_1 = require('./message.service');
 var AppComponent = (function () {
-    function AppComponent() {
+    function AppComponent(messageService) {
+        this.messageService = messageService;
+        this.lastMessage = function () {
+            return this.messageService.getLastMessage();
+        };
     }
+    ;
     AppComponent.prototype.toggleUser = function (element) {
         console.log(element);
     };
@@ -23,7 +29,7 @@ var AppComponent = (function () {
             templateUrl: 'app/app.component.html',
             directives: [chat_display_component_1.ChatDisplay, user_display_component_1.UserDisplay]
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [message_service_1.MessageService])
     ], AppComponent);
     return AppComponent;
 }());

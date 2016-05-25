@@ -13,7 +13,9 @@ import { Message } from './message';
 export class ChatDisplay implements OnInit{
   messages: Message[];
 
-  constructor(public messageService : MessageService){}
+  constructor(public messageService : MessageService){
+    this.messages = messageService.messages;
+  }
 
   ngOnInit(){
     this.getMessages();
@@ -21,6 +23,6 @@ export class ChatDisplay implements OnInit{
   }
 
   getMessages(){
-    this.messageService.getMessages().then(messages => this.messages = messages).then( () => console.log(this.messages));
+    return this.messageService.getMessages();
   }
  }

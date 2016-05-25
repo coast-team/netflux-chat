@@ -12,9 +12,19 @@ var core_1 = require('@angular/core');
 var mock_messages_1 = require('./mock-messages');
 var MessageService = (function () {
     function MessageService() {
+        this.messages = mock_messages_1.MESSAGES;
     }
     MessageService.prototype.getMessages = function () {
-        return Promise.resolve(mock_messages_1.MESSAGES);
+        return this.messages;
+    };
+    MessageService.prototype.getLastMessage = function () {
+        if (this.messages === undefined) {
+            return { fromIdUser: 0, toIdUser: 0, content: 'Loading', date: new Date() };
+        }
+        return this.messages[this.messages.length - 1];
+    };
+    MessageService.prototype.addMessage = function (mes) {
+        this.messages.push(mes);
     };
     MessageService = __decorate([
         core_1.Injectable(), 

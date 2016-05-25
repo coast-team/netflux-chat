@@ -21,8 +21,7 @@ var UserDisplay = (function () {
         console.log('Users chargés');
     };
     UserDisplay.prototype.getUsers = function () {
-        var _this = this;
-        this.userService.getUsers().then(function (users) { return _this.users = users; }).then(function () { return console.log(_this.users); });
+        this.users = this.userService.getUsers();
     };
     UserDisplay = __decorate([
         core_1.Component({

@@ -19,6 +19,6 @@ export class UserDisplay {
   }
 
   getUsers(){
-    this.userService.getUsers().then(users => this.users = users).then( () => console.log(this.users));
+    this.users = this.userService.getUsers()
   }
 }

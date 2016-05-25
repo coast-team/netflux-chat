@@ -15,14 +15,14 @@ var message_service_1 = require('./message.service');
 var ChatDisplay = (function () {
     function ChatDisplay(messageService) {
         this.messageService = messageService;
+        this.messages = messageService.messages;
     }
     ChatDisplay.prototype.ngOnInit = function () {
         this.getMessages();
         console.log('Messages chargés');
     };
     ChatDisplay.prototype.getMessages = function () {
-        var _this = this;
-        this.messageService.getMessages().then(function (messages) { return _this.messages = messages; }).then(function () { return console.log(_this.messages); });
+        return this.messageService.getMessages();
     };
     ChatDisplay = __decorate([
         core_1.Component({

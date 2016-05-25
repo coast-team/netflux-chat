@@ -1,21 +1,37 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { User } from './user';
 import { USERS } from './mock-users';
 
 @Injectable()
 export class UserService{
-  users : User[];
-  getUsers(){/*
-    if(this.users==null){
-      this.users = Promise.resolve(USERS);
-    }
-    return this.users;*/
-    return Promise.resolve(USERS);
+  users : User[] = USERS;
+
+
+
+  getUsers(){
+    return this.users;
   }
 
-/*
+
   getNickname(id:number){
-    users.foreach( (v,i,a)=>{if(v.id==id) return v.nickname});
+    /*var ret = "";
+    for(var user User in this.users){
+      if(user.id == id){
+        ret = user.nickname;
+        break;
+      }
+    }
+    return ret;*/
+    var ret = "";
+    function callback(v:User,i:number,a){
+      if(v.id == id){
+        ret = v.nickname;
+        return false;
+      }
+      return true;
+    }
+    this.users.every(callback);
+    return ret;
   }
-*/
+
 }

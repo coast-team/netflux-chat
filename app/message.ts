@@ -20,4 +20,7 @@ export class Message{
   */
   date : Date;
 
+  constructor(){
+    
+  }
 }
