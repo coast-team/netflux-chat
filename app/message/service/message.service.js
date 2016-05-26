@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var mock_messages_1 = require('./mock-messages');
+var mock_messages_1 = require('../mock-messages');
 var MessageService = (function () {
     function MessageService() {
         this.messages = mock_messages_1.MESSAGES;

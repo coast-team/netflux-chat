@@ -9,38 +9,27 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var message_1 = require('./message');
-var user_service_1 = require('./user.service');
-var MessageComponent = (function () {
-    function MessageComponent(userService) {
+var user_1 = require('../model/user');
+var user_service_1 = require('../service/user.service');
+var UserComponent = (function () {
+    function UserComponent(userService) {
         this.userService = userService;
-        this.senderNickname = function () {
-            return this.userService.getNickname(this.message.fromIdUser);
-        };
-        this.receiverNickname = function () {
-            if (this.message.toIdUser != 0) {
-                return this.userService.getNickname(this.message.toIdUser);
-            }
-            else
-                return "";
-        };
         this.currentUserId = function () {
             return this.userService.currentUserId;
         };
     }
-    ;
     __decorate([
         core_1.Input(), 
-        __metadata('design:type', message_1.Message)
-    ], MessageComponent.prototype, "message", void 0);
-    MessageComponent = __decorate([
+        __metadata('design:type', user_1.User)
+    ], UserComponent.prototype, "user", void 0);
+    UserComponent = __decorate([
         core_1.Component({
-            selector: 'message',
-            templateUrl: 'app/message.component.html'
+            selector: 'user',
+            templateUrl: 'app/user/view/user.component.html'
         }), 
         __metadata('design:paramtypes', [user_service_1.UserService])
-    ], MessageComponent);
-    return MessageComponent;
+    ], UserComponent);
+    return UserComponent;
 }());
-exports.MessageComponent = MessageComponent;
-//# sourceMappingURL=message.component.js.map
+exports.UserComponent = UserComponent;
+//# sourceMappingURL=user.component.js.map

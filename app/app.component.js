@@ -10,9 +10,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var chat_display_component_1 = require('./chat-display.component');
-var user_display_component_1 = require('./user-display.component');
-var message_service_1 = require('./message.service');
-var user_service_1 = require('./user.service');
+var user_display_component_1 = require('./user/component/user-display.component');
+var message_service_1 = require('./message/service/message.service');
+var user_service_1 = require('./user/service/user.service');
 var AppComponent = (function () {
     function AppComponent(messageService, userService) {
         this.messageService = messageService;

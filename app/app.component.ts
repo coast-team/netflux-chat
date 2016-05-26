@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { ChatDisplay } from './chat-display.component';
-import { UserDisplay } from './user-display.component';
-import { MessageService } from './message.service';
-import { UserService} from './user.service';
+import { UserDisplay } from './user/component/user-display.component';
+import { MessageService } from './message/service/message.service';
+import { UserService} from './user/service/user.service';
 
 @Component({
   selector: 'my-app',

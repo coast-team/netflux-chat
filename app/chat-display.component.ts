@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { MessageComponent } from './message.component';
+import { MessageComponent } from './message/component/message.component';
 import { ChatInput } from './chat-input.component';
-import { MessageService } from './message.service';
-import { Message } from './message';
+import { MessageService } from './message/service/message.service';
+import { Message } from './message/model/message';
 
 @Component({
   selector : 'chat-display',

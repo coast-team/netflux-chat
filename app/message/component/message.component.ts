@@ -1,10 +1,10 @@
 import { Component, Input } from '@angular/core';
-import { Message } from './message';
-import { UserService } from './user.service';
+import { Message } from '../model/message';
+import { UserService } from '../../user/service/user.service';
 
 @Component({
   selector : 'message',
-  templateUrl : 'app/message.component.html'
+  templateUrl : 'app/message/view/message.component.html'
 })
 export class MessageComponent {
   @Input() message: Message;

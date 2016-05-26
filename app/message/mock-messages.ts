@@ -1,4 +1,4 @@
-import { Message } from './message';
+import { Message } from './model/message';
 
 export var MESSAGES: Message[] = [
   {fromIdUser : 1,toIdUser : 2, content : "Hello, how are you?", date : new Date("2016-05-23T14:48:00")},

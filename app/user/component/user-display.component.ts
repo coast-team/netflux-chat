@@ -1,11 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { UserComponent } from './user.component';
-import { User } from './user';
-import { UserService } from './user.service';
+import { User } from '../model/user';
+import { UserService } from '../service/user.service';
 
 @Component({
   selector : 'user-display',
-  templateUrl : 'app/user-display.component.html',
+  templateUrl : 'app/user/view/user-display.component.html',
   directives : [UserComponent]
 })
 export class UserDisplay {

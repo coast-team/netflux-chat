@@ -1,6 +1,6 @@
 import { Injectable, OnInit } from '@angular/core';
-import { Message } from './message';
-import { MESSAGES } from './mock-messages';
+import { Message } from '../model/message';
+import { MESSAGES } from '../mock-messages';
 
 @Injectable()
 export class MessageService {

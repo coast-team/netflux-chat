@@ -9,9 +9,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var message_component_1 = require('./message.component');
+var message_component_1 = require('./message/component/message.component');
 var chat_input_component_1 = require('./chat-input.component');
-var message_service_1 = require('./message.service');
+var message_service_1 = require('./message/service/message.service');
 var ChatDisplay = (function () {
     function ChatDisplay(messageService) {
         this.messageService = messageService;

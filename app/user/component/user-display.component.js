@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var user_component_1 = require('./user.component');
-var user_service_1 = require('./user.service');
+var user_service_1 = require('../service/user.service');
 var UserDisplay = (function () {
     function UserDisplay(userService) {
         this.userService = userService;
@@ -58,7 +58,7 @@ var UserDisplay = (function () {
     UserDisplay = __decorate([
         core_1.Component({
             selector: 'user-display',
-            templateUrl: 'app/user-display.component.html',
+            templateUrl: 'app/user/view/user-display.component.html',
             directives: [user_component_1.UserComponent]
         }), 
         __metadata('design:paramtypes', [user_service_1.UserService])

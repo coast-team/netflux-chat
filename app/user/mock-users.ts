@@ -1,4 +1,4 @@
-import { User } from './user';
+import { User } from './model/user';
 
 export var USERS : User[] = [
   {id : 1, nickname : "NyanCat"},
