@@ -14,6 +14,10 @@ export class UserService{
     return this.users;
   }
 
+  addUser(user:User){
+    this.users.push(user);
+  }
+
 
   getNickname(id:number){
     /*var ret = "";

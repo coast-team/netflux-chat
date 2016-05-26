@@ -19,6 +19,9 @@ var UserService = (function () {
     UserService.prototype.getUsers = function () {
         return this.users;
     };
+    UserService.prototype.addUser = function (user) {
+        this.users.push(user);
+    };
     UserService.prototype.getNickname = function (id) {
         /*var ret = "";
         for(var user User in this.users){

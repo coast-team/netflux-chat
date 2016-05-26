@@ -1,9 +1,9 @@
-<div class="col-md-2 col-sm-2 col-xs-2">
+<div class="col-md-2 col-sm-2 col-xs-4" style="overflow-y:scroll; max-height:87vh;">
   <ul [class.hidden-sm]="isHidden" [class.hidden-xs]="isHidden" class="list-group">
     <li class="list-group-item list-group-item-info">
       <h2 class="text-center text-primary">Users</h2>
     </li>
+    <li class="list-group-item whisp btn btn-default" (click)="addUser()"><i class="fa fa-plus-circle fa-fw"></i>invite user</li>
     <user *ngFor="let user of users" [user]="user"></user>
-    <li class="list-group-item whisp">add user</li>
   </ul>
 </div>

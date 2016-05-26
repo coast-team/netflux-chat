@@ -26,6 +26,31 @@ var UserDisplay = (function () {
     UserDisplay.prototype.toggleUser = function () {
         this.isHidden = !this.isHidden;
     };
+    UserDisplay.prototype.addUser = function () {
+        var us = this.userService;
+        BootstrapDialog.show({
+            title: 'Add user',
+            message: 'User name: <input type="text" class="form-control">',
+            data: { 'name': '' },
+            closable: true,
+            draggable: true,
+            buttons: [{
+                    id: 'btn-ok',
+                    label: 'OK',
+                    cssClass: 'btn-primary',
+                    autospin: false,
+                    action: function (dialogRef) {
+                        var nom = dialogRef.getModalBody().find('input').val();
+                        if (nom === '')
+                            nom = 'Default';
+                        us.addUser({ id: 3, nickname: nom });
+                        console.log('button action');
+                        dialogRef.close();
+                    }
+                }]
+        });
+        //this.userService.addUser({id:3,nickname:"UserAdded"});
+    };
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Object)
