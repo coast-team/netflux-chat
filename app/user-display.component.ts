@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { UserComponent } from './user.component';
 import { User } from './user';
 import { UserService } from './user.service';
@@ -11,6 +11,8 @@ import { UserService } from './user.service';
 export class UserDisplay {
   users : User[];
 
+  @Input() isHidden;
+
   constructor(public userService : UserService){};
 
   ngOnInit(){
@@ -20,5 +22,9 @@ export class UserDisplay {
 
   getUsers(){
     this.users = this.userService.getUsers()
+  }
+
+  toggleUser(){
+    this.isHidden = !this.isHidden;
   }
 }

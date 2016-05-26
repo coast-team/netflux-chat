@@ -23,6 +23,13 @@ var UserDisplay = (function () {
     UserDisplay.prototype.getUsers = function () {
         this.users = this.userService.getUsers();
     };
+    UserDisplay.prototype.toggleUser = function () {
+        this.isHidden = !this.isHidden;
+    };
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], UserDisplay.prototype, "isHidden", void 0);
     UserDisplay = __decorate([
         core_1.Component({
             selector: 'user-display',

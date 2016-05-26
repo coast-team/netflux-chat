@@ -1,4 +1,8 @@
-<div class="col-md-10 col-xs-12 col-sm-12">
+<div class="col-md-10"
+[class.col-xs-12]="hideUserList"
+[class.col-sm-12]="hideUserList"
+[class.col-xs-10]="!hideUserList"
+[class.col-sm-10]="!hideUserList">
   <div class="panel panel-primary">
     <div class="panel-heading">
       <div class="row">
@@ -20,4 +24,4 @@
     <chat-display></chat-display>
   </div>
 </div>
-<user-display #userList></user-display>
+<user-display [isHidden]="hideUserList"></user-display>

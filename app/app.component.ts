@@ -11,9 +11,10 @@ import { UserService} from './user.service';
 })
 export class AppComponent {
   constructor(public messageService:MessageService, public userService:UserService){};
+  hideUserList = true;
 
   toggleUser(element){
-    console.log(element);
+    this.hideUserList = !this.hideUserList;
   }
 
   lastMessage= function(){

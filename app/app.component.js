@@ -17,13 +17,14 @@ var AppComponent = (function () {
     function AppComponent(messageService, userService) {
         this.messageService = messageService;
         this.userService = userService;
+        this.hideUserList = true;
         this.lastMessage = function () {
             return this.messageService.getLastMessage();
         };
     }
     ;
     AppComponent.prototype.toggleUser = function (element) {
-        console.log(element);
+        this.hideUserList = !this.hideUserList;
     };
     AppComponent = __decorate([
         core_1.Component({
