@@ -5,7 +5,7 @@
         <div class="col-xs-2 col-sm-2">
         </div>
         <div class="col-xs-8 col-sm-8">
-          <h1 class="panel-title text-center">User {{lastMessage().fromIdUser}} - {{lastMessage().date.toLocaleString()}}</h1>
+          <h1 class="panel-title text-center">Last message from <b>{{userService.getNickname(lastMessage().fromIdUser)}}</b> - {{lastMessage().date.toLocaleString()}}</h1>
         </div>
         <div class="col-xs-2 col-sm-2">
           <a class="btn btn-primary hidden-lg hidden-md" (click)="toggleUser(userList)"><i class="fa fa-fw fa-users"></i></a>

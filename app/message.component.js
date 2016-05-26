@@ -14,8 +14,18 @@ var user_service_1 = require('./user.service');
 var MessageComponent = (function () {
     function MessageComponent(userService) {
         this.userService = userService;
-        this.messageNickname = function () {
+        this.senderNickname = function () {
             return this.userService.getNickname(this.message.fromIdUser);
+        };
+        this.receiverNickname = function () {
+            if (this.message.toIdUser != 0) {
+                return this.userService.getNickname(this.message.toIdUser);
+            }
+            else
+                return "";
+        };
+        this.currentUserId = function () {
+            return this.userService.currentUserId;
         };
     }
     ;

@@ -13,6 +13,8 @@ var mock_users_1 = require('./mock-users');
 var UserService = (function () {
     function UserService() {
         this.users = mock_users_1.USERS;
+        //default = 1 for starting
+        this.currentUserId = 1;
     }
     UserService.prototype.getUsers = function () {
         return this.users;

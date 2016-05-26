@@ -11,7 +11,17 @@ export class MessageComponent {
 
   constructor(public userService: UserService){};
 
-  messageNickname = function(){
+  senderNickname = function(){
     return this.userService.getNickname(this.message.fromIdUser);
+  }
+
+  receiverNickname = function(){
+    if(this.message.toIdUser != 0){
+      return this.userService.getNickname(this.message.toIdUser);
+    }else return "";
+  }
+
+  currentUserId = function(){
+    return this.userService.currentUserId;
   }
 }

@@ -12,9 +12,11 @@ var core_1 = require('@angular/core');
 var chat_display_component_1 = require('./chat-display.component');
 var user_display_component_1 = require('./user-display.component');
 var message_service_1 = require('./message.service');
+var user_service_1 = require('./user.service');
 var AppComponent = (function () {
-    function AppComponent(messageService) {
+    function AppComponent(messageService, userService) {
         this.messageService = messageService;
+        this.userService = userService;
         this.lastMessage = function () {
             return this.messageService.getLastMessage();
         };
@@ -29,7 +31,7 @@ var AppComponent = (function () {
             templateUrl: 'app/app.component.html',
             directives: [chat_display_component_1.ChatDisplay, user_display_component_1.UserDisplay]
         }), 
-        __metadata('design:paramtypes', [message_service_1.MessageService])
+        __metadata('design:paramtypes', [message_service_1.MessageService, user_service_1.UserService])
     ], AppComponent);
     return AppComponent;
 }());

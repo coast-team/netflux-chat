@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
-import {User} from './user';
+import { User } from './user';
+import { UserService } from './user.service';
 
 @Component({
   selector : 'user',
@@ -7,4 +8,10 @@ import {User} from './user';
 })
 export class UserComponent {
   @Input() user : User;
+
+  constructor(public userService:UserService){}
+
+  currentUserId = function(){
+    return this.userService.currentUserId;
+  }
 }

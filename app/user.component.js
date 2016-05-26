@@ -10,8 +10,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var user_1 = require('./user');
+var user_service_1 = require('./user.service');
 var UserComponent = (function () {
-    function UserComponent() {
+    function UserComponent(userService) {
+        this.userService = userService;
+        this.currentUserId = function () {
+            return this.userService.currentUserId;
+        };
     }
     __decorate([
         core_1.Input(), 
@@ -22,7 +27,7 @@ var UserComponent = (function () {
             selector: 'user',
             templateUrl: 'app/user.component.html'
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [user_service_1.UserService])
     ], UserComponent);
     return UserComponent;
 }());

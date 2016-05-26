@@ -6,6 +6,8 @@ import { USERS } from './mock-users';
 export class UserService{
   users : User[] = USERS;
 
+  //default = 1 for starting
+  currentUserId : number = 1;
 
 
   getUsers(){

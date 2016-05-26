@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { MessageService } from './message.service';
 import { Message } from '././message';
+import { UserService } from './user.service';
 
 @Component({
   selector : 'chat-input',
@@ -9,14 +10,14 @@ import { Message } from '././message';
 export class ChatInput {
   type: string;
 
-  constructor(public messageService:MessageService){};
+  constructor(public messageService:MessageService, public userService : UserService){};
   send(){
     if(this.type!=""){
       var chat = document.getElementById('chat');
       var atBottom = chat.scrollTop == (chat.scrollHeight - chat.clientHeight);
       var mes = new Message();
       mes.content = this.type;
-      mes.fromIdUser = 1;
+      mes.fromIdUser = this.userService.currentUserId;
       mes.toIdUser = 0;
       mes.date = new Date();
       this.messageService.addMessage(mes);
