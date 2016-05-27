@@ -9,25 +9,32 @@ export class UserService{
   //default = 1 for starting
   currentUserId : number = 1;
 
+  setCurrentUserId(id:number){
+    this.currentUserId = id;
+  }
 
   getUsers(){
     return this.users;
   }
 
   addUser(user:User){
-    this.users.push(user);
+    let possedeUser = false;
+    function callback(v:User,i:number,a){
+      if(v.id == user.id){
+        possedeUser = true;
+        v.nickname = user.nickname;
+        return false;
+      }
+      return true;
+    }
+    this.users.every(callback);
+    if(!possedeUser){
+      this.users.push(user);
+    }
+
   }
 
-
   getNickname(id:number){
-    /*var ret = "";
-    for(var user User in this.users){
-      if(user.id == id){
-        ret = user.nickname;
-        break;
-      }
-    }
-    return ret;*/
     var ret = "";
     function callback(v:User,i:number,a){
       if(v.id == id){
@@ -40,4 +47,14 @@ export class UserService{
     return ret;
   }
 
+  setNickname(id:number, nickname:string){
+    function callback(v:User,i:number,a){
+      if(v.id == id){
+        v.nickname = nickname;
+        return false;
+      }
+      return true;
+    }
+    this.users.every(callback);
+  }
 }

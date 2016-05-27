@@ -16,21 +16,28 @@ var UserService = (function () {
         //default = 1 for starting
         this.currentUserId = 1;
     }
+    UserService.prototype.setCurrentUserId = function (id) {
+        this.currentUserId = id;
+    };
     UserService.prototype.getUsers = function () {
         return this.users;
     };
     UserService.prototype.addUser = function (user) {
-        this.users.push(user);
+        var possedeUser = false;
+        function callback(v, i, a) {
+            if (v.id == user.id) {
+                possedeUser = true;
+                v.nickname = user.nickname;
+                return false;
+            }
+            return true;
+        }
+        this.users.every(callback);
+        if (!possedeUser) {
+            this.users.push(user);
+        }
     };
     UserService.prototype.getNickname = function (id) {
-        /*var ret = "";
-        for(var user User in this.users){
-          if(user.id == id){
-            ret = user.nickname;
-            break;
-          }
-        }
-        return ret;*/
         var ret = "";
         function callback(v, i, a) {
             if (v.id == id) {
@@ -41,6 +48,16 @@ var UserService = (function () {
         }
         this.users.every(callback);
         return ret;
+    };
+    UserService.prototype.setNickname = function (id, nickname) {
+        function callback(v, i, a) {
+            if (v.id == id) {
+                v.nickname = nickname;
+                return false;
+            }
+            return true;
+        }
+        this.users.every(callback);
     };
     UserService = __decorate([
         core_1.Injectable(), 

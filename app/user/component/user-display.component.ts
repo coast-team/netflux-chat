@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { UserComponent } from './user.component';
 import { User } from '../model/user';
 import { UserService } from '../service/user.service';
+declare var BootstrapDialog:any;
 
 @Component({
   selector : 'user-display',

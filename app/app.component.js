@@ -26,6 +26,31 @@ var AppComponent = (function () {
     AppComponent.prototype.toggleUser = function (element) {
         this.hideUserList = !this.hideUserList;
     };
+    AppComponent.prototype.ngOnInit = function () {
+        var us = this.userService;
+        BootstrapDialog.show({
+            title: 'Inscrivez-vous!',
+            message: 'Your ID: <input id="ID" type="number" class="form-control"> <br> Your nickname: <input id="nickname" type="text" class="form-control">',
+            closable: false,
+            draggable: true,
+            buttons: [{
+                    id: 'btn-ok',
+                    label: 'OK',
+                    cssClass: 'btn-primary',
+                    autospin: false,
+                    action: function (dialogRef) {
+                        var nom = dialogRef.getModalBody().find('#nickname').val();
+                        var id = dialogRef.getModalBody().find('#ID').val();
+                        if (nom === '')
+                            nom = 'Default';
+                        us.addUser({ id: id, nickname: nom });
+                        us.setCurrentUserId(id);
+                        console.log('button action');
+                        dialogRef.close();
+                    }
+                }]
+        });
+    };
     AppComponent = __decorate([
         core_1.Component({
             selector: 'my-app',
