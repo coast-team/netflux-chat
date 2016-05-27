@@ -16,12 +16,16 @@ export class MessageComponent {
   }
 
   receiverNickname = function(){
-    if(this.message.toIdUser != 0){
+    if(this.message.toIdUser != "0"){
       return this.userService.getNickname(this.message.toIdUser);
     }else return "";
   }
 
   currentUserId = function(){
     return this.userService.currentUserId;
+  }
+
+  senderIsOnline(){
+    return this.userService.isOnline(this.message.fromIdUser);
   }
 }

@@ -19,7 +19,7 @@ var MessageService = (function () {
     };
     MessageService.prototype.getLastMessage = function () {
         if (this.messages === undefined) {
-            return { fromIdUser: 0, toIdUser: 0, content: 'Loading', date: new Date() };
+            return { fromIdUser: "0", toIdUser: "0", content: 'Loading', date: new Date() };
         }
         return this.messages[this.messages.length - 1];
     };

@@ -18,7 +18,7 @@ var MessageComponent = (function () {
             return this.userService.getNickname(this.message.fromIdUser);
         };
         this.receiverNickname = function () {
-            if (this.message.toIdUser != 0) {
+            if (this.message.toIdUser != "0") {
                 return this.userService.getNickname(this.message.toIdUser);
             }
             else
@@ -29,6 +29,9 @@ var MessageComponent = (function () {
         };
     }
     ;
+    MessageComponent.prototype.senderIsOnline = function () {
+        return this.userService.isOnline(this.message.fromIdUser);
+    };
     __decorate([
         core_1.Input(), 
         __metadata('design:type', message_1.Message)

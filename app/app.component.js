@@ -29,7 +29,7 @@ var AppComponent = (function () {
     AppComponent.prototype.ngOnInit = function () {
         var us = this.userService;
         BootstrapDialog.show({
-            title: 'Inscrivez-vous!',
+            title: 'Sign in!',
             message: 'Your ID: <input id="ID" type="number" class="form-control"> <br> Your nickname: <input id="nickname" type="text" class="form-control">',
             closable: false,
             draggable: true,
@@ -43,7 +43,7 @@ var AppComponent = (function () {
                         var id = dialogRef.getModalBody().find('#ID').val();
                         if (nom === '')
                             nom = 'Default';
-                        us.addUser({ id: id, nickname: nom });
+                        us.addUser({ id: id, nickname: nom, peerId: id, online: true });
                         us.setCurrentUserId(id);
                         console.log('button action');
                         dialogRef.close();

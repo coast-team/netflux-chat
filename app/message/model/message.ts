@@ -3,12 +3,12 @@ export class Message{
   /**
   * Sender's id
   */
-  fromIdUser : number;
+  fromIdUser : string;
 
   /**
   * receiver's id ; 0 mean all user
   */
-  toIdUser : number;
+  toIdUser : string;
 
   /**
   * message's content
@@ -21,6 +21,6 @@ export class Message{
   date : Date;
 
   constructor(){
-    
+
   }
 }

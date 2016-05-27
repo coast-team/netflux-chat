@@ -4,6 +4,6 @@
       <h2 class="text-center text-primary">Users</h2>
     </li>
     <li class="list-group-item whisp btn btn-default" (click)="addUser()"><i class="fa fa-plus-circle fa-fw"></i>invite user</li>
-    <user *ngFor="let user of users" [user]="user"></user>
+    <user *ngFor="let user of users" [user]="user" [hidden]="! user.online"></user>
   </ul>
 </div>

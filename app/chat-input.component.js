@@ -25,7 +25,7 @@ var ChatInput = (function () {
             var mes = new message_1.Message();
             mes.content = this.type;
             mes.fromIdUser = this.userService.currentUserId;
-            mes.toIdUser = 0;
+            mes.toIdUser = "0";
             mes.date = new Date();
             this.messageService.addMessage(mes);
             this.type = "";

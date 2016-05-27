@@ -7,9 +7,9 @@ export class UserService{
   users : User[] = USERS;
 
   //default = 1 for starting
-  currentUserId : number = 1;
+  currentUserId : string = ""+1;
 
-  setCurrentUserId(id:number){
+  setCurrentUserId(id:string){
     this.currentUserId = id;
   }
 
@@ -31,10 +31,20 @@ export class UserService{
     if(!possedeUser){
       this.users.push(user);
     }
-
   }
 
-  getNickname(id:number){
+  remUser(id:string){
+    function callback(v:User,i:number,a){
+      if(v.id == id){
+        v.online=false;
+        return false;
+      }
+      return true;
+    }
+    this.users.every(callback);
+  }
+
+  getNickname(id:string){
     var ret = "";
     function callback(v:User,i:number,a){
       if(v.id == id){
@@ -47,7 +57,7 @@ export class UserService{
     return ret;
   }
 
-  setNickname(id:number, nickname:string){
+  setNickname(id:string, nickname:string){
     function callback(v:User,i:number,a){
       if(v.id == id){
         v.nickname = nickname;
@@ -57,4 +67,19 @@ export class UserService{
     }
     this.users.every(callback);
   }
+
+  isOnline(id: string){
+    var online : boolean;
+    function callback(v:User,i:number,a){
+      if(v.id == id){
+        online = v.online;
+        return false;
+      }
+      return true;
+    }
+    this.users.every(callback);
+    return online;
+  }
+
+
 }

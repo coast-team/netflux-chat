@@ -14,7 +14,7 @@ var UserService = (function () {
     function UserService() {
         this.users = mock_users_1.USERS;
         //default = 1 for starting
-        this.currentUserId = 1;
+        this.currentUserId = "" + 1;
     }
     UserService.prototype.setCurrentUserId = function (id) {
         this.currentUserId = id;
@@ -37,6 +37,16 @@ var UserService = (function () {
             this.users.push(user);
         }
     };
+    UserService.prototype.remUser = function (id) {
+        function callback(v, i, a) {
+            if (v.id == id) {
+                v.online = false;
+                return false;
+            }
+            return true;
+        }
+        this.users.every(callback);
+    };
     UserService.prototype.getNickname = function (id) {
         var ret = "";
         function callback(v, i, a) {
@@ -58,6 +68,18 @@ var UserService = (function () {
             return true;
         }
         this.users.every(callback);
+    };
+    UserService.prototype.isOnline = function (id) {
+        var online;
+        function callback(v, i, a) {
+            if (v.id == id) {
+                online = v.online;
+                return false;
+            }
+            return true;
+        }
+        this.users.every(callback);
+        return online;
     };
     UserService = __decorate([
         core_1.Injectable(), 

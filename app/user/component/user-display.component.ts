@@ -29,8 +29,9 @@ export class UserDisplay {
     this.isHidden = !this.isHidden;
   }
 
-  addUser(){
+  addUser(){ // id en paramètre plus tard
     var us = this.userService;
+    var id = ""+(this.userService.users.length+1); // à changer
     BootstrapDialog.show({
             title: 'Add user',
             message: 'User name: <input type="text" class="form-control">',
@@ -43,9 +44,9 @@ export class UserDisplay {
                         cssClass: 'btn-primary',
                         autospin: false,
                         action: function(dialogRef){
-                            let nom=dialogRef.getModalBody().find('input').val();
+                            let nom = dialogRef.getModalBody().find('input').val();
                             if(nom==='') nom = 'Default';
-                            us.addUser({id:3,nickname:nom});
+                            us.addUser({id:id,nickname:nom ,peerId:id,online:true});
                             console.log('button action');
                             dialogRef.close();
                         }

@@ -28,6 +28,7 @@ var UserDisplay = (function () {
     };
     UserDisplay.prototype.addUser = function () {
         var us = this.userService;
+        var id = "" + (this.userService.users.length + 1); // à changer
         BootstrapDialog.show({
             title: 'Add user',
             message: 'User name: <input type="text" class="form-control">',
@@ -43,7 +44,7 @@ var UserDisplay = (function () {
                         var nom = dialogRef.getModalBody().find('input').val();
                         if (nom === '')
                             nom = 'Default';
-                        us.addUser({ id: 3, nickname: nom });
+                        us.addUser({ id: id, nickname: nom, peerId: id, online: true });
                         console.log('button action');
                         dialogRef.close();
                     }
