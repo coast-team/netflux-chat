@@ -1,6 +1,6 @@
 <blockquote
 [class.blockquote-reverse]="message.fromIdUser == currentUserId()"
-[class.whisp]="message.toIdUser != 0">
+[class.whisp]="message.toIdUser != '0'">
   <p>{{message.content}}</p>
   <footer>{{senderNickname()}} -
     <i>{{message.date.toLocaleString()}}</i>

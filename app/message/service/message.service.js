@@ -10,9 +10,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var mock_messages_1 = require('../mock-messages');
+var user_service_1 = require('../../user/service/user.service');
+var sendbox_service_1 = require('../../sendbox/sendbox.service');
 var MessageService = (function () {
-    function MessageService() {
+    function MessageService(userService, sendbox) {
+        this.userService = userService;
+        this.sendbox = sendbox;
         this.messages = mock_messages_1.MESSAGES;
+        this.audio = new Audio();
     }
     MessageService.prototype.getMessages = function () {
         return this.messages;
@@ -23,12 +28,33 @@ var MessageService = (function () {
         }
         return this.messages[this.messages.length - 1];
     };
+    MessageService.prototype.sendMessage = function (mes) {
+        this.sendbox.sendFormat(mes.content, 'message');
+        this.addMessage(mes);
+    };
     MessageService.prototype.addMessage = function (mes) {
         this.messages.push(mes);
+        if (mes.fromIdUser !== this.userService.currentUserId) {
+            var audio = this.audio;
+            if (audio.src === '') {
+                audio.src = 'SuperMarioBros.ogg';
+                audio.load();
+            }
+            audio.play();
+            setTimeout(function () { audio.pause(); }, 300);
+            console.log('audio : ', audio);
+        }
+        var chat = document.getElementById('chat');
+        var atBottom = chat.scrollTop == (chat.scrollHeight - chat.clientHeight);
+        console.log('scrollTop : ', chat.scrollTop);
+        console.log('scrollHeight : ', chat.scrollHeight);
+        console.log('clientHeight : ', chat.clientHeight);
+        setTimeout(function () { if (atBottom)
+            chat.scrollTop = chat.scrollHeight; }, 0);
     };
     MessageService = __decorate([
         core_1.Injectable(), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [user_service_1.UserService, sendbox_service_1.SendBox])
     ], MessageService);
     return MessageService;
 }());

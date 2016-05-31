@@ -20,18 +20,13 @@ var ChatInput = (function () {
     ;
     ChatInput.prototype.send = function () {
         if (this.type != "") {
-            var chat = document.getElementById('chat');
-            var atBottom = chat.scrollTop == (chat.scrollHeight - chat.clientHeight);
             var mes = new message_1.Message();
             mes.content = this.type;
             mes.fromIdUser = this.userService.currentUserId;
             mes.toIdUser = "0";
             mes.date = new Date();
-            this.messageService.addMessage(mes);
+            this.messageService.sendMessage(mes);
             this.type = "";
-            console.log('AtBottom', atBottom);
-            setTimeout(function () { if (atBottom)
-                chat.scrollTop = chat.scrollHeight; }, 0);
         }
     };
     ChatInput = __decorate([

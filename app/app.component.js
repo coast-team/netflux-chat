@@ -13,10 +13,12 @@ var chat_display_component_1 = require('./chat-display.component');
 var user_display_component_1 = require('./user/component/user-display.component');
 var message_service_1 = require('./message/service/message.service');
 var user_service_1 = require('./user/service/user.service');
+var mediator_service_1 = require('./mediator/mediator.service');
 var AppComponent = (function () {
-    function AppComponent(messageService, userService) {
+    function AppComponent(messageService, userService, mediator) {
         this.messageService = messageService;
         this.userService = userService;
+        this.mediator = mediator;
         this.hideUserList = true;
         this.lastMessage = function () {
             return this.messageService.getLastMessage();
@@ -28,27 +30,41 @@ var AppComponent = (function () {
     };
     AppComponent.prototype.ngOnInit = function () {
         var us = this.userService;
+        var med = this.mediator;
         BootstrapDialog.show({
             title: 'Sign in!',
-            message: 'Your ID: <input id="ID" type="number" class="form-control"> <br> Your nickname: <input id="nickname" type="text" class="form-control">',
+            message: "If joining, key: <input id=\"key\" type=\"text\" class=\"form-control\">",
             closable: false,
             draggable: true,
             buttons: [{
-                    id: 'btn-ok',
-                    label: 'OK',
+                    id: 'btn-create',
+                    label: 'Create',
                     cssClass: 'btn-primary',
                     autospin: false,
                     action: function (dialogRef) {
-                        var nom = dialogRef.getModalBody().find('#nickname').val();
-                        var id = dialogRef.getModalBody().find('#ID').val();
-                        if (nom === '')
-                            nom = 'Default';
-                        us.addUser({ id: id, nickname: nom, peerId: id, online: true });
-                        us.setCurrentUserId(id);
-                        console.log('button action');
+                        //let nom=dialogRef.getModalBody().find('#nickname').val();
+                        //let id=dialogRef.getModalBody().find('#ID').val();
+                        //if(nom==='') nom = 'Default';
+                        med.create();
+                        console.log('button create');
                         dialogRef.close();
                     }
-                }]
+                },
+                {
+                    id: 'btn-join',
+                    label: 'Join',
+                    cssClass: 'btn-primary',
+                    autospin: false,
+                    action: function (dialogRef) {
+                        var key = dialogRef.getModalBody().find('#key').val();
+                        //let id=dialogRef.getModalBody().find('#ID').val();
+                        //if(nom==='') nom = 'Default';
+                        med.join(key);
+                        console.log('button join');
+                        dialogRef.close();
+                    }
+                }
+            ]
         });
     };
     AppComponent = __decorate([
@@ -57,7 +73,7 @@ var AppComponent = (function () {
             templateUrl: 'app/app.component.html',
             directives: [chat_display_component_1.ChatDisplay, user_display_component_1.UserDisplay]
         }), 
-        __metadata('design:paramtypes', [message_service_1.MessageService, user_service_1.UserService])
+        __metadata('design:paramtypes', [message_service_1.MessageService, user_service_1.UserService, mediator_service_1.MediatorService])
     ], AppComponent);
     return AppComponent;
 }());
