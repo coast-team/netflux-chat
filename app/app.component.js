@@ -33,7 +33,7 @@ var AppComponent = (function () {
         var med = this.mediator;
         BootstrapDialog.show({
             title: 'Sign in!',
-            message: "If joining, key: <input id=\"key\" type=\"text\" class=\"form-control\">",
+            message: "\n            Signaling address : <input id=\"sig\" type=\"text\" class=\"form-control\" placeholder=\"Let empty if default one exists. (this URL:8000)\">\n            If joining, key: <input id=\"key\" type=\"text\" class=\"form-control\">",
             closable: false,
             draggable: true,
             buttons: [{
@@ -42,10 +42,11 @@ var AppComponent = (function () {
                     cssClass: 'btn-primary',
                     autospin: false,
                     action: function (dialogRef) {
-                        //let nom=dialogRef.getModalBody().find('#nickname').val();
-                        //let id=dialogRef.getModalBody().find('#ID').val();
-                        //if(nom==='') nom = 'Default';
-                        med.create();
+                        var sig = dialogRef.getModalBody().find('#sig').val();
+                        if (sig === "")
+                            med.create();
+                        else
+                            med.create(sig);
                         console.log('button create');
                         dialogRef.close();
                     }
@@ -57,9 +58,11 @@ var AppComponent = (function () {
                     autospin: false,
                     action: function (dialogRef) {
                         var key = dialogRef.getModalBody().find('#key').val();
-                        //let id=dialogRef.getModalBody().find('#ID').val();
-                        //if(nom==='') nom = 'Default';
-                        med.join(key);
+                        var sig = dialogRef.getModalBody().find('#sig').val();
+                        if (sig === "")
+                            med.join(key);
+                        else
+                            med.join(key, sig);
                         console.log('button join');
                         dialogRef.close();
                     }
