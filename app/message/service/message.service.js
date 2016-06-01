@@ -18,6 +18,7 @@ var MessageService = (function () {
         this.sendbox = sendbox;
         this.messages = mock_messages_1.MESSAGES;
         this.audio = new Audio();
+        this.zone = new core_1.NgZone({ enableLongStackTrace: false });
     }
     MessageService.prototype.getMessages = function () {
         return this.messages;
@@ -33,24 +34,27 @@ var MessageService = (function () {
         this.addMessage(mes);
     };
     MessageService.prototype.addMessage = function (mes) {
-        this.messages.push(mes);
-        if (mes.fromIdUser !== this.userService.currentUserId) {
-            var audio = this.audio;
-            if (audio.src === '') {
-                audio.src = 'SuperMarioBros.ogg';
-                audio.load();
+        var _this = this;
+        this.zone.run(function () {
+            var chat = document.getElementById('chat');
+            var atBottom = chat.scrollTop == (chat.scrollHeight - chat.clientHeight);
+            console.log('scrollTop : ', chat.scrollTop);
+            console.log('scrollHeight : ', chat.scrollHeight);
+            console.log('clientHeight : ', chat.clientHeight);
+            _this.messages.push(mes);
+            if (mes.fromIdUser !== _this.userService.currentUserId) {
+                var audio = _this.audio;
+                if (audio.src === '') {
+                    audio.src = 'SuperMarioBros.ogg';
+                    audio.load();
+                }
+                audio.play();
+                setTimeout(function () { audio.pause(); }, 300);
+                console.log('audio : ', audio);
             }
-            audio.play();
-            setTimeout(function () { audio.pause(); }, 300);
-            console.log('audio : ', audio);
-        }
-        var chat = document.getElementById('chat');
-        var atBottom = chat.scrollTop == (chat.scrollHeight - chat.clientHeight);
-        console.log('scrollTop : ', chat.scrollTop);
-        console.log('scrollHeight : ', chat.scrollHeight);
-        console.log('clientHeight : ', chat.clientHeight);
-        setTimeout(function () { if (atBottom)
-            chat.scrollTop = chat.scrollHeight; }, 0);
+            setTimeout(function () { if (atBottom)
+                chat.scrollTop = chat.scrollHeight; }, 0);
+        });
     };
     MessageService = __decorate([
         core_1.Injectable(), 

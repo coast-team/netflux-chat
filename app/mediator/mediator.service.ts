@@ -15,7 +15,7 @@ export class MediatorService{
 
   key: string;
 
-  create(sigAddress : string = 'ws://localhost:8000'){ //default address ws://192.168.0.102:8081
+  create(sigAddress : string = 'ws://'+location.hostname+':8000'){ //default address ws://192.168.0.102:8081
     let wc = new netflux.WebChannel({signaling: sigAddress});
     let f = (obj)=>{
       console.log('obj : ',obj);
@@ -33,7 +33,7 @@ export class MediatorService{
     console.log('WC créé.');
   }
 
-  join(key:string, sigAddress : string = 'ws://localhost:8000'){//default address ws://192.168.0.102:8081
+  join(key:string, sigAddress : string = 'ws://'+location.hostname+':8000'){//default address ws://192.168.0.102:8081
     let wc = new netflux.WebChannel({signaling: sigAddress});
     this.key=key;
 

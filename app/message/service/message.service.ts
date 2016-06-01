@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { Message } from '../model/message';
 import { MESSAGES } from '../mock-messages';
 import { UserService } from '../../user/service/user.service';
@@ -8,8 +8,11 @@ import { SendBox } from '../../sendbox/sendbox.service';
 @Injectable()
 export class MessageService {
   messages : Message[] = MESSAGES;
+  zone: NgZone;
 
-  constructor(public userService : UserService, public sendbox: SendBox){}
+  constructor(public userService : UserService, public sendbox: SendBox){
+    this.zone = new NgZone({enableLongStackTrace: false});
+  }
 
 
 
@@ -33,7 +36,15 @@ export class MessageService {
   audio = new Audio();
 
   addMessage(mes:Message){
+    this.zone.run(()=>{
+    var chat = document.getElementById('chat');
+    var atBottom = chat.scrollTop == (chat.scrollHeight - chat.clientHeight);
+    console.log('scrollTop : ', chat.scrollTop);
+    console.log('scrollHeight : ', chat.scrollHeight);
+    console.log('clientHeight : ', chat.clientHeight);
+
     this.messages.push(mes);
+
     if(mes.fromIdUser !== this.userService.currentUserId){
       var audio = this.audio;
       if(audio.src === ''){
@@ -45,12 +56,8 @@ export class MessageService {
       console.log('audio : ', audio);
     }
 
-    var chat = document.getElementById('chat');
-    var atBottom = chat.scrollTop == (chat.scrollHeight - chat.clientHeight);
-    console.log('scrollTop : ', chat.scrollTop);
-    console.log('scrollHeight : ', chat.scrollHeight);
-    console.log('clientHeight : ', chat.clientHeight);
-    setTimeout(()=>{if(atBottom)chat.scrollTop = chat.scrollHeight;},0);
 
+    setTimeout(()=>{if(atBottom)chat.scrollTop = chat.scrollHeight;},0);
+  });
   }
 }
