@@ -13,15 +13,9 @@ export class ChatInput {
   constructor(public messageService:MessageService, public userService : UserService){};
   send(){
     if(this.type!=""){
-      var mes = new Message();
-      mes.content = this.type;
-      mes.fromIdUser = this.userService.currentUserId;
-      mes.toIdUser = "0";
-      mes.date = new Date();
+      var mes = Message.fromJSON({fromIdUser:this.userService.currentUserId,toIdUser:"0",content:this.type,date:Date.now()});
       this.messageService.sendMessage(mes);
       this.type = "";
-      
-
     }
   }
 

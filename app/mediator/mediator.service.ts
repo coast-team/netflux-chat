@@ -51,7 +51,6 @@ export class MediatorService{
         })
       });
     this.wcs.setActiveChannel(this.wcs.addWebChannel(wc));
-    console.log('WC rejoint.');
   }
 
   config(wc:any){
@@ -60,17 +59,26 @@ export class MediatorService{
       //request nickname to do
       let name = "Default "+ id;
       self.userService.addUser({id:id,nickname:name,peerId:id,online:true});
-      console.log('On joining de : ',id);
+      self.messageService.addMessage({fromIdUser:"0", toIdUser:"0", content: "Default "+id+" is joining.", date : new Date()});
     }
 
-    let onMessage = (id:string, data: string, isBroadcast:boolean)=>{ //TODO use data = ArrayBuffer for several message type!
-      let toIdUser = isBroadcast ? self.userService.currentUserId : "0" ;
-      self.messageService.addMessage({fromIdUser:id, toIdUser:toIdUser, content: data, date : new Date()});
-      console.log('On message de : ', id, ', data : ', data, ', toIdUser : ',toIdUser);
+    let onMessage = (id:string, data: string, isBroadcast:boolean)=>{
+      let receive = JSON.parse(data);
+      let type = receive.type;
+      let data2 = receive.data;
+      switch(type){
+        case "message" :
+          let toIdUser = isBroadcast ? self.userService.currentUserId : "0" ;
+          console.log('data recu apres from json',Message.fromJSON(data2));
+          self.messageService.addMessage(Message.fromJSON(data2));
+          break;
+        default : console.log("Not yet implemeted.");
+      }
     }
 
     let onLeaving = (id:string)=>{
       self.userService.remUser(id);
+      self.messageService.addMessage({fromIdUser:"0", toIdUser:"0", content: "Default "+id+" is leaving.", date : new Date()});
     };
 
     wc.onJoining = onJoining;

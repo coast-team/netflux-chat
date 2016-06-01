@@ -14,12 +14,13 @@ var SendBox = (function () {
     function SendBox(wcs) {
         this.wcs = wcs;
     }
-    SendBox.prototype.sendFormat = function (content, type) {
+    SendBox.prototype.sendFormat = function (data, type) {
         switch (type) {
             case 'message':
                 var wc = this.wcs.getWebChannel(this.wcs.getActiveChannel());
-                wc.send(content);
-                console.log('Envoie de : ', content);
+                var toSend = JSON.stringify({ type: type, data: data });
+                wc.send(toSend);
+                console.log('Envoie de : ', data);
                 break;
             default: console.log('Not yet implemented');
         }

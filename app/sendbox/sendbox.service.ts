@@ -6,12 +6,13 @@ export class SendBox {
 
   constructor(public wcs:WebChannelService){}
 
-  sendFormat(content:string, type:string){
+  sendFormat(data:any, type:string){
     switch(type){
       case 'message' :
         let wc = this.wcs.getWebChannel(this.wcs.getActiveChannel());
-        wc.send(content);
-        console.log('Envoie de : ', content);
+        let toSend = JSON.stringify({type:type, data:data});
+        wc.send(toSend);
+        console.log('Envoie de : ', data);
         break;
       default : console.log('Not yet implemented');
     }

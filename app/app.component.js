@@ -23,6 +23,12 @@ var AppComponent = (function () {
         this.lastMessage = function () {
             return this.messageService.getLastMessage();
         };
+        this.lastSender = function () {
+            return this.userService.getNickname(this.lastMessage().fromIdUser);
+        };
+        this.lastDate = function () {
+            return new Date(this.lastMessage().date).toLocaleString();
+        };
     }
     ;
     AppComponent.prototype.toggleUser = function (element) {

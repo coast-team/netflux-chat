@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var message_service_1 = require('../message/service/message.service');
 var user_service_1 = require('../user/service/user.service');
+var message_1 = require('../message/model/message');
 var webchannel_service_1 = require('../webchannel.service');
 var core_1 = require('@angular/core');
 var MediatorService = (function () {
@@ -53,7 +54,6 @@ var MediatorService = (function () {
             });
         });
         this.wcs.setActiveChannel(this.wcs.addWebChannel(wc));
-        console.log('WC rejoint.');
     };
     MediatorService.prototype.config = function (wc) {
         var self = this;
@@ -61,15 +61,24 @@ var MediatorService = (function () {
             //request nickname to do
             var name = "Default " + id;
             self.userService.addUser({ id: id, nickname: name, peerId: id, online: true });
-            console.log('On joining de : ', id);
+            self.messageService.addMessage({ fromIdUser: "0", toIdUser: "0", content: "Default " + id + " is joining.", date: new Date() });
         };
         var onMessage = function (id, data, isBroadcast) {
-            var toIdUser = isBroadcast ? self.userService.currentUserId : "0";
-            self.messageService.addMessage({ fromIdUser: id, toIdUser: toIdUser, content: data, date: new Date() });
-            console.log('On message de : ', id, ', data : ', data, ', toIdUser : ', toIdUser);
+            var receive = JSON.parse(data);
+            var type = receive.type;
+            var data2 = receive.data;
+            switch (type) {
+                case "message":
+                    var toIdUser = isBroadcast ? self.userService.currentUserId : "0";
+                    console.log('data recu apres from json', message_1.Message.fromJSON(data2));
+                    self.messageService.addMessage(message_1.Message.fromJSON(data2));
+                    break;
+                default: console.log("Not yet implemeted.");
+            }
         };
         var onLeaving = function (id) {
             self.userService.remUser(id);
+            self.messageService.addMessage({ fromIdUser: "0", toIdUser: "0", content: "Default " + id + " is leaving.", date: new Date() });
         };
         wc.onJoining = onJoining;
         wc.onLeave = onLeaving;

@@ -32,6 +32,9 @@ var MessageComponent = (function () {
     MessageComponent.prototype.senderIsOnline = function () {
         return this.userService.isOnline(this.message.fromIdUser);
     };
+    MessageComponent.prototype.getLocaleDate = function () {
+        return new Date(+this.message.date).toLocaleString();
+    };
     __decorate([
         core_1.Input(), 
         __metadata('design:type', message_1.Message)

@@ -3,7 +3,7 @@
 [class.whisp]="message.toIdUser != '0'">
   <p>{{message.content}}</p>
   <footer>{{senderNickname()}} -
-    <i>{{message.date.toLocaleString()}}</i>
+    <i>{{getLocaleDate()}}</i>
     <span [hidden]="message.toIdUser == 0 || message.toIdUser == currentUserId()">- to {{receiverNickname()}}</span>
     <span [hidden]="senderIsOnline()" > --- (old)</span>
   </footer>

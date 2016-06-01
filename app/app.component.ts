@@ -24,6 +24,14 @@ export class AppComponent implements OnInit{
     return this.messageService.getLastMessage();
   }
 
+  lastSender = function(){
+    return this.userService.getNickname(this.lastMessage().fromIdUser);
+  }
+
+  lastDate = function(){
+    return new Date(this.lastMessage().date).toLocaleString() ;
+  }
+
   ngOnInit(){
     var us = this.userService;
     var med = this.mediator;
@@ -64,4 +72,6 @@ export class AppComponent implements OnInit{
                   ]
         });
   }
+
+
 }

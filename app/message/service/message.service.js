@@ -30,7 +30,7 @@ var MessageService = (function () {
         return this.messages[this.messages.length - 1];
     };
     MessageService.prototype.sendMessage = function (mes) {
-        this.sendbox.sendFormat(mes.content, 'message');
+        this.sendbox.sendFormat(mes, 'message');
         this.addMessage(mes);
     };
     MessageService.prototype.addMessage = function (mes) {
@@ -38,9 +38,9 @@ var MessageService = (function () {
         this.zone.run(function () {
             var chat = document.getElementById('chat');
             var atBottom = chat.scrollTop == (chat.scrollHeight - chat.clientHeight);
-            console.log('scrollTop : ', chat.scrollTop);
-            console.log('scrollHeight : ', chat.scrollHeight);
-            console.log('clientHeight : ', chat.clientHeight);
+            //console.log('scrollTop : ', chat.scrollTop);
+            //console.log('scrollHeight : ', chat.scrollHeight);
+            //console.log('clientHeight : ', chat.clientHeight);
             _this.messages.push(mes);
             if (mes.fromIdUser !== _this.userService.currentUserId) {
                 var audio = _this.audio;
@@ -50,7 +50,6 @@ var MessageService = (function () {
                 }
                 audio.play();
                 setTimeout(function () { audio.pause(); }, 300);
-                console.log('audio : ', audio);
             }
             setTimeout(function () { if (atBottom)
                 chat.scrollTop = chat.scrollHeight; }, 0);

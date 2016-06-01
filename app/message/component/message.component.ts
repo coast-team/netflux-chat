@@ -28,4 +28,8 @@ export class MessageComponent {
   senderIsOnline(){
     return this.userService.isOnline(this.message.fromIdUser);
   }
+
+  getLocaleDate(){
+    return new Date(+this.message.date).toLocaleString();
+  }
 }
