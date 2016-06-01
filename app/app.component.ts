@@ -29,7 +29,9 @@ export class AppComponent implements OnInit{
     var med = this.mediator;
     BootstrapDialog.show({
             title: 'Sign in!',
-            message: `If joining, key: <input id="key" type="text" class="form-control">`,
+            message: `
+            Signaling address : <input id="sig" type="text" class="form-control" placeholder="Let empty if default one exists. (this URL:8000)">
+            If joining, key: <input id="key" type="text" class="form-control">`,
             closable: false, // <-- Default value is false
             draggable: true, // <-- Default value is false
             buttons: [{
@@ -38,26 +40,25 @@ export class AppComponent implements OnInit{
                         cssClass: 'btn-primary',
                         autospin: false,
                         action: function(dialogRef){
-                            //let nom=dialogRef.getModalBody().find('#nickname').val();
-                            //let id=dialogRef.getModalBody().find('#ID').val();
-                            //if(nom==='') nom = 'Default';
-                            med.create();
-                            console.log('button create');
-                            dialogRef.close();
+                          let sig = dialogRef.getModalBody().find('#sig').val();
+                          if(sig ==="") med.create();
+                          else med.create(sig);
+                          console.log('button create');
+                          dialogRef.close();
                         }
                     },
                     {
-                                id: 'btn-join',
-                                label: 'Join',
-                                cssClass: 'btn-primary',
-                                autospin: false,
-                                action: function(dialogRef){
-                                    let key=dialogRef.getModalBody().find('#key').val();
-                                    //let id=dialogRef.getModalBody().find('#ID').val();
-                                    //if(nom==='') nom = 'Default';
-                                    med.join(key);
-                                    console.log('button join');
-                                    dialogRef.close();
+                        id: 'btn-join',
+                        label: 'Join',
+                        cssClass: 'btn-primary',
+                        autospin: false,
+                        action: function(dialogRef){
+                          let key=dialogRef.getModalBody().find('#key').val();
+                          let sig = dialogRef.getModalBody().find('#sig').val();
+                          if(sig ==="") med.join(key);
+                          else med.join(key,sig);
+                          console.log('button join');
+                          dialogRef.close();
                                 }
                             }
                   ]
