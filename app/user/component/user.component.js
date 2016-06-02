@@ -22,7 +22,7 @@ var UserComponent = (function () {
         var self = this;
         BootstrapDialog.show({
             title: 'Let\'s change your nickname !',
-            message: "\n            Nickname : <input id=\"nickname\" type=\"text\" class=\"form-control\" placeholder=\"" + self.user.nickname + "\">",
+            message: "\n            Nickname : <input id=\"nickname\" type=\"text\" class=\"form-control\" value=\"" + self.user.nickname + "\">",
             closable: true,
             draggable: true,
             buttons: [{

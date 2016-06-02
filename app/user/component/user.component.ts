@@ -22,7 +22,7 @@ export class UserComponent {
     BootstrapDialog.show({
             title: 'Let\'s change your nickname !',
             message: `
-            Nickname : <input id="nickname" type="text" class="form-control" placeholder="`+self.user.nickname+`">`,
+            Nickname : <input id="nickname" type="text" class="form-control" value="`+self.user.nickname+`">`,
             closable: true, // <-- Default value is false
             draggable: true, // <-- Default value is false
             buttons: [{
