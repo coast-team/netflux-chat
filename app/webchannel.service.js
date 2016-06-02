@@ -20,6 +20,12 @@ var WebChannelService = (function () {
     WebChannelService.prototype.getWebChannel = function (id) {
         return this.webChannels[id];
     };
+    WebChannelService.prototype.getAccessData = function (id) {
+        if (!this.webChannels[id].isOpen())
+            return this.webChannels[id].openForJoining();
+        else
+            return Promise.resolve(this.webChannels[id].getAccess());
+    };
     WebChannelService.prototype.setActiveChannel = function (id) {
         this.activeChannel = id;
     };

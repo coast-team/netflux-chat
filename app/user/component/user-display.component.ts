@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { UserComponent } from './user.component';
 import { User } from '../model/user';
 import { UserService } from '../service/user.service';
+import { WebChannelService } from '../../webchannel.service';
 declare var BootstrapDialog:any;
 
 @Component({
@@ -14,7 +15,7 @@ export class UserDisplay {
 
   @Input() isHidden;
 
-  constructor(public userService : UserService){};
+  constructor(public userService : UserService, public wcs:WebChannelService){};
 
   ngOnInit(){
     this.getUsers();
@@ -29,29 +30,49 @@ export class UserDisplay {
     this.isHidden = !this.isHidden;
   }
 
-  addUser(){ // id en paramètre plus tard
-    var us = this.userService;
-    var id = ""+(this.userService.users.length+1); // à changer
+  addUser(){
+    let wcs = this.wcs;
+    wcs.getAccessData(wcs.getActiveChannel()).then((d)=>
     BootstrapDialog.show({
-            title: 'Add user',
-            message: 'User name: <input type="text" class="form-control">',
-            data: {'name':''},
+            title: 'Invite user',
+            message: 'Are you sure to invite new users ?',
             closable: true, // <-- Default value is false
             draggable: true, // <-- Default value is false
             buttons: [{
                         id: 'btn-ok',
-                        label: 'OK',
+                        label: 'Yes',
                         cssClass: 'btn-primary',
                         autospin: false,
                         action: function(dialogRef){
-                            let nom = dialogRef.getModalBody().find('input').val();
-                            if(nom==='') nom = 'Default';
-                            us.addUser({id:id,nickname:nom ,peerId:id,online:true});
-                            console.log('button action');
+                          BootstrapDialog.show({
+                                  title: 'Invite user',
+                                  message: 'Key: '+d.key+' <br>Signaling server : '+d.url,
+                                  closable: true, // <-- Default value is false
+                                  draggable: true, // <-- Default value is false
+                                  buttons: [{
+                                              id: 'btn-ok',
+                                              label: 'OK',
+                                              cssClass: 'btn-primary',
+                                              autospin: false,
+                                              action: function(dialogRef){
+                                                  dialogRef.close();
+                                              }
+                                          }
+                                        ]
+                              });
                             dialogRef.close();
                         }
-                    }]
-        });
-    //this.userService.addUser({id:3,nickname:"UserAdded"});
+                    },
+                    {
+                        id: 'btn-cancel',
+                        label: 'Cancel',
+                        cssClass: 'btn-primary',
+                        autospin: false,
+                        action: function(dialogRef){
+                            dialogRef.close();
+                        }
+                    }
+                  ]
+        }));
   }
 }

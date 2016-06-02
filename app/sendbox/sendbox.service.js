@@ -14,15 +14,15 @@ var SendBox = (function () {
     function SendBox(wcs) {
         this.wcs = wcs;
     }
-    SendBox.prototype.sendFormat = function (data, type) {
-        switch (type) {
-            case 'message':
-                var wc = this.wcs.getWebChannel(this.wcs.getActiveChannel());
-                var toSend = JSON.stringify({ type: type, data: data });
-                wc.send(toSend);
-                console.log('Envoie de : ', data);
-                break;
-            default: console.log('Not yet implemented');
+    SendBox.prototype.sendFormat = function (data, type, id) {
+        var wc = this.wcs.getWebChannel(this.wcs.getActiveChannel());
+        var toSend;
+        toSend = JSON.stringify({ type: type, data: data });
+        if (id === '0') {
+            wc.send(toSend);
+        }
+        else {
+            wc.sendTo(parseInt(id), toSend);
         }
     };
     SendBox = __decorate([

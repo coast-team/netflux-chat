@@ -34,7 +34,10 @@ var MediatorService = (function () {
         this.config(wc);
         // ************ //
         this.userService.setCurrentUserId(wc.myId);
-        this.userService.addUser({ id: wc.myId, peerId: wc.myId, nickname: 'Default ' + wc.myId, online: true });
+        var pseudo = localStorage.getItem("netflux-chat-nickname");
+        if (pseudo === null)
+            pseudo = 'Default ' + wc.myId;
+        this.userService.addUser({ id: wc.myId, peerId: wc.myId, nickname: pseudo, online: true });
         this.wcs.setActiveChannel(this.wcs.addWebChannel(wc));
         console.log('WC créé.');
     };
@@ -46,10 +49,13 @@ var MediatorService = (function () {
         var self = this;
         wc.join(key).then(function () {
             self.userService.setCurrentUserId(wc.myId);
-            self.userService.addUser({ id: wc.myId, peerId: wc.myId, nickname: 'Default ' + wc.myId, online: true });
+            var pseudo = localStorage.getItem("netflux-chat-nickname");
+            if (pseudo === null)
+                pseudo = 'Default ' + wc.myId;
+            self.userService.addUser({ id: wc.myId, peerId: wc.myId, nickname: pseudo, online: true });
             wc.channels.forEach(function (value) {
                 //onJoining(value.peerId) need to define onJoining
-                self.onJoining(value.peerId);
+                wc.onJoining(value.peerId);
                 console.log('Ajout du user : ', value.peerId);
             });
         });
@@ -58,20 +64,23 @@ var MediatorService = (function () {
     MediatorService.prototype.config = function (wc) {
         var self = this;
         var onJoining = function (id) {
-            //request nickname to do
-            var name = "Default " + id;
-            self.userService.addUser({ id: id, nickname: name, peerId: id, online: true });
-            self.messageService.addMessage({ fromIdUser: "0", toIdUser: "0", content: "Default " + id + " is joining.", date: new Date() });
+            self.userService.addUser({ id: id, nickname: "Default " + id, peerId: id, online: true });
+            wc.sendTo(parseInt(id), JSON.stringify({ type: "requestNickname", data: { requester: wc.myId } }));
         };
         var onMessage = function (id, data, isBroadcast) {
             var receive = JSON.parse(data);
             var type = receive.type;
             var data2 = receive.data;
+            console.log('data recu ', data2);
             switch (type) {
                 case "message":
-                    var toIdUser = isBroadcast ? self.userService.currentUserId : "0";
-                    console.log('data recu apres from json', message_1.Message.fromJSON(data2));
                     self.messageService.addMessage(message_1.Message.fromJSON(data2));
+                    break;
+                case "updateNickname":
+                    self.userService.updateNickname(data2);
+                    break;
+                case "requestNickname":
+                    self.userService.sendNickname(data2);
                     break;
                 default: console.log("Not yet implemeted.");
             }
@@ -83,24 +92,6 @@ var MediatorService = (function () {
         wc.onJoining = onJoining;
         wc.onLeave = onLeaving;
         wc.onMessage = onMessage;
-    };
-    /**
-      leave(){
-        this.webChannel.leave();
-        //TODO
-      }**/
-    //TOTEST : onJoining, onLeaving, onMessage ...
-    MediatorService.prototype.onJoining = function (id) {
-        //request nickname to do
-        var name = "Default " + id;
-        this.userService.addUser({ id: id, nickname: name, peerId: id, online: true });
-    };
-    MediatorService.prototype.onLeaving = function (id) {
-        this.userService.remUser(id);
-    };
-    MediatorService.prototype.onMessage = function (id, data, isBroadcast) {
-        var toIdUser = isBroadcast ? "0" : this.userService.currentUserId;
-        this.messageService.addMessage({ fromIdUser: id, toIdUser: toIdUser, content: data, date: new Date() });
     };
     MediatorService = __decorate([
         core_1.Injectable(), 

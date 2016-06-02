@@ -30,7 +30,7 @@ var MessageService = (function () {
         return this.messages[this.messages.length - 1];
     };
     MessageService.prototype.sendMessage = function (mes) {
-        this.sendbox.sendFormat(mes, 'message');
+        this.sendbox.sendFormat(mes, 'message', "0"); //0 = broadcast
         this.addMessage(mes);
     };
     MessageService.prototype.addMessage = function (mes) {

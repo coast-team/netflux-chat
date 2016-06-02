@@ -1,10 +1,13 @@
 import { Injectable } from '@angular/core';
 import { User } from '../model/user';
 import { USERS } from '../mock-users';
+import { SendBox } from '../../sendbox/sendbox.service';
 
 @Injectable()
 export class UserService{
   users : User[] = USERS;
+
+  constructor(public sendbox : SendBox){}
 
   //default = 1 for starting
   currentUserId : string = ""+1;
@@ -57,7 +60,34 @@ export class UserService{
     return ret;
   }
 
-  setNickname(id:string, nickname:string){
+  setNickname(data){
+    let nickname = data.nickname;
+    let id = data.id;
+
+    let ok = false;
+
+    function callback(v:User,i:number,a){
+      if(v.id == id){
+        v.nickname = nickname;
+        ok = true;
+        return false;
+      }
+      return true;
+    }
+
+    this.users.every(callback);
+
+    if(ok){
+      let data = {id:id, nickname:nickname};
+      this.sendbox.sendFormat(data,"updateNickname","0");
+      localStorage.setItem("netflux-chat-nickname",nickname);
+    }
+  }
+
+  updateNickname(data:any){
+    let nickname = data.nickname;
+    let id = data.id;
+
     function callback(v:User,i:number,a){
       if(v.id == id){
         v.nickname = nickname;
@@ -66,6 +96,11 @@ export class UserService{
       return true;
     }
     this.users.every(callback);
+  }
+
+  sendNickname(data:any){
+    let sendingData = {id:this.currentUserId, nickname:this.getNickname(this.currentUserId)};
+    this.sendbox.sendFormat(sendingData,"updateNickname",data.requester);
   }
 
   isOnline(id: string){
