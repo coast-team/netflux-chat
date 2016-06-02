@@ -2,6 +2,8 @@ import { Component, Input } from '@angular/core';
 import { User } from '../model/user';
 import { UserService } from '../service/user.service';
 
+declare var BootstrapDialog:any;
+
 @Component({
   selector : 'user',
   templateUrl : 'app/user/view/user.component.html'
@@ -13,5 +15,33 @@ export class UserComponent {
 
   currentUserId = function(){
     return this.userService.currentUserId;
+  }
+
+  popChangeNickname(){
+    let self = this;
+    BootstrapDialog.show({
+            title: 'Let\'s change your nickname !',
+            message: `
+            Nickname : <input id="nickname" type="text" class="form-control" placeholder="`+self.user.nickname+`">`,
+            closable: true, // <-- Default value is false
+            draggable: true, // <-- Default value is false
+            buttons: [{
+                        id: 'btn-change',
+                        label: 'Change !',
+                        cssClass: 'btn-primary',
+                        autospin: false,
+                        action: function(dialogRef){
+                          let name = dialogRef.getModalBody().find('#nickname').val();
+                          if(name !=="") self.changeNickname(name);
+                          console.log('button changeNickname');
+                          dialogRef.close();
+                        }
+                    }
+                  ]
+        });
+  }
+
+  changeNickname(name:string){
+    this.userService.setNickname({id:this.user.id,nickname:name});
   }
 }

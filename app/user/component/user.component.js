@@ -18,6 +18,32 @@ var UserComponent = (function () {
             return this.userService.currentUserId;
         };
     }
+    UserComponent.prototype.popChangeNickname = function () {
+        var self = this;
+        BootstrapDialog.show({
+            title: 'Let\'s change your nickname !',
+            message: "\n            Nickname : <input id=\"nickname\" type=\"text\" class=\"form-control\" placeholder=\"" + self.user.nickname + "\">",
+            closable: true,
+            draggable: true,
+            buttons: [{
+                    id: 'btn-change',
+                    label: 'Change !',
+                    cssClass: 'btn-primary',
+                    autospin: false,
+                    action: function (dialogRef) {
+                        var name = dialogRef.getModalBody().find('#nickname').val();
+                        if (name !== "")
+                            self.changeNickname(name);
+                        console.log('button changeNickname');
+                        dialogRef.close();
+                    }
+                }
+            ]
+        });
+    };
+    UserComponent.prototype.changeNickname = function (name) {
+        this.userService.setNickname({ id: this.user.id, nickname: name });
+    };
     __decorate([
         core_1.Input(), 
         __metadata('design:type', user_1.User)

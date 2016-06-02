@@ -29,7 +29,7 @@ export class MessageService {
 
 
   sendMessage(mes: Message){
-    this.sendbox.sendFormat(mes.content,'message');
+    this.sendbox.sendFormat(mes,'message',"0");//0 = broadcast
     this.addMessage(mes);
   }
 
@@ -39,9 +39,9 @@ export class MessageService {
     this.zone.run(()=>{
     var chat = document.getElementById('chat');
     var atBottom = chat.scrollTop == (chat.scrollHeight - chat.clientHeight);
-    console.log('scrollTop : ', chat.scrollTop);
-    console.log('scrollHeight : ', chat.scrollHeight);
-    console.log('clientHeight : ', chat.clientHeight);
+    //console.log('scrollTop : ', chat.scrollTop);
+    //console.log('scrollHeight : ', chat.scrollHeight);
+    //console.log('clientHeight : ', chat.clientHeight);
 
     this.messages.push(mes);
 
@@ -53,7 +53,7 @@ export class MessageService {
       }
       audio.play();
       setTimeout(()=>{audio.pause();},300);
-      console.log('audio : ', audio);
+      //console.log('audio : ', audio);
     }
 
 

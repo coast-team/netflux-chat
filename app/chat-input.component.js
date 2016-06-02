@@ -20,11 +20,7 @@ var ChatInput = (function () {
     ;
     ChatInput.prototype.send = function () {
         if (this.type != "") {
-            var mes = new message_1.Message();
-            mes.content = this.type;
-            mes.fromIdUser = this.userService.currentUserId;
-            mes.toIdUser = "0";
-            mes.date = new Date();
+            var mes = message_1.Message.fromJSON({ fromIdUser: this.userService.currentUserId, toIdUser: "0", content: this.type, date: Date.now() });
             this.messageService.sendMessage(mes);
             this.type = "";
         }

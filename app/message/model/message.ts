@@ -20,7 +20,14 @@ export class Message{
   */
   date : Date;
 
-  constructor(){
+  constructor(fromIdUser:string,toIdUser:string,content:string,date:Date){
+    this.fromIdUser = fromIdUser;
+    this.toIdUser = toIdUser;
+    this.content = content;
+    this.date = date;
+  }
 
+  static fromJSON(data:any){
+    return new Message(data.fromIdUser, data.toIdUser, data.content, data.date);
   }
 }

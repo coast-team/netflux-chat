@@ -16,6 +16,11 @@ export class WebChannelService{
     return this.webChannels[id];
   }
 
+  getAccessData(id:number){
+    if(!this.webChannels[id].isOpen()) return this.webChannels[id].openForJoining();
+    else return Promise.resolve(this.webChannels[id].getAccess());
+  }
+
   setActiveChannel(id:number){
     this.activeChannel = id;
   }

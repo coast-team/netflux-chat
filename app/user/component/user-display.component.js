@@ -11,9 +11,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var user_component_1 = require('./user.component');
 var user_service_1 = require('../service/user.service');
+var webchannel_service_1 = require('../../webchannel.service');
 var UserDisplay = (function () {
-    function UserDisplay(userService) {
+    function UserDisplay(userService, wcs) {
         this.userService = userService;
+        this.wcs = wcs;
     }
     ;
     UserDisplay.prototype.ngOnInit = function () {
@@ -27,30 +29,50 @@ var UserDisplay = (function () {
         this.isHidden = !this.isHidden;
     };
     UserDisplay.prototype.addUser = function () {
-        var us = this.userService;
-        var id = "" + (this.userService.users.length + 1); // à changer
-        BootstrapDialog.show({
-            title: 'Add user',
-            message: 'User name: <input type="text" class="form-control">',
-            data: { 'name': '' },
-            closable: true,
-            draggable: true,
-            buttons: [{
-                    id: 'btn-ok',
-                    label: 'OK',
-                    cssClass: 'btn-primary',
-                    autospin: false,
-                    action: function (dialogRef) {
-                        var nom = dialogRef.getModalBody().find('input').val();
-                        if (nom === '')
-                            nom = 'Default';
-                        us.addUser({ id: id, nickname: nom, peerId: id, online: true });
-                        console.log('button action');
-                        dialogRef.close();
+        var wcs = this.wcs;
+        wcs.getAccessData(wcs.getActiveChannel()).then(function (d) {
+            return BootstrapDialog.show({
+                title: 'Invite user',
+                message: 'Are you sure to invite new users ?',
+                closable: true,
+                draggable: true,
+                buttons: [{
+                        id: 'btn-ok',
+                        label: 'Yes',
+                        cssClass: 'btn-primary',
+                        autospin: false,
+                        action: function (dialogRef) {
+                            BootstrapDialog.show({
+                                title: 'Invite user',
+                                message: 'Key: ' + d.key + ' <br>Signaling server : ' + d.url,
+                                closable: true,
+                                draggable: true,
+                                buttons: [{
+                                        id: 'btn-ok',
+                                        label: 'OK',
+                                        cssClass: 'btn-primary',
+                                        autospin: false,
+                                        action: function (dialogRef) {
+                                            dialogRef.close();
+                                        }
+                                    }
+                                ]
+                            });
+                            dialogRef.close();
+                        }
+                    },
+                    {
+                        id: 'btn-cancel',
+                        label: 'Cancel',
+                        cssClass: 'btn-primary',
+                        autospin: false,
+                        action: function (dialogRef) {
+                            dialogRef.close();
+                        }
                     }
-                }]
+                ]
+            });
         });
-        //this.userService.addUser({id:3,nickname:"UserAdded"});
     };
     __decorate([
         core_1.Input(), 
@@ -62,7 +84,7 @@ var UserDisplay = (function () {
             templateUrl: 'app/user/view/user-display.component.html',
             directives: [user_component_1.UserComponent]
         }), 
-        __metadata('design:paramtypes', [user_service_1.UserService])
+        __metadata('design:paramtypes', [user_service_1.UserService, webchannel_service_1.WebChannelService])
     ], UserDisplay);
     return UserDisplay;
 }());
