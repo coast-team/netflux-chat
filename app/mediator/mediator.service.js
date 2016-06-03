@@ -86,11 +86,10 @@ var MediatorService = (function () {
             }
         };
         var onLeaving = function (id) {
-            self.userService.remUser(id);
-            self.messageService.addMessage({ fromIdUser: "0", toIdUser: "0", content: "Default " + id + " is leaving.", date: new Date() });
+            self.userService.removeUser(id);
         };
         wc.onJoining = onJoining;
-        wc.onLeave = onLeaving;
+        wc.onLeaving = onLeaving;
         wc.onMessage = onMessage;
     };
     MediatorService = __decorate([

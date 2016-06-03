@@ -9,7 +9,7 @@
         <div class="col-xs-2 col-sm-2">
         </div>
         <div class="col-xs-8 col-sm-8">
-          <h1 class="panel-title text-center">Last message from <b>{{lastSender()}}</b> - {{lastDate()}}</h1>
+          <h1 class="panel-title text-center">Last message from <b><span [innerHTML]="lastSender()|untag|emoji"></span></b> - {{lastDate()}}</h1>
         </div>
         <div class="col-xs-2 col-sm-2">
           <a class="btn btn-primary hidden-lg hidden-md" (click)="toggleUser(userList)"><i class="fa fa-fw fa-users"></i></a>

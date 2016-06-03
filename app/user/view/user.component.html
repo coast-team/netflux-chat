@@ -1,3 +1,5 @@
 <li class="list-group-item"
   [class.list-group-item-success]="user.id==currentUserId()"
->{{user.nickname}}  <span [hidden]="user.id!=currentUserId()"> <a type="button" class="btn btn-xs btn-primary pull-right" (click)='popChangeNickname()'><i class="fa fa-fw fa-pencil"></i></a></span></li>
+><span [innerHTML]="user.nickname|untag|emoji"></span>
+<span [hidden]="user.id!=currentUserId()">
+<a type="button" class="btn btn-xs btn-primary pull-right" (click)='popChangeNickname()'><i class="fa fa-fw fa-pencil"></i></a></span></li>

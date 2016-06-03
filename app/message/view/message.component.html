@@ -1,10 +1,10 @@
 <blockquote
 [class.blockquote-reverse]="message.fromIdUser == currentUserId()"
 [class.whisp]="message.toIdUser != '0'">
-  <p>{{message.content}}</p>
-  <footer>{{senderNickname()}} -
+  <p [innerHTML]="message.content|untag|emoji"></p>
+  <footer><span [innerHTML]="senderNickname()|untag|emoji"></span> -
     <i>{{getLocaleDate()}}</i>
-    <span [hidden]="message.toIdUser == 0 || message.toIdUser == currentUserId()">- to {{receiverNickname()}}</span>
+    <span [hidden]="message.toIdUser == 0 || message.toIdUser == currentUserId()">- to <span [innerHTML]="receiverNickname()|untag|emoji"></span></span>
     <span [hidden]="senderIsOnline()" > --- (old)</span>
   </footer>
 </blockquote>

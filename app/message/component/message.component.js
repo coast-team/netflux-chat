@@ -11,6 +11,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var message_1 = require('../model/message');
 var user_service_1 = require('../../user/service/user.service');
+var emoji_pipe_1 = require('../../emoji.pipe');
+var untag_pipe_1 = require('../../untag.pipe');
 var MessageComponent = (function () {
     function MessageComponent(userService) {
         this.userService = userService;
@@ -42,7 +44,8 @@ var MessageComponent = (function () {
     MessageComponent = __decorate([
         core_1.Component({
             selector: 'message',
-            templateUrl: 'app/message/view/message.component.html'
+            templateUrl: 'app/message/view/message.component.html',
+            pipes: [emoji_pipe_1.EmojiPipe, untag_pipe_1.UntagPipe]
         }), 
         __metadata('design:paramtypes', [user_service_1.UserService])
     ], MessageComponent);

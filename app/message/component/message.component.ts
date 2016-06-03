@@ -1,10 +1,13 @@
 import { Component, Input } from '@angular/core';
 import { Message } from '../model/message';
 import { UserService } from '../../user/service/user.service';
+import { EmojiPipe } from '../../emoji.pipe';
+import { UntagPipe } from '../../untag.pipe';
 
 @Component({
   selector : 'message',
-  templateUrl : 'app/message/view/message.component.html'
+  templateUrl : 'app/message/view/message.component.html',
+  pipes : [EmojiPipe,UntagPipe]
 })
 export class MessageComponent {
   @Input() message: Message;

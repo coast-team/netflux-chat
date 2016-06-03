@@ -64,6 +64,7 @@ export class MediatorService{
   config(wc:any){
     let self = this;
 
+
     let onJoining = (id:string)=>{
       self.userService.addUser({id:id,nickname:"Default "+id,peerId:id,online:true});
 
@@ -91,12 +92,11 @@ export class MediatorService{
     }
 
     let onLeaving = (id:string)=>{
-      self.userService.remUser(id);
-      self.messageService.addMessage({fromIdUser:"0", toIdUser:"0", content: "Default "+id+" is leaving.", date : new Date()});
+      self.userService.removeUser(id);
     };
 
     wc.onJoining = onJoining;
-    wc.onLeave = onLeaving;
+    wc.onLeaving = onLeaving;
     wc.onMessage = onMessage;
   }
 /**

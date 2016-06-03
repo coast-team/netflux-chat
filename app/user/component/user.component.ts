@@ -1,12 +1,15 @@
 import { Component, Input } from '@angular/core';
 import { User } from '../model/user';
 import { UserService } from '../service/user.service';
+import { EmojiPipe } from '../../emoji.pipe';
+import { UntagPipe } from '../../untag.pipe';
 
 declare var BootstrapDialog:any;
 
 @Component({
   selector : 'user',
-  templateUrl : 'app/user/view/user.component.html'
+  templateUrl : 'app/user/view/user.component.html',
+  pipes : [EmojiPipe,UntagPipe]
 })
 export class UserComponent {
   @Input() user : User;
@@ -22,7 +25,7 @@ export class UserComponent {
     BootstrapDialog.show({
             title: 'Let\'s change your nickname !',
             message: `
-            Nickname : <input id="nickname" type="text" class="form-control" value="`+self.user.nickname+`">`,
+            Nickname : <input id="nickname" type="text" class="form-control" value='`+self.user.nickname+`'>`,
             closable: true, // <-- Default value is false
             draggable: true, // <-- Default value is false
             buttons: [{

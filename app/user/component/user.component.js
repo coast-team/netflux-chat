@@ -11,6 +11,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var user_1 = require('../model/user');
 var user_service_1 = require('../service/user.service');
+var emoji_pipe_1 = require('../../emoji.pipe');
+var untag_pipe_1 = require('../../untag.pipe');
 var UserComponent = (function () {
     function UserComponent(userService) {
         this.userService = userService;
@@ -22,7 +24,7 @@ var UserComponent = (function () {
         var self = this;
         BootstrapDialog.show({
             title: 'Let\'s change your nickname !',
-            message: "\n            Nickname : <input id=\"nickname\" type=\"text\" class=\"form-control\" value=\"" + self.user.nickname + "\">",
+            message: "\n            Nickname : <input id=\"nickname\" type=\"text\" class=\"form-control\" value='" + self.user.nickname + "'>",
             closable: true,
             draggable: true,
             buttons: [{
@@ -51,7 +53,8 @@ var UserComponent = (function () {
     UserComponent = __decorate([
         core_1.Component({
             selector: 'user',
-            templateUrl: 'app/user/view/user.component.html'
+            templateUrl: 'app/user/view/user.component.html',
+            pipes: [emoji_pipe_1.EmojiPipe, untag_pipe_1.UntagPipe]
         }), 
         __metadata('design:paramtypes', [user_service_1.UserService])
     ], UserComponent);
