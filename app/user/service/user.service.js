@@ -39,7 +39,7 @@ var UserService = (function () {
             this.users.push(user);
         }
     };
-    UserService.prototype.remUser = function (id) {
+    UserService.prototype.removeUser = function (id) {
         function callback(v, i, a) {
             if (v.id == id) {
                 v.online = false;
@@ -48,6 +48,7 @@ var UserService = (function () {
             return true;
         }
         this.users.every(callback);
+        console.log("Le user : ", this.users);
     };
     UserService.prototype.getNickname = function (id) {
         var ret = "";

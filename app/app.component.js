@@ -14,6 +14,9 @@ var user_display_component_1 = require('./user/component/user-display.component'
 var message_service_1 = require('./message/service/message.service');
 var user_service_1 = require('./user/service/user.service');
 var mediator_service_1 = require('./mediator/mediator.service');
+var emoji_pipe_1 = require('./emoji.pipe');
+var untag_pipe_1 = require('./untag.pipe');
+var marked_pipe_1 = require('./marked.pipe');
 var AppComponent = (function () {
     function AppComponent(messageService, userService, mediator) {
         this.messageService = messageService;
@@ -80,7 +83,8 @@ var AppComponent = (function () {
         core_1.Component({
             selector: 'my-app',
             templateUrl: 'app/app.component.html',
-            directives: [chat_display_component_1.ChatDisplay, user_display_component_1.UserDisplay]
+            directives: [chat_display_component_1.ChatDisplay, user_display_component_1.UserDisplay],
+            pipes: [emoji_pipe_1.EmojiPipe, untag_pipe_1.UntagPipe, marked_pipe_1.MarkedPipe]
         }), 
         __metadata('design:paramtypes', [message_service_1.MessageService, user_service_1.UserService, mediator_service_1.MediatorService])
     ], AppComponent);

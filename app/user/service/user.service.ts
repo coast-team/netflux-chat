@@ -36,7 +36,7 @@ export class UserService{
     }
   }
 
-  remUser(id:string){
+  removeUser(id:string){
     function callback(v:User,i:number,a){
       if(v.id == id){
         v.online=false;
@@ -45,6 +45,7 @@ export class UserService{
       return true;
     }
     this.users.every(callback);
+    console.log("Le user : ", this.users);
   }
 
   getNickname(id:string){
