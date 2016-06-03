@@ -3,11 +3,12 @@ import { Message } from '../model/message';
 import { UserService } from '../../user/service/user.service';
 import { EmojiPipe } from '../../emoji.pipe';
 import { UntagPipe } from '../../untag.pipe';
+import { MarkedPipe } from '../../marked.pipe';
 
 @Component({
   selector : 'message',
   templateUrl : 'app/message/view/message.component.html',
-  pipes : [EmojiPipe,UntagPipe]
+  pipes : [EmojiPipe,UntagPipe,MarkedPipe]
 })
 export class MessageComponent {
   @Input() message: Message;

@@ -9,17 +9,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var EmojiPipe = (function () {
-    function EmojiPipe() {
+var MarkedPipe = (function () {
+    function MarkedPipe() {
     }
-    EmojiPipe.prototype.transform = function (value) {
-        return emojione.toImage(value);
+    MarkedPipe.prototype.transform = function (value) {
+        return marked(value);
     };
-    EmojiPipe = __decorate([
-        core_1.Pipe({ name: 'emoji' }), 
+    MarkedPipe = __decorate([
+        core_1.Pipe({ name: 'marked' }), 
         __metadata('design:paramtypes', [])
-    ], EmojiPipe);
-    return EmojiPipe;
+    ], MarkedPipe);
+    return MarkedPipe;
 }());
-exports.EmojiPipe = EmojiPipe;
-//# sourceMappingURL=emoji.pipe.js.map
+exports.MarkedPipe = MarkedPipe;
+//# sourceMappingURL=marked.pipe.js.map

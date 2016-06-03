@@ -6,6 +6,7 @@ import { UserService} from './user/service/user.service';
 import { MediatorService } from './mediator/mediator.service';
 import { EmojiPipe } from './emoji.pipe';
 import { UntagPipe } from './untag.pipe';
+import { MarkedPipe } from './marked.pipe';
 
 declare var BootstrapDialog:any;
 
@@ -13,7 +14,7 @@ declare var BootstrapDialog:any;
   selector: 'my-app',
   templateUrl: 'app/app.component.html',
   directives : [ChatDisplay, UserDisplay],
-  pipes : [EmojiPipe, UntagPipe]
+  pipes : [EmojiPipe, UntagPipe,MarkedPipe]
 })
 export class AppComponent implements OnInit{
   constructor(public messageService:MessageService, public userService:UserService, public mediator: MediatorService){};

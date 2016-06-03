@@ -3,13 +3,14 @@ import { User } from '../model/user';
 import { UserService } from '../service/user.service';
 import { EmojiPipe } from '../../emoji.pipe';
 import { UntagPipe } from '../../untag.pipe';
+import { MarkedPipe } from '../../marked.pipe';
 
 declare var BootstrapDialog:any;
 
 @Component({
   selector : 'user',
   templateUrl : 'app/user/view/user.component.html',
-  pipes : [EmojiPipe,UntagPipe]
+  pipes : [EmojiPipe,UntagPipe,MarkedPipe]
 })
 export class UserComponent {
   @Input() user : User;

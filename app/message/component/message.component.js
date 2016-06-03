@@ -13,6 +13,7 @@ var message_1 = require('../model/message');
 var user_service_1 = require('../../user/service/user.service');
 var emoji_pipe_1 = require('../../emoji.pipe');
 var untag_pipe_1 = require('../../untag.pipe');
+var marked_pipe_1 = require('../../marked.pipe');
 var MessageComponent = (function () {
     function MessageComponent(userService) {
         this.userService = userService;
@@ -45,7 +46,7 @@ var MessageComponent = (function () {
         core_1.Component({
             selector: 'message',
             templateUrl: 'app/message/view/message.component.html',
-            pipes: [emoji_pipe_1.EmojiPipe, untag_pipe_1.UntagPipe]
+            pipes: [emoji_pipe_1.EmojiPipe, untag_pipe_1.UntagPipe, marked_pipe_1.MarkedPipe]
         }), 
         __metadata('design:paramtypes', [user_service_1.UserService])
     ], MessageComponent);
