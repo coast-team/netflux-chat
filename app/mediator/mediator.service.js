@@ -22,7 +22,7 @@ var MediatorService = (function () {
     ;
     MediatorService.prototype.create = function (sigAddress) {
         var _this = this;
-        if (sigAddress === void 0) { sigAddress = 'ws://' + location.hostname + ':8000'; }
+        if (sigAddress === void 0) { sigAddress = 'ws://sigver-coastteam.rhcloud.com:8000'; }
         var wc = new netflux.WebChannel({ signaling: sigAddress });
         var f = function (obj) {
             console.log('obj : ', obj);
@@ -42,7 +42,7 @@ var MediatorService = (function () {
         console.log('WC créé.');
     };
     MediatorService.prototype.join = function (key, sigAddress) {
-        if (sigAddress === void 0) { sigAddress = 'ws://' + location.hostname + ':8000'; }
+        if (sigAddress === void 0) { sigAddress = 'ws://sigver-coastteam.rhcloud.com:8000'; }
         var wc = new netflux.WebChannel({ signaling: sigAddress });
         this.key = key;
         this.config(wc);

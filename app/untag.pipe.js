@@ -13,10 +13,8 @@ var UntagPipe = (function () {
     function UntagPipe() {
     }
     UntagPipe.prototype.transform = function (value) {
-        console.log('value : ', value);
         var ret = value;
         ret = ret.replace(/</g, '&lt;');
-        console.log('ret : ', ret);
         return ret;
     };
     UntagPipe = __decorate([
