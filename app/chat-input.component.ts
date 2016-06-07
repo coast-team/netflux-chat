@@ -12,7 +12,9 @@ import { UserService } from './user/service/user.service';
 export class ChatInput implements OnInit{
   type: string;
   counter = 0;
-  constructor(public messageService:MessageService, public userService : UserService){};
+  constructor(public messageService:MessageService, public userService : UserService){
+
+  };
 
   ngOnInit(){
     var self = this;
@@ -22,7 +24,7 @@ export class ChatInput implements OnInit{
       if(a==b) return 0;
       else return -1;
     };
-    $("#chat-input").textcomplete([ {
+    (<any>$("#chat-input")).textcomplete([ {
         match: /\B:([\-+\w]*)$/,
         search: function (term, callback) {
             var results = [];
@@ -60,7 +62,7 @@ export class ChatInput implements OnInit{
     }
     ],{
         footer: '<a href="http://www.emoji.codes" target="_blank">Browse All<span class="arrow">»</span></a>'
-    });
+    }).on({'textComplete:select':()=>{this.type = $('#chat-input').val();}});
   }
 
 
@@ -69,8 +71,8 @@ export class ChatInput implements OnInit{
       console.log("message : ", this.type);
       var mes = Message.fromJSON({fromIdUser:this.userService.currentUserId,toIdUser:"0",content:this.type,date:Date.now()});
       this.messageService.sendMessage(mes);
-      this.type = "";
-    }
+      this.type='';//$('#chat-input').val('');
+    };
   }
 
 }
