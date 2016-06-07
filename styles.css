@@ -11,3 +11,7 @@ body,html{
   max-height: 100%;
   width:100%;
 }
+img{
+  max-height: 5em;
+  max-width: 100%;
+}
