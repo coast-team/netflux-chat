@@ -15,7 +15,7 @@ var message_service_1 = require('./message/service/message.service');
 var ChatDisplay = (function () {
     function ChatDisplay(messageService) {
         this.messageService = messageService;
-        this.messages = messageService.messages;
+        this.messages = messageService.messages.get();
     }
     ChatDisplay.prototype.ngOnInit = function () {
         this.getMessages();

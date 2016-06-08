@@ -33,11 +33,17 @@ var MediatorService = (function () {
         //define webChannel.onJoining and others ...
         this.config(wc);
         // ************ //
-        this.userService.setCurrentUserId(wc.myId);
         var pseudo = localStorage.getItem("netflux-chat-nickname");
         if (pseudo === null)
             pseudo = 'Default ' + wc.myId;
-        this.userService.addUser({ id: wc.myId, peerId: wc.myId, nickname: pseudo, online: true });
+        var id = localStorage.getItem("netflux-chat-id");
+        if (id === null) {
+            id = wc.myId;
+            localStorage.setItem("netflux-chat-id", id);
+        }
+        this.userService.setCurrentUserId(id);
+        this.userService.addUser({ id: id, peerId: wc.myId, nickname: pseudo, online: true });
+        this.messageService.appendMessage({ fromIdUser: "0", toIdUser: "0", content: "Welcome to the chat !", date: new Date().getTime() });
         this.wcs.setActiveChannel(this.wcs.addWebChannel(wc));
         console.log('WC créé.');
     };
@@ -48,24 +54,29 @@ var MediatorService = (function () {
         this.config(wc);
         var self = this;
         wc.join(key).then(function () {
-            self.userService.setCurrentUserId(wc.myId);
             var pseudo = localStorage.getItem("netflux-chat-nickname");
             if (pseudo === null)
                 pseudo = 'Default ' + wc.myId;
-            self.userService.addUser({ id: wc.myId, peerId: wc.myId, nickname: pseudo, online: true });
+            var id = localStorage.getItem("netflux-chat-id");
+            if (id === null) {
+                id = wc.myId;
+                localStorage.setItem("netflux-chat-id", id);
+            }
+            self.userService.setCurrentUserId(id);
+            self.userService.addUser({ id: id, peerId: wc.myId, nickname: pseudo, online: true });
             wc.channels.forEach(function (value) {
                 //onJoining(value.peerId) need to define onJoining
                 wc.onJoining(value.peerId);
-                console.log('Ajout du user : ', value.peerId);
             });
+            self.messageService.queryForHistory();
+            self.userService.queryForUsers();
+            self.userService.sendUserInfos();
         });
         this.wcs.setActiveChannel(this.wcs.addWebChannel(wc));
     };
     MediatorService.prototype.config = function (wc) {
         var self = this;
         var onJoining = function (id) {
-            self.userService.addUser({ id: id, nickname: "Default " + id, peerId: id, online: true });
-            wc.sendTo(parseInt(id), JSON.stringify({ type: "requestNickname", data: { requester: wc.myId } }));
         };
         var onMessage = function (id, data, isBroadcast) {
             var receive = JSON.parse(data);
@@ -74,13 +85,23 @@ var MediatorService = (function () {
             console.log('data recu ', data2);
             switch (type) {
                 case "message":
-                    self.messageService.addMessage(message_1.Message.fromJSON(data2));
+                    self.messageService.insertMessage(message_1.Message.fromJSON(data2));
                     break;
                 case "updateNickname":
                     self.userService.updateNickname(data2);
                     break;
                 case "requestNickname":
                     self.userService.sendNickname(data2);
+                    console.log('Working on requestNickname');
+                    break;
+                case "queryForHistory":
+                    self.messageService.sendHistory(id, data2);
+                    break;
+                case "userInfos":
+                    self.userService.addUser(data2);
+                    break;
+                case "queryForUsers":
+                    self.userService.sendUsers(data2);
                     break;
                 default: console.log("Not yet implemeted.");
             }
