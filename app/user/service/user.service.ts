@@ -26,12 +26,15 @@ export class UserService{
       if(v.id == user.id){
         possedeUser = true;
         v.nickname = user.nickname;
+        v.id = user.id;
+        console.log('update user : ',v,' to ',user);
         return false;
       }
       return true;
     }
     this.users.every(callback);
     if(!possedeUser){
+      console.log('adding new user : ',user);
       this.users.push(user);
     }
   }
@@ -99,6 +102,19 @@ export class UserService{
     this.users.every(callback);
   }
 
+  getUser(id:string):User{
+    var ret = new User();
+    function callback(v:User,i:number,a){
+      if(v.id == id){
+        ret = v;
+        return false;
+      }
+      return true;
+    }
+    this.users.every(callback);
+    return ret;
+  }
+
   sendNickname(data:any){
     let sendingData = {id:this.currentUserId, nickname:this.getNickname(this.currentUserId)};
     this.sendbox.sendFormat(sendingData,"updateNickname",data.requester);
@@ -117,5 +133,21 @@ export class UserService{
     return online;
   }
 
+  queryForUsers(){
+    this.sendbox.sendFormat({requester:this.getUser(this.currentUserId).peerId},"queryForUsers",'0');
+  }
 
+  sendUsers(data){
+    this.users.forEach(
+      (val,i,arr)=>{
+        this.sendbox.sendFormat(val,"userInfos",data.requester);
+        console.log('sending data : user ',val,' to ', data);
+      }
+    )
+  }
+
+  sendUserInfos(){
+    let sendingData = this.getUser(this.currentUserId);
+    this.sendbox.sendFormat(sendingData,"userInfos",'0');
+  }
 }

@@ -15,8 +15,6 @@ export class MessagesList implements MessageManager<TimestampId>{
   }
 
   insert(id:TimestampId,msg:Message){
-    console.log('appel à insert ! this.messages.length-1',this.messages.length-1);
-    console.log('msg dans insert : ',msg);
     for(let i = this.messages.length-1; i>=0; i--){
       if(this.messages[i].date<=id.timestamp){
         if(this.messages[i].date==id.timestamp && parseInt(this.messages[i].fromIdUser)!= parseInt(id.id)){ // otherwise msg is already in messages
@@ -24,7 +22,6 @@ export class MessagesList implements MessageManager<TimestampId>{
             this.messages.splice(i+1,0,msg);
           }else this.messages.splice(i,0,msg);
         }else this.messages.splice(i+1,0,msg);
-        console.log('add message : ',msg);
         return;
       }
     }

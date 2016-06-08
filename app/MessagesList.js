@@ -8,8 +8,6 @@ var MessagesList = (function () {
         return { timestamp: msg.date, id: msg.fromIdUser };
     };
     MessagesList.prototype.insert = function (id, msg) {
-        console.log('appel à insert ! this.messages.length-1', this.messages.length - 1);
-        console.log('msg dans insert : ', msg);
         for (var i = this.messages.length - 1; i >= 0; i--) {
             if (this.messages[i].date <= id.timestamp) {
                 if (this.messages[i].date == id.timestamp && parseInt(this.messages[i].fromIdUser) != parseInt(id.id)) {
@@ -21,7 +19,6 @@ var MessagesList = (function () {
                 }
                 else
                     this.messages.splice(i + 1, 0, msg);
-                console.log('add message : ', msg);
                 return;
             }
         }
