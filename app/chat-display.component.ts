@@ -14,7 +14,7 @@ export class ChatDisplay implements OnInit{
   messages: Message[];
 
   constructor(public messageService : MessageService){
-    this.messages = messageService.messages;
+    this.messages = messageService.messages.get();
   }
 
   ngOnInit(){

@@ -38,6 +38,7 @@ var MediatorService = (function () {
         if (pseudo === null)
             pseudo = 'Default ' + wc.myId;
         this.userService.addUser({ id: wc.myId, peerId: wc.myId, nickname: pseudo, online: true });
+        this.messageService.appendMessage({ fromIdUser: "0", toIdUser: "0", content: "Welcome to the chat !", date: new Date().getTime() });
         this.wcs.setActiveChannel(this.wcs.addWebChannel(wc));
         console.log('WC créé.');
     };
@@ -58,6 +59,7 @@ var MediatorService = (function () {
                 wc.onJoining(value.peerId);
                 console.log('Ajout du user : ', value.peerId);
             });
+            self.messageService.queryForHistory();
         });
         this.wcs.setActiveChannel(this.wcs.addWebChannel(wc));
     };
@@ -74,13 +76,16 @@ var MediatorService = (function () {
             console.log('data recu ', data2);
             switch (type) {
                 case "message":
-                    self.messageService.addMessage(message_1.Message.fromJSON(data2));
+                    self.messageService.insertMessage(message_1.Message.fromJSON(data2));
                     break;
                 case "updateNickname":
                     self.userService.updateNickname(data2);
                     break;
                 case "requestNickname":
                     self.userService.sendNickname(data2);
+                    break;
+                case "queryForHistory":
+                    self.messageService.sendHistory(id, data2);
                     break;
                 default: console.log("Not yet implemeted.");
             }

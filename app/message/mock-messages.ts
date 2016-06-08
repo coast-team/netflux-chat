@@ -1,7 +1,7 @@
 import { Message } from './model/message';
 
 export var MESSAGES: Message[] = [
-  {fromIdUser : "0",toIdUser : "0", content : "Welcome to the chat !", date :new Date()}
+  {fromIdUser : "0",toIdUser : "0", content : "Welcome to the chat !", date :new Date().getTime()}
   /**
   {fromIdUser : "1",toIdUser : "2", content : "Hello, how are you?", date : new Date("2016-05-23T14:48:00")},
   {fromIdUser : "1",toIdUser : "0", content : "Hello every one!", date : new Date("2016-05-23T14:48:12")},

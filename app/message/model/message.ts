@@ -18,9 +18,9 @@ export class Message{
   /**
   * date
   */
-  date : Date;
+  date : number;
 
-  constructor(fromIdUser:string,toIdUser:string,content:string,date:Date){
+  constructor(fromIdUser:string,toIdUser:string,content:string,date:number){
     this.fromIdUser = fromIdUser;
     this.toIdUser = toIdUser;
     this.content = content;

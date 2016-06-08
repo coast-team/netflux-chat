@@ -9,51 +9,65 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var mock_messages_1 = require('../mock-messages');
 var user_service_1 = require('../../user/service/user.service');
 var sendbox_service_1 = require('../../sendbox/sendbox.service');
+var MessagesList_1 = require('../../MessagesList');
 var MessageService = (function () {
     function MessageService(userService, sendbox) {
         this.userService = userService;
         this.sendbox = sendbox;
-        this.messages = mock_messages_1.MESSAGES;
+        this.messages = new MessagesList_1.MessagesList();
         this.audio = new Audio();
         this.zone = new core_1.NgZone({ enableLongStackTrace: false });
     }
     MessageService.prototype.getMessages = function () {
-        return this.messages;
+        return this.messages.get();
     };
     MessageService.prototype.getLastMessage = function () {
-        if (this.messages === undefined) {
-            return { fromIdUser: "0", toIdUser: "0", content: 'Loading', date: new Date() };
+        if (this.messages.get()[0] === undefined) {
+            return { fromIdUser: "0", toIdUser: "0", content: 'Loading', date: new Date().getTime() };
         }
-        return this.messages[this.messages.length - 1];
+        return this.messages.get()[this.messages.get().length - 1];
     };
     MessageService.prototype.sendMessage = function (mes) {
         this.sendbox.sendFormat(mes, 'message', "0"); //0 = broadcast
-        this.addMessage(mes);
+        this.appendMessage(mes);
     };
-    MessageService.prototype.addMessage = function (mes) {
+    MessageService.prototype.appendMessage = function (mes) {
         var _this = this;
         this.zone.run(function () {
             var chat = document.getElementById('chat');
             var atBottom = chat.scrollTop == (chat.scrollHeight - chat.clientHeight);
-            //console.log('scrollTop : ', chat.scrollTop);
-            //console.log('scrollHeight : ', chat.scrollHeight);
-            //console.log('clientHeight : ', chat.clientHeight);
-            _this.messages.push(mes);
-            if (mes.fromIdUser !== _this.userService.currentUserId) {
-                var audio = _this.audio;
-                if (audio.src === '') {
-                    audio.src = 'SuperMarioBros.ogg';
-                    audio.load();
-                }
-                audio.play();
-                setTimeout(function () { audio.pause(); }, 300);
-            }
+            _this.messages.append(mes);
             setTimeout(function () { if (atBottom)
                 chat.scrollTop = chat.scrollHeight; }, 0);
         });
+    };
+    MessageService.prototype.insertMessage = function (mes) {
+        var _this = this;
+        this.zone.run(function () {
+            var chat = document.getElementById('chat');
+            var atBottom = chat.scrollTop == (chat.scrollHeight - chat.clientHeight);
+            _this.messages.insert({ timestamp: mes.date, id: mes.fromIdUser }, mes);
+            var audio = _this.audio;
+            if (audio.src === '') {
+                audio.src = 'SuperMarioBros.ogg';
+                audio.load();
+            }
+            audio.play();
+            setTimeout(function () { audio.pause(); }, 300);
+            //console.log('audio : ', audio);
+            setTimeout(function () { if (atBottom)
+                chat.scrollTop = chat.scrollHeight; }, 0);
+        });
+    };
+    MessageService.prototype.sendHistory = function (id, data) {
+        var _this = this;
+        this.messages.getSince(data.parameter).forEach(function (val, e, arr) { _this.sendbox.sendFormat(val, 'message', id); });
+    };
+    MessageService.prototype.queryForHistory = function () {
+        var yesterday = (new Date()).valueOf() - 1000 * 60 * 60 * 24; // One day ago in timestamp
+        this.sendbox.sendFormat({ parameter: { timestamp: yesterday, id: "0" } }, "queryForHistory", "0");
     };
     MessageService = __decorate([
         core_1.Injectable(), 
