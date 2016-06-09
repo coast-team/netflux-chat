@@ -13,7 +13,10 @@ var MarkedPipe = (function () {
     function MarkedPipe() {
     }
     MarkedPipe.prototype.transform = function (value) {
-        return marked(value);
+        var ret = value;
+        if (value != undefined)
+            ret = marked(value);
+        return ret;
     };
     MarkedPipe = __decorate([
         core_1.Pipe({ name: 'marked' }), 

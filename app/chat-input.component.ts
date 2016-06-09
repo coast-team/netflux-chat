@@ -67,12 +67,16 @@ export class ChatInput implements OnInit{
 
 
   send(){
-    if(this.type!=""){
+    if(this.type!="" && this.type != undefined){
       console.log("message : ", this.type);
       var mes = Message.fromJSON({fromIdUser:this.userService.currentUserId,toIdUser:"0",content:this.type,date:Date.now()});
       this.messageService.sendMessage(mes);
-      this.type='';//$('#chat-input').val('');
     };
+    this.type='';
   }
 
+
+  addMedia(){
+
+  }
 }

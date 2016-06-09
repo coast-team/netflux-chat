@@ -72,13 +72,15 @@ var ChatInput = (function () {
         }).on({ 'textComplete:select': function () { _this.type = $('#chat-input').val(); } });
     };
     ChatInput.prototype.send = function () {
-        if (this.type != "") {
+        if (this.type != "" && this.type != undefined) {
             console.log("message : ", this.type);
             var mes = message_1.Message.fromJSON({ fromIdUser: this.userService.currentUserId, toIdUser: "0", content: this.type, date: Date.now() });
             this.messageService.sendMessage(mes);
-            this.type = ''; //$('#chat-input').val('');
         }
         ;
+        this.type = '';
+    };
+    ChatInput.prototype.addMedia = function () {
     };
     ChatInput = __decorate([
         core_1.Component({

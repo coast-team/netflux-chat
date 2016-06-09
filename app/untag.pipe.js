@@ -14,7 +14,8 @@ var UntagPipe = (function () {
     }
     UntagPipe.prototype.transform = function (value) {
         var ret = value;
-        ret = ret.replace(/</g, '&lt;');
+        if (ret != undefined)
+            ret = ret.replace(/</g, '&lt;');
         return ret;
     };
     UntagPipe = __decorate([
