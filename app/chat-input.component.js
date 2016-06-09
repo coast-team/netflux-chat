@@ -17,6 +17,7 @@ var ChatInput = (function () {
         this.messageService = messageService;
         this.userService = userService;
         this.counter = 0;
+        this.type = "";
     }
     ;
     ChatInput.prototype.ngOnInit = function () {
@@ -72,13 +73,85 @@ var ChatInput = (function () {
         }).on({ 'textComplete:select': function () { _this.type = $('#chat-input').val(); } });
     };
     ChatInput.prototype.send = function () {
-        if (this.type != "") {
+        if (this.type != "" && this.type != undefined) {
             console.log("message : ", this.type);
             var mes = message_1.Message.fromJSON({ fromIdUser: this.userService.currentUserId, toIdUser: "0", content: this.type, date: Date.now() });
             this.messageService.sendMessage(mes);
-            this.type = ''; //$('#chat-input').val('');
         }
         ;
+        this.type = '';
+    };
+    ChatInput.prototype.insertPicturePop = function () {
+        var self = this;
+        BootstrapDialog.show({
+            title: 'Let\'s add a picture ! !',
+            message: "\n            Url : <input id=\"picUrl\" type=\"text\" class=\"form-control\" value=\"\">\n            Alt : <input id=\"picAlt\" type=\"text\" class=\"form-control\" value=\"\">",
+            closable: true,
+            draggable: true,
+            buttons: [{
+                    id: 'btn-picOk',
+                    label: 'Add',
+                    cssClass: 'btn-primary',
+                    autospin: false,
+                    action: function (dialogRef) {
+                        var url = dialogRef.getModalBody().find('#picUrl').val();
+                        var alt = dialogRef.getModalBody().find('#picAlt').val();
+                        if (url != "") {
+                            self.insertPicture(url, alt);
+                        }
+                        dialogRef.close();
+                    }
+                }, {
+                    id: 'btn-picCancel',
+                    label: 'Cancel',
+                    cssClass: 'btn-primary',
+                    autospin: false,
+                    action: function (dialogRef) {
+                        dialogRef.close();
+                    }
+                }
+            ]
+        });
+    };
+    ChatInput.prototype.insertPicture = function (url, alt) {
+        var s = "![" + alt + "]" + "(" + url + ")";
+        this.type += s;
+    };
+    ChatInput.prototype.insertLinkPop = function () {
+        var self = this;
+        BootstrapDialog.show({
+            title: 'Let\'s add a link ! !',
+            message: "\n            Url : <input id=\"linkUrl\" type=\"text\" class=\"form-control\" value=\"\">\n            Display : <input id=\"linkDisplay\" type=\"text\" class=\"form-control\" value=\"\">",
+            closable: true,
+            draggable: true,
+            buttons: [{
+                    id: 'btn-linkOk',
+                    label: 'Add',
+                    cssClass: 'btn-primary',
+                    autospin: false,
+                    action: function (dialogRef) {
+                        var url = dialogRef.getModalBody().find('#linkUrl').val();
+                        var display = dialogRef.getModalBody().find('#linkDisplay').val();
+                        if (url != "") {
+                            self.insertLink(url, display);
+                        }
+                        dialogRef.close();
+                    }
+                }, {
+                    id: 'btn-linkCancel',
+                    label: 'Cancel',
+                    cssClass: 'btn-primary',
+                    autospin: false,
+                    action: function (dialogRef) {
+                        dialogRef.close();
+                    }
+                }
+            ]
+        });
+    };
+    ChatInput.prototype.insertLink = function (url, display) {
+        var s = "[" + display + "]" + "(" + url + ")";
+        this.type += s;
     };
     ChatInput = __decorate([
         core_1.Component({

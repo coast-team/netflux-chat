@@ -13,7 +13,10 @@ var EmojiPipe = (function () {
     function EmojiPipe() {
     }
     EmojiPipe.prototype.transform = function (value) {
-        return emojione.toImage(value);
+        var ret = value;
+        if (value != undefined)
+            ret = emojione.toImage(value);
+        return ret;
     };
     EmojiPipe = __decorate([
         core_1.Pipe({ name: 'emoji' }), 

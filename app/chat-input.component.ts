@@ -2,7 +2,7 @@ import { Component, OnInit} from '@angular/core';
 import { MessageService } from './message/service/message.service';
 import { Message } from './message/model/message';
 import { UserService } from './user/service/user.service';
-
+declare var BootstrapDialog:any;
 
 @Component({
   selector : 'chat-input',
@@ -13,7 +13,7 @@ export class ChatInput implements OnInit{
   type: string;
   counter = 0;
   constructor(public messageService:MessageService, public userService : UserService){
-
+    this.type="";
   };
 
   ngOnInit(){
@@ -67,12 +67,91 @@ export class ChatInput implements OnInit{
 
 
   send(){
-    if(this.type!=""){
+    if(this.type!="" && this.type != undefined){
       console.log("message : ", this.type);
       var mes = Message.fromJSON({fromIdUser:this.userService.currentUserId,toIdUser:"0",content:this.type,date:Date.now()});
       this.messageService.sendMessage(mes);
-      this.type='';//$('#chat-input').val('');
     };
+    this.type='';
   }
 
+  insertPicturePop(){
+    let self = this;
+    BootstrapDialog.show({
+            title: 'Let\'s add a picture ! !',
+            message: `
+            Url : <input id="picUrl" type="text" class="form-control" value="">
+            Alt : <input id="picAlt" type="text" class="form-control" value="">`,
+            closable: true, // <-- Default value is false
+            draggable: true, // <-- Default value is false
+            buttons: [{
+                        id: 'btn-picOk',
+                        label: 'Add',
+                        cssClass: 'btn-primary',
+                        autospin: false,
+                        action: function(dialogRef){
+                          let url = dialogRef.getModalBody().find('#picUrl').val();
+                          let alt = dialogRef.getModalBody().find('#picAlt').val();
+                          if(url!=""){
+                            self.insertPicture(url,alt);
+                          }
+                          dialogRef.close();
+                        }
+                    },{
+                      id: 'btn-picCancel',
+                      label: 'Cancel',
+                      cssClass: 'btn-primary',
+                      autospin: false,
+                      action: function(dialogRef){
+                        dialogRef.close();
+                      }
+                   }
+                  ]
+        });
+  }
+
+  insertPicture(url:string, alt:string){
+    let s = "!["+alt+"]"+"("+url+")";
+    this.type += s;
+  }
+
+  insertLinkPop(){
+    let self = this;
+    BootstrapDialog.show({
+            title: 'Let\'s add a link ! !',
+            message: `
+            Url : <input id="linkUrl" type="text" class="form-control" value="">
+            Display : <input id="linkDisplay" type="text" class="form-control" value="">`,
+            closable: true, // <-- Default value is false
+            draggable: true, // <-- Default value is false
+            buttons: [{
+                        id: 'btn-linkOk',
+                        label: 'Add',
+                        cssClass: 'btn-primary',
+                        autospin: false,
+                        action: function(dialogRef){
+                          let url = dialogRef.getModalBody().find('#linkUrl').val();
+                          let display = dialogRef.getModalBody().find('#linkDisplay').val();
+                          if(url!=""){
+                            self.insertLink(url,display);
+                          }
+                          dialogRef.close();
+                        }
+                    },{
+                      id: 'btn-linkCancel',
+                      label: 'Cancel',
+                      cssClass: 'btn-primary',
+                      autospin: false,
+                      action: function(dialogRef){
+                        dialogRef.close();
+                      }
+                   }
+                  ]
+        });
+  }
+
+  insertLink(url:string, display:string){
+    let s = "["+display+"]"+"("+url+")";
+    this.type += s;
+  }
 }

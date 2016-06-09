@@ -4,6 +4,8 @@ declare var marked : any;
 @Pipe({name: 'marked'})
 export class MarkedPipe implements PipeTransform {
   transform(value: string): string {
-    return marked(value);
+    let ret = value;
+    if(value!=undefined) ret = marked(value);
+    return ret;
   }
 }
