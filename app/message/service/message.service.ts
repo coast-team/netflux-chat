@@ -12,9 +12,12 @@ import {MessagesList, TimestampId} from '../../MessagesList';
 export class MessageService{
   messages : MessageManager<TimestampId> = new MessagesList();
   zone: NgZone;
-
+  focus=true;
   constructor(public userService : UserService, public sendbox: SendBox){
     this.zone = new NgZone({enableLongStackTrace: false});
+    let self = this;
+    document.body.onblur=(e)=>{self.focus=false};
+    document.body.onfocus=(e)=>{self.focus=true};
   }
 
   getMessages(){
@@ -62,7 +65,7 @@ export class MessageService{
         audio.load();
       }
 
-      if(this.playAudio){
+      if(this.playAudio && !this.focus){
         audio.play();
         this.playAudio = false;
         let self = this;

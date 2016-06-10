@@ -17,9 +17,13 @@ var MessageService = (function () {
         this.userService = userService;
         this.sendbox = sendbox;
         this.messages = new MessagesList_1.MessagesList();
+        this.focus = true;
         this.audio = new Audio();
         this.playAudio = true;
         this.zone = new core_1.NgZone({ enableLongStackTrace: false });
+        var self = this;
+        document.body.onblur = function (e) { self.focus = false; };
+        document.body.onfocus = function (e) { self.focus = true; };
     }
     MessageService.prototype.getMessages = function () {
         return this.messages.get();
@@ -55,7 +59,7 @@ var MessageService = (function () {
                 audio.src = 'smb_pipe.ogg';
                 audio.load();
             }
-            if (_this.playAudio) {
+            if (_this.playAudio && !_this.focus) {
                 audio.play();
                 _this.playAudio = false;
                 var self_1 = _this;
