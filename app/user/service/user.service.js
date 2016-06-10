@@ -45,7 +45,7 @@ var UserService = (function () {
     };
     UserService.prototype.removeUser = function (id) {
         function callback(v, i, a) {
-            if (v.id == id) {
+            if (v.peerId == id) {
                 v.online = false;
                 return false;
             }

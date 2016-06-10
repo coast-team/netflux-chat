@@ -44,7 +44,7 @@ var MediatorService = (function () {
         this.userService.setCurrentUserId(id);
         this.userService.addUser({ id: id, peerId: wc.myId, nickname: pseudo, online: true });
         this.messageService.appendMessage({ fromIdUser: "0", toIdUser: "0", content: "Welcome to the chat !", date: new Date().getTime() });
-        this.wcs.setActiveChannel(this.wcs.addWebChannel(wc));
+        this.wcs.setActiveChannel(this.wcs.addWebChannel(wc, this.key, sigAddress));
         console.log('WC créé.');
     };
     MediatorService.prototype.join = function (key, sigAddress) {
@@ -72,7 +72,7 @@ var MediatorService = (function () {
             self.userService.queryForUsers();
             self.userService.sendUserInfos();
         });
-        this.wcs.setActiveChannel(this.wcs.addWebChannel(wc));
+        this.wcs.setActiveChannel(this.wcs.addWebChannel(wc, key, sigAddress));
     };
     MediatorService.prototype.config = function (wc) {
         var self = this;
@@ -109,9 +109,13 @@ var MediatorService = (function () {
         var onLeaving = function (id) {
             self.userService.removeUser(id);
         };
+        var onClose = function (id) {
+            self.userService.removeUser(id);
+        };
         wc.onJoining = onJoining;
         wc.onLeaving = onLeaving;
         wc.onMessage = onMessage;
+        wc.onClose = onClose;
     };
     MediatorService = __decorate([
         core_1.Injectable(), 
