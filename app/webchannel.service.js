@@ -12,19 +12,30 @@ var core_1 = require('@angular/core');
 var WebChannelService = (function () {
     function WebChannelService() {
         this.webChannels = [];
+        this.keys = [];
+        this.urls = [];
     }
-    WebChannelService.prototype.addWebChannel = function (channel) {
+    WebChannelService.prototype.addWebChannel = function (channel, key, url) {
         this.webChannels.push(channel);
+        this.keys.push(key);
+        this.urls.push(url);
         return this.webChannels.length - 1;
     };
     WebChannelService.prototype.getWebChannel = function (id) {
         return this.webChannels[id];
     };
     WebChannelService.prototype.getAccessData = function (id) {
-        if (!this.webChannels[id].isOpen())
-            return this.webChannels[id].openForJoining();
-        else
-            return Promise.resolve(this.webChannels[id].getAccess());
+        return { key: this.keys[id], url: this.urls[id] };
+        /**
+        if(!this.webChannels[id].isOpen()){
+           console.log('OpenForJoining');
+           return this.webChannels[id].openForJoining();
+         }
+        else{
+          console.log('getAccess');
+          return Promise.resolve(this.webChannels[id].getAccess());
+        }
+        **/
     };
     WebChannelService.prototype.setActiveChannel = function (id) {
         this.activeChannel = id;

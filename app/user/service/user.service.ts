@@ -41,7 +41,7 @@ export class UserService{
 
   removeUser(id:string){
     function callback(v:User,i:number,a){
-      if(v.id == id){
+      if(v.peerId == id){
         v.online=false;
         return false;
       }

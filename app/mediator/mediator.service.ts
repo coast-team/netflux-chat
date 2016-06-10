@@ -39,7 +39,7 @@ export class MediatorService{
 
     this.userService.addUser({id:id, peerId : wc.myId, nickname:pseudo,online:true});
     this.messageService.appendMessage({fromIdUser : "0",toIdUser : "0", content : "Welcome to the chat !", date :new Date().getTime()});
-    this.wcs.setActiveChannel(this.wcs.addWebChannel(wc));
+    this.wcs.setActiveChannel(this.wcs.addWebChannel(wc,this.key,sigAddress));
     console.log('WC créé.');
   }
 
@@ -71,7 +71,7 @@ export class MediatorService{
         self.userService.queryForUsers();
         self.userService.sendUserInfos();
       });
-    this.wcs.setActiveChannel(this.wcs.addWebChannel(wc));
+    this.wcs.setActiveChannel(this.wcs.addWebChannel(wc,key,sigAddress));
   }
 
   config(wc:any){
@@ -117,10 +117,14 @@ export class MediatorService{
     let onLeaving = (id:string)=>{
       self.userService.removeUser(id);
     };
+    let onClose = (id:string)=>{
+      self.userService.removeUser(id);
+    }
 
     wc.onJoining = onJoining;
     wc.onLeaving = onLeaving;
     wc.onMessage = onMessage;
+    wc.onClose = onClose;
   }
 /**
   leave(){

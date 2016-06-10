@@ -32,7 +32,7 @@ export class UserDisplay {
 
   addUser(){
     let wcs = this.wcs;
-    wcs.getAccessData(wcs.getActiveChannel()).then((d)=>
+    let d = wcs.getAccessData(wcs.getActiveChannel())//.then((d)=>
     BootstrapDialog.show({
             title: 'Invite user',
             message: 'Are you sure to invite new users ?',
@@ -73,6 +73,6 @@ export class UserDisplay {
                         }
                     }
                   ]
-        }));
+        });//);
   }
 }
