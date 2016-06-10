@@ -18,6 +18,7 @@ var MessageService = (function () {
         this.sendbox = sendbox;
         this.messages = new MessagesList_1.MessagesList();
         this.audio = new Audio();
+        this.playAudio = true;
         this.zone = new core_1.NgZone({ enableLongStackTrace: false });
     }
     MessageService.prototype.getMessages = function () {
@@ -51,12 +52,15 @@ var MessageService = (function () {
             _this.messages.insert({ timestamp: mes.date, id: mes.fromIdUser }, mes);
             var audio = _this.audio;
             if (audio.src === '') {
-                audio.src = 'SuperMarioBros.ogg';
+                audio.src = 'smb_pipe.ogg';
                 audio.load();
             }
-            audio.play();
-            setTimeout(function () { audio.pause(); }, 300);
-            //console.log('audio : ', audio);
+            if (_this.playAudio) {
+                audio.play();
+                _this.playAudio = false;
+                var self_1 = _this;
+                setTimeout(function () { self_1.playAudio = true; console.log('Can play music !'); }, 30000);
+            }
             setTimeout(function () { if (atBottom)
                 chat.scrollTop = chat.scrollHeight; }, 0);
         });
