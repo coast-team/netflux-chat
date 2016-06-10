@@ -21,13 +21,14 @@ var MediatorService = (function () {
     }
     ;
     MediatorService.prototype.create = function (sigAddress) {
-        var _this = this;
         if (sigAddress === void 0) { sigAddress = 'ws://sigver-coastteam.rhcloud.com:8000'; }
         var wc = new netflux.WebChannel({ signaling: sigAddress });
+        var self = this;
         var f = function (obj) {
             console.log('obj : ', obj);
-            _this.key = obj.key;
-            alert('key = ' + _this.key);
+            self.key = obj.key;
+            alert('key = ' + self.key);
+            self.wcs.setActiveChannel(self.wcs.addWebChannel(wc, self.key, sigAddress));
         };
         wc.openForJoining().then(f);
         //define webChannel.onJoining and others ...
@@ -44,7 +45,6 @@ var MediatorService = (function () {
         this.userService.setCurrentUserId(id);
         this.userService.addUser({ id: id, peerId: wc.myId, nickname: pseudo, online: true });
         this.messageService.appendMessage({ fromIdUser: "0", toIdUser: "0", content: "Welcome to the chat !", date: new Date().getTime() });
-        this.wcs.setActiveChannel(this.wcs.addWebChannel(wc, this.key, sigAddress));
         console.log('WC créé.');
     };
     MediatorService.prototype.join = function (key, sigAddress) {
@@ -108,9 +108,11 @@ var MediatorService = (function () {
         };
         var onLeaving = function (id) {
             self.userService.removeUser(id);
+            console.log('Onleaving(id) : ', id);
         };
         var onClose = function (id) {
             self.userService.removeUser(id);
+            console.log('OnClose(id) : ', id);
         };
         wc.onJoining = onJoining;
         wc.onLeaving = onLeaving;
