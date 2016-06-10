@@ -12,15 +12,16 @@ declare var netflux:any;
 export class MediatorService{
   constructor(public userService : UserService, public messageService : MessageService, public wcs:WebChannelService){};
 
-
   key: string;
 
   create(sigAddress : string = 'ws://sigver-coastteam.rhcloud.com:8000'){ // ws://'+location.hostname+':8000
     let wc = new netflux.WebChannel({signaling: sigAddress});
+    let self = this;
     let f = (obj)=>{
       console.log('obj : ',obj);
-      this.key = obj.key;
-      alert('key = ' + this.key);
+      self.key = obj.key;
+      alert('key = ' + self.key);
+      self.wcs.setActiveChannel(self.wcs.addWebChannel(wc,self.key,sigAddress));
     };
     wc.openForJoining().then(f);
 
@@ -39,7 +40,7 @@ export class MediatorService{
 
     this.userService.addUser({id:id, peerId : wc.myId, nickname:pseudo,online:true});
     this.messageService.appendMessage({fromIdUser : "0",toIdUser : "0", content : "Welcome to the chat !", date :new Date().getTime()});
-    this.wcs.setActiveChannel(this.wcs.addWebChannel(wc,this.key,sigAddress));
+
     console.log('WC créé.');
   }
 
@@ -116,9 +117,11 @@ export class MediatorService{
 
     let onLeaving = (id:string)=>{
       self.userService.removeUser(id);
+      console.log('Onleaving(id) : ',id);
     };
     let onClose = (id:string)=>{
       self.userService.removeUser(id);
+      console.log('OnClose(id) : ',id);
     }
 
     wc.onJoining = onJoining;
