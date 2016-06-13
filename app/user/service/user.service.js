@@ -9,7 +9,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var user_1 = require('../model/user');
 var mock_users_1 = require('../mock-users');
 var sendbox_service_1 = require('../../sendbox/sendbox.service');
 var UserService = (function () {
@@ -32,6 +31,7 @@ var UserService = (function () {
                 possedeUser = true;
                 v.nickname = user.nickname;
                 v.id = user.id;
+                // add other if needed
                 console.log('update user : ', v, ' to ', user);
                 return false;
             }
@@ -45,7 +45,7 @@ var UserService = (function () {
     };
     UserService.prototype.removeUser = function (id) {
         function callback(v, i, a) {
-            if (v.peerId == id) {
+            if (v.id == id) {
                 v.online = false;
                 return false;
             }
@@ -98,7 +98,7 @@ var UserService = (function () {
         this.users.every(callback);
     };
     UserService.prototype.getUser = function (id) {
-        var ret = new user_1.User();
+        var ret = null;
         function callback(v, i, a) {
             if (v.id == id) {
                 ret = v;
@@ -138,6 +138,18 @@ var UserService = (function () {
     UserService.prototype.sendUserInfos = function () {
         var sendingData = this.getUser(this.currentUserId);
         this.sendbox.sendFormat(sendingData, "userInfos", '0');
+    };
+    UserService.prototype.getColors = function (id) {
+        var tab;
+        function callback(v, i, a) {
+            if (v.id == id) {
+                tab = v.getColors();
+                return false;
+            }
+            return true;
+        }
+        this.users.every(callback);
+        return tab;
     };
     UserService = __decorate([
         core_1.Injectable(), 

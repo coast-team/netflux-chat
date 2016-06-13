@@ -38,6 +38,14 @@ var MessageComponent = (function () {
     MessageComponent.prototype.getLocaleDate = function () {
         return new Date(+this.message.date).toLocaleString();
     };
+    MessageComponent.prototype.setStyles = function () {
+        var colors = this.userService.getColors(this.message.fromIdUser);
+        var styles = {
+            //'background-color':this.message.toIdUser=='0' ? '#'+colors[0] : '#'+colors[1],
+            'color': '#' + colors[2]
+        };
+        return styles;
+    };
     __decorate([
         core_1.Input(), 
         __metadata('design:type', message_1.Message)

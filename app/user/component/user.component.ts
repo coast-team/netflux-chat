@@ -48,4 +48,13 @@ export class UserComponent {
   changeNickname(name:string){
     this.userService.setNickname({id:this.user.id,nickname:name});
   }
+
+  private setStyles(){
+    let colors = this.userService.getColors(this.user.id);
+    let styles = {
+      //'background-color':'#'+colors[0],
+      'color' : '#'+colors[2]
+    };
+    return styles;
+  }
 }

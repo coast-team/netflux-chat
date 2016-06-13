@@ -27,6 +27,8 @@ export class UserService{
         possedeUser = true;
         v.nickname = user.nickname;
         v.id = user.id;
+        // add other if needed
+
         console.log('update user : ',v,' to ',user);
         return false;
       }
@@ -41,7 +43,7 @@ export class UserService{
 
   removeUser(id:string){
     function callback(v:User,i:number,a){
-      if(v.peerId == id){
+      if(v.id == id){
         v.online=false;
         return false;
       }
@@ -103,7 +105,7 @@ export class UserService{
   }
 
   getUser(id:string):User{
-    var ret = new User();
+    var ret = null;
     function callback(v:User,i:number,a){
       if(v.id == id){
         ret = v;
@@ -149,5 +151,18 @@ export class UserService{
   sendUserInfos(){
     let sendingData = this.getUser(this.currentUserId);
     this.sendbox.sendFormat(sendingData,"userInfos",'0');
+  }
+
+  getColors(id:string){
+    var tab : string[];
+    function callback(v:User,i:number,a){
+      if(v.id == id){
+        tab = v.getColors();
+        return false;
+      }
+      return true;
+    }
+    this.users.every(callback);
+    return tab;
   }
 }

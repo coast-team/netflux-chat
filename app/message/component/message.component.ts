@@ -36,4 +36,13 @@ export class MessageComponent {
   getLocaleDate(){
     return new Date(+this.message.date).toLocaleString();
   }
+
+  private setStyles(){
+    let colors = this.userService.getColors(this.message.fromIdUser);
+    let styles = {
+      //'background-color':this.message.toIdUser=='0' ? '#'+colors[0] : '#'+colors[1],
+      'color' : '#'+colors[2]
+    };
+    return styles;
+  }
 }

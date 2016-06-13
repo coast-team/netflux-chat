@@ -1,9 +1,9 @@
 import { User } from './model/user';
 
 export var USERS : User[] = [
-  {id : "0", nickname : "Chat App", peerId:"0",online:true}
-  /**
-  {id : "1", nickname : "NyanCat", peerId:"1",online:true},
-  {id : "2", nickname : "Einstein", peerId:"2",online:true},
-  {id : "3", nickname : "Slash", peerId:"3",online:false}**/
+  new User("0","0","Chat App"),
+  new User("1","1","Chat App"),
+  new User("2","2","Chat App"),
+  new User("3","3","Chat App"),
+  new User("4","4","Chat App")
 ];

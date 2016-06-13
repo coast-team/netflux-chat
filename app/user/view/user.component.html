@@ -1,4 +1,4 @@
 <li class="list-group-item"
-  [class.list-group-item-success]="user.id==currentUserId()"
-><span [innerHTML]="user.nickname|untag|marked|emoji">
+  [class.list-group-item-success]="user.id==currentUserId() && false"
+><span [ngStyle]='setStyles()' [innerHTML]="user.nickname|untag|marked|emoji">
 </span><span [hidden]="user.id!=currentUserId()"><a type="button" class="btn btn-xs btn-primary" (click)='popChangeNickname()'><i class="fa fa-fw fa-pencil"></i></a></span></li>

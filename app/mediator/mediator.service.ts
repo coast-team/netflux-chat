@@ -38,7 +38,7 @@ export class MediatorService{
 
     this.userService.setCurrentUserId(id);
 
-    this.userService.addUser({id:id, peerId : wc.myId, nickname:pseudo,online:true});
+    this.userService.addUser(new User(id,wc.myId,pseudo));
     this.messageService.appendMessage({fromIdUser : "0",toIdUser : "0", content : "Welcome to the chat !", date :new Date().getTime()});
 
     console.log('WC créé.');
@@ -63,7 +63,7 @@ export class MediatorService{
         }
 
         self.userService.setCurrentUserId(id);
-        self.userService.addUser({id:id, peerId : wc.myId, nickname:pseudo,online:true});
+        self.userService.addUser(new User(id,wc.myId,pseudo));
         wc.channels.forEach(function(value) {
           //onJoining(value.peerId) need to define onJoining
           wc.onJoining(value.peerId);

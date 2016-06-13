@@ -47,6 +47,14 @@ var UserComponent = (function () {
     UserComponent.prototype.changeNickname = function (name) {
         this.userService.setNickname({ id: this.user.id, nickname: name });
     };
+    UserComponent.prototype.setStyles = function () {
+        var colors = this.userService.getColors(this.user.id);
+        var styles = {
+            //'background-color':'#'+colors[0],
+            'color': '#' + colors[2]
+        };
+        return styles;
+    };
     __decorate([
         core_1.Input(), 
         __metadata('design:type', user_1.User)

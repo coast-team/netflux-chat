@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var message_service_1 = require('../message/service/message.service');
 var user_service_1 = require('../user/service/user.service');
+var user_1 = require('../user/model/user');
 var message_1 = require('../message/model/message');
 var webchannel_service_1 = require('../webchannel.service');
 var core_1 = require('@angular/core');
@@ -43,7 +44,7 @@ var MediatorService = (function () {
             localStorage.setItem("netflux-chat-id", id);
         }
         this.userService.setCurrentUserId(id);
-        this.userService.addUser({ id: id, peerId: wc.myId, nickname: pseudo, online: true });
+        this.userService.addUser(new user_1.User(id, wc.myId, pseudo));
         this.messageService.appendMessage({ fromIdUser: "0", toIdUser: "0", content: "Welcome to the chat !", date: new Date().getTime() });
         console.log('WC créé.');
     };
@@ -63,7 +64,7 @@ var MediatorService = (function () {
                 localStorage.setItem("netflux-chat-id", id);
             }
             self.userService.setCurrentUserId(id);
-            self.userService.addUser({ id: id, peerId: wc.myId, nickname: pseudo, online: true });
+            self.userService.addUser(new user_1.User(id, wc.myId, pseudo));
             wc.channels.forEach(function (value) {
                 //onJoining(value.peerId) need to define onJoining
                 wc.onJoining(value.peerId);
