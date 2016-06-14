@@ -20,6 +20,12 @@ export class UserService{
     return this.users;
   }
 
+  getUsersForWhisp(){
+    let tab = [];
+    this.users.forEach((v,i,t)=>{tab.push(v.nickname+"~"+v.id)});
+    return tab;
+  }
+
   addUser(user:User){
     let possedeUser = false;
     function callback(v:User,i:number,a){
@@ -68,6 +74,9 @@ export class UserService{
 
   setNickname(data){
     let nickname = data.nickname;
+    nickname = nickname.replace(/\s/g,'&nbsp;');
+    nickname = nickname.replace(new RegExp('/','g'),'&#47;');
+    nickname = nickname.replace(/~/g,'&#126;');
     let id = data.id;
 
     let ok = false;
@@ -104,10 +113,39 @@ export class UserService{
     this.users.every(callback);
   }
 
+  getIdFromPeerId(peerId : string):string{
+    let id = '';
+
+    function callback(v:User,i:number,a){
+      if(v.peerId == peerId){
+        id = v.id;
+        return false;
+      }
+      return true;
+    }
+
+    this.users.every(callback);
+
+    return id;
+  }
+
   getUser(id:string):User{
     var ret = null;
     function callback(v:User,i:number,a){
       if(v.id == id){
+        ret = v;
+        return false;
+      }
+      return true;
+    }
+    this.users.every(callback);
+    return ret;
+  }
+
+  getUserFromPeerId(id:string):User{
+    var ret = null;
+    function callback(v:User,i:number,a){
+      if(v.peerId == id){
         ret = v;
         return false;
       }
@@ -157,7 +195,7 @@ export class UserService{
     var tab : string[];
     function callback(v:User,i:number,a){
       if(v.id == id){
-        tab = v.getColors();
+        tab = [v.backgroundColor,v.whispColor,v.textColor];
         return false;
       }
       return true;

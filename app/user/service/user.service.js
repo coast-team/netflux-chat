@@ -24,6 +24,11 @@ var UserService = (function () {
     UserService.prototype.getUsers = function () {
         return this.users;
     };
+    UserService.prototype.getUsersForWhisp = function () {
+        var tab = [];
+        this.users.forEach(function (v, i, t) { tab.push(v.nickname + "~" + v.id); });
+        return tab;
+    };
     UserService.prototype.addUser = function (user) {
         var possedeUser = false;
         function callback(v, i, a) {
@@ -68,6 +73,9 @@ var UserService = (function () {
     };
     UserService.prototype.setNickname = function (data) {
         var nickname = data.nickname;
+        nickname = nickname.replace(/\s/g, '&nbsp;');
+        nickname = nickname.replace(new RegExp('/', 'g'), '&#47;');
+        nickname = nickname.replace(/~/g, '&#126;');
         var id = data.id;
         var ok = false;
         function callback(v, i, a) {
@@ -97,10 +105,34 @@ var UserService = (function () {
         }
         this.users.every(callback);
     };
+    UserService.prototype.getIdFromPeerId = function (peerId) {
+        var id = '';
+        function callback(v, i, a) {
+            if (v.peerId == peerId) {
+                id = v.id;
+                return false;
+            }
+            return true;
+        }
+        this.users.every(callback);
+        return id;
+    };
     UserService.prototype.getUser = function (id) {
         var ret = null;
         function callback(v, i, a) {
             if (v.id == id) {
+                ret = v;
+                return false;
+            }
+            return true;
+        }
+        this.users.every(callback);
+        return ret;
+    };
+    UserService.prototype.getUserFromPeerId = function (id) {
+        var ret = null;
+        function callback(v, i, a) {
+            if (v.peerId == id) {
                 ret = v;
                 return false;
             }
@@ -143,7 +175,7 @@ var UserService = (function () {
         var tab;
         function callback(v, i, a) {
             if (v.id == id) {
-                tab = v.getColors();
+                tab = [v.backgroundColor, v.whispColor, v.textColor];
                 return false;
             }
             return true;

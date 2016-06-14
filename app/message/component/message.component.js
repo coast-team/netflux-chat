@@ -22,7 +22,7 @@ var MessageComponent = (function () {
         };
         this.receiverNickname = function () {
             if (this.message.toIdUser != "0") {
-                return this.userService.getNickname(this.message.toIdUser);
+                return this.userService.getNickname(this.userService.getIdFromPeerId(this.message.toIdUser));
             }
             else
                 return "";
@@ -39,9 +39,15 @@ var MessageComponent = (function () {
         return new Date(+this.message.date).toLocaleString();
     };
     MessageComponent.prototype.setStyles = function () {
-        var colors = this.userService.getColors(this.message.fromIdUser);
+        var user = this.userService.getUser(this.message.fromIdUser);
+        var colors = [];
+        colors[2] = user.textColor;
+        var BGcolor = "";
+        if (this.message.toIdUser != '0') {
+            BGcolor = '#383838';
+        }
         var styles = {
-            //'background-color':this.message.toIdUser=='0' ? '#'+colors[0] : '#'+colors[1],
+            'background-color': BGcolor,
             'color': '#' + colors[2]
         };
         return styles;

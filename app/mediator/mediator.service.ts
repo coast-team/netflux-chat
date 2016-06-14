@@ -92,7 +92,7 @@ export class MediatorService{
       let data2 = receive.data;
       console.log('data recu ',data2);
       switch(type){
-        case "message" ://{fromIdUser:string (id), toIdUser:string (id, 0 if broadcast), content:string, date:Date}
+        case "message" ://{fromIdUser:string (id), toIdUser:string (id, 0 if broadcast), content:string, date:number}
           self.messageService.insertMessage(Message.fromJSON(data2));
           break;
         case "updateNickname": // {id:string, nickname:string}
@@ -105,7 +105,7 @@ export class MediatorService{
         case "queryForHistory":
           self.messageService.sendHistory(id,data2);
           break;
-        case "userInfos":
+        case "userInfos": // {{id: "3180763113", peerId: 3180763113, nickname: "Thomas :smiley_cat:", online: true}}
           self.userService.addUser(data2);
           break;
         case "queryForUsers":

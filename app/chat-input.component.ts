@@ -59,9 +59,21 @@ export class ChatInput implements OnInit{
         },
         index: 1,
         maxCount: 10
+    },{
+      match: /^\/w\s?(.*)$/,
+      search: function (term, callback) {
+            callback($.map(self.userService.getUsersForWhisp(), function (user) {
+                return user.indexOf(term) === 0 ? user : null;
+            }));
+        },
+        index: 1,
+        replace: function (user) {
+          console.log('REPLACE : ', user);
+            return '/w ' + user + ' ';
+        }
     }
     ],{
-        footer: '<a href="http://www.emoji.codes" target="_blank">Browse All<span class="arrow">»</span></a>'
+        footer: '<a href="http://www.emoji.codes" target="_blank">Browse All Emojis<span class="arrow">»</span></a>'
     }).on({'textComplete:select':()=>{this.type = $('#chat-input').val();}});
   }
 
@@ -69,7 +81,21 @@ export class ChatInput implements OnInit{
   send(){
     if(this.type!="" && this.type != undefined){
       console.log("message : ", this.type);
-      var mes = Message.fromJSON({fromIdUser:this.userService.currentUserId,toIdUser:"0",content:this.type,date:Date.now()});
+      let idSend = '0';
+      let matchNicknameId = /^\/w\s?(.*)~(\d+)\s/; // matching for whisp
+      let corresp = matchNicknameId.exec(this.type);
+      if(corresp != null){
+        console.log('CATCH IN REGEXP : ', corresp);
+        let nickname = corresp[1];
+        let id = corresp[2];
+        let usr = this.userService.getUser(id);
+        if(usr != null){
+          idSend = ""+usr.peerId;
+          this.type = this.type.replace(matchNicknameId,'');
+        }
+      }
+      var mes = Message.fromJSON({fromIdUser:this.userService.currentUserId,toIdUser:idSend,content:this.type,date:Date.now()});
+      console.log('message you write : ',mes);
       this.messageService.sendMessage(mes);
     };
     this.type='';

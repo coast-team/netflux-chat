@@ -36,7 +36,7 @@ var UserComponent = (function () {
                     action: function (dialogRef) {
                         var name = dialogRef.getModalBody().find('#nickname').val();
                         if (name !== "")
-                            self.changeNickname(name);
+                            self.changeNickname(name.replace(/\s/g, '&nbsp;'));
                         console.log('button changeNickname');
                         dialogRef.close();
                     }

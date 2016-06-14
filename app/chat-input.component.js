@@ -67,15 +67,41 @@ var ChatInput = (function () {
                 },
                 index: 1,
                 maxCount: 10
+            }, {
+                match: /^\/w\s?(.*)$/,
+                search: function (term, callback) {
+                    callback($.map(self.userService.getUsersForWhisp(), function (user) {
+                        return user.indexOf(term) === 0 ? user : null;
+                    }));
+                },
+                index: 1,
+                replace: function (user) {
+                    console.log('REPLACE : ', user);
+                    return '/w ' + user + ' ';
+                }
             }
         ], {
-            footer: '<a href="http://www.emoji.codes" target="_blank">Browse All<span class="arrow">»</span></a>'
+            footer: '<a href="http://www.emoji.codes" target="_blank">Browse All Emojis<span class="arrow">»</span></a>'
         }).on({ 'textComplete:select': function () { _this.type = $('#chat-input').val(); } });
     };
     ChatInput.prototype.send = function () {
         if (this.type != "" && this.type != undefined) {
             console.log("message : ", this.type);
-            var mes = message_1.Message.fromJSON({ fromIdUser: this.userService.currentUserId, toIdUser: "0", content: this.type, date: Date.now() });
+            var idSend = '0';
+            var matchNicknameId = /^\/w\s?(.*)~(\d+)\s/; // matching for whisp
+            var corresp = matchNicknameId.exec(this.type);
+            if (corresp != null) {
+                console.log('CATCH IN REGEXP : ', corresp);
+                var nickname = corresp[1];
+                var id = corresp[2];
+                var usr = this.userService.getUser(id);
+                if (usr != null) {
+                    idSend = "" + usr.peerId;
+                    this.type = this.type.replace(matchNicknameId, '');
+                }
+            }
+            var mes = message_1.Message.fromJSON({ fromIdUser: this.userService.currentUserId, toIdUser: idSend, content: this.type, date: Date.now() });
+            console.log('message you write : ', mes);
             this.messageService.sendMessage(mes);
         }
         ;
