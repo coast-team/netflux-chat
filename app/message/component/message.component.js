@@ -40,8 +40,9 @@ var MessageComponent = (function () {
     };
     MessageComponent.prototype.setStyles = function () {
         var user = this.userService.getUser(this.message.fromIdUser);
-        var colors = [];
-        colors[2] = user.textColor;
+        var colors = ["", "", ""];
+        if (user != null)
+            colors[2] = user.textColor;
         var BGcolor = "";
         if (this.message.toIdUser != '0') {
             BGcolor = '#383838';

@@ -50,7 +50,9 @@ export class UserComponent {
   }
 
   private setStyles(){
-    let colors = this.userService.getColors(this.user.id);
+    let user = this.userService.getUser(this.user.id);
+    let colors = ["","",""];
+    if(user != null) colors[2] = user.textColor;
     let styles = {
       //'background-color':'#'+colors[0],
       'color' : '#'+colors[2]

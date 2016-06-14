@@ -39,8 +39,8 @@ export class MessageComponent {
 
   private setStyles(){
     let user  = this.userService.getUser(this.message.fromIdUser);
-    let colors = [];
-    colors[2] = user.textColor;
+    let colors = ["","",""];
+    if(user != null) colors[2] = user.textColor;
     let BGcolor = "";
     if(this.message.toIdUser!='0'){// if whisp
       BGcolor = '#383838';

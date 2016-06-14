@@ -48,7 +48,10 @@ var UserComponent = (function () {
         this.userService.setNickname({ id: this.user.id, nickname: name });
     };
     UserComponent.prototype.setStyles = function () {
-        var colors = this.userService.getColors(this.user.id);
+        var user = this.userService.getUser(this.user.id);
+        var colors = ["", "", ""];
+        if (user != null)
+            colors[2] = user.textColor;
         var styles = {
             //'background-color':'#'+colors[0],
             'color': '#' + colors[2]
