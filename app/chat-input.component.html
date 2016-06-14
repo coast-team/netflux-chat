@@ -11,7 +11,7 @@
       </ul>
     </div>
     <div class="col-xs-8 col-sm-8 col-md-8  col-lg-8">
-      <input id="chat-input" autocomplete="off" type="text" class="form-control" [(ngModel)]="type" placeholder="Type here ...">
+      <textarea id="chat-input" (keydown.enter)="send();false" autocomplete="off" type="text" class="form-control" [(ngModel)]="type" placeholder="Type here ..."></textarea>
     </div>
     <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
       <a class="btn btn-primary" (click)="send()"><i class="fa fa-send fa-fw"></i></a>

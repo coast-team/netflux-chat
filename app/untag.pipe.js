@@ -16,6 +16,8 @@ var UntagPipe = (function () {
         var ret = value;
         if (ret != undefined)
             ret = ret.replace(/</g, '&lt;');
+        if (ret != undefined)
+            ret = ret.replace(/(\r\n|\n|\r)/gm, "<br />");
         return ret;
     };
     UntagPipe = __decorate([
