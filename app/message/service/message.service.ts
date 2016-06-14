@@ -33,7 +33,8 @@ export class MessageService{
 
 
   sendMessage(mes: Message){
-    this.sendbox.sendFormat(mes,'message',"0");//0 = broadcast
+    let id = mes.toIdUser;
+    this.sendbox.sendFormat(mes,'message',id);//0 = broadcast
     this.appendMessage(mes);
   }
 

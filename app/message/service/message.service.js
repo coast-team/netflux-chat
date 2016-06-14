@@ -35,7 +35,8 @@ var MessageService = (function () {
         return this.messages.get()[this.messages.get().length - 1];
     };
     MessageService.prototype.sendMessage = function (mes) {
-        this.sendbox.sendFormat(mes, 'message', "0"); //0 = broadcast
+        var id = mes.toIdUser;
+        this.sendbox.sendFormat(mes, 'message', id); //0 = broadcast
         this.appendMessage(mes);
     };
     MessageService.prototype.appendMessage = function (mes) {
@@ -73,7 +74,6 @@ var MessageService = (function () {
         var _this = this;
         this.messages.getSince(data.parameter).forEach(function (val, e, arr) { if (val.fromIdUser != '0')
             _this.sendbox.sendFormat(val, 'message', id); } //condition avoid chat-app messages
-         //condition avoid chat-app messages
         );
     };
     MessageService.prototype.queryForHistory = function () {
