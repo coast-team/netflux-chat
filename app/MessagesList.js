@@ -1,7 +1,7 @@
 "use strict";
 var MessagesList = (function () {
     function MessagesList() {
-        this.messages = [{ fromIdUser: "0", toIdUser: "-1", content: "Starting the app ...", date: -1 }];
+        this.messages = [{ fromIdUser: "0", toIdUser: "0", content: "Starting the app ...", date: -1 }];
     }
     MessagesList.prototype.append = function (msg) {
         this.messages.push(msg);

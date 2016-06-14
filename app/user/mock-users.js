@@ -1,5 +1,6 @@
 "use strict";
+var user_1 = require('./model/user');
 exports.USERS = [
-    { id: "0", nickname: "Chat App", peerId: "0", online: true }
+    new user_1.User("0", "0", "Chat_App")
 ];
 //# sourceMappingURL=mock-users.js.map

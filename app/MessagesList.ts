@@ -6,7 +6,7 @@ export class MessagesList implements MessageManager<TimestampId>{
   messages : Message[];
 
   constructor(){
-    this.messages = [{fromIdUser : "0",toIdUser : "-1", content : "Starting the app ...", date :-1}];
+    this.messages = [{fromIdUser : "0",toIdUser : "0", content : "Starting the app ...", date :-1}];
   }
 
   append(msg:Message){

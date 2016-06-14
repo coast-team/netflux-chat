@@ -71,7 +71,10 @@ var MessageService = (function () {
     };
     MessageService.prototype.sendHistory = function (id, data) {
         var _this = this;
-        this.messages.getSince(data.parameter).forEach(function (val, e, arr) { _this.sendbox.sendFormat(val, 'message', id); });
+        this.messages.getSince(data.parameter).forEach(function (val, e, arr) { if (val.fromIdUser != '0')
+            _this.sendbox.sendFormat(val, 'message', id); } //condition avoid chat-app messages
+         //condition avoid chat-app messages
+        );
     };
     MessageService.prototype.queryForHistory = function () {
         var yesterday = (new Date()).valueOf() - 1000 * 60 * 60 * 24; // One day ago in timestamp

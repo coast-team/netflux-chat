@@ -38,7 +38,7 @@ export class MediatorService{
 
     this.userService.setCurrentUserId(id);
 
-    this.userService.addUser({id:id, peerId : wc.myId, nickname:pseudo,online:true});
+    this.userService.addUser(new User(id,wc.myId,pseudo));
     this.messageService.appendMessage({fromIdUser : "0",toIdUser : "0", content : "Welcome to the chat !", date :new Date().getTime()});
 
     console.log('WC créé.');
@@ -63,7 +63,7 @@ export class MediatorService{
         }
 
         self.userService.setCurrentUserId(id);
-        self.userService.addUser({id:id, peerId : wc.myId, nickname:pseudo,online:true});
+        self.userService.addUser(new User(id,wc.myId,pseudo));
         wc.channels.forEach(function(value) {
           //onJoining(value.peerId) need to define onJoining
           wc.onJoining(value.peerId);
@@ -92,7 +92,7 @@ export class MediatorService{
       let data2 = receive.data;
       console.log('data recu ',data2);
       switch(type){
-        case "message" ://{fromIdUser:string (id), toIdUser:string (id, 0 if broadcast), content:string, date:Date}
+        case "message" ://{fromIdUser:string (id), toIdUser:string (id, 0 if broadcast), content:string, date:number}
           self.messageService.insertMessage(Message.fromJSON(data2));
           break;
         case "updateNickname": // {id:string, nickname:string}
@@ -105,7 +105,7 @@ export class MediatorService{
         case "queryForHistory":
           self.messageService.sendHistory(id,data2);
           break;
-        case "userInfos":
+        case "userInfos": // {{id: "3180763113", peerId: 3180763113, nickname: "Thomas :smiley_cat:", online: true}}
           self.userService.addUser(data2);
           break;
         case "queryForUsers":

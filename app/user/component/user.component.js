@@ -36,7 +36,7 @@ var UserComponent = (function () {
                     action: function (dialogRef) {
                         var name = dialogRef.getModalBody().find('#nickname').val();
                         if (name !== "")
-                            self.changeNickname(name);
+                            self.changeNickname(name.replace(/\s/g, '&nbsp;'));
                         console.log('button changeNickname');
                         dialogRef.close();
                     }
@@ -46,6 +46,14 @@ var UserComponent = (function () {
     };
     UserComponent.prototype.changeNickname = function (name) {
         this.userService.setNickname({ id: this.user.id, nickname: name });
+    };
+    UserComponent.prototype.setStyles = function () {
+        var colors = this.userService.getColors(this.user.id);
+        var styles = {
+            //'background-color':'#'+colors[0],
+            'color': '#' + colors[2]
+        };
+        return styles;
     };
     __decorate([
         core_1.Input(), 

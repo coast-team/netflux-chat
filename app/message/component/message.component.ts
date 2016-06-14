@@ -21,7 +21,7 @@ export class MessageComponent {
 
   receiverNickname = function(){
     if(this.message.toIdUser != "0"){
-      return this.userService.getNickname(this.message.toIdUser);
+      return this.userService.getNickname(this.userService.getIdFromPeerId(this.message.toIdUser));
     }else return "";
   }
 
@@ -35,5 +35,21 @@ export class MessageComponent {
 
   getLocaleDate(){
     return new Date(+this.message.date).toLocaleString();
+  }
+
+  private setStyles(){
+    let user  = this.userService.getUser(this.message.fromIdUser);
+    let colors = [];
+    colors[2] = user.textColor;
+    let BGcolor = "";
+    if(this.message.toIdUser!='0'){// if whisp
+      BGcolor = '#383838';
+    }
+    let styles = {
+      'background-color' : BGcolor,
+      'color' : '#'+colors[2]
+    };
+
+    return styles;
   }
 }

@@ -78,7 +78,7 @@ export class MessageService{
 
   sendHistory(id:string,data:any){
     this.messages.getSince(data.parameter).forEach(
-      (val,e,arr)=>{this.sendbox.sendFormat(val,'message',id);}
+      (val,e,arr)=>{if(val.fromIdUser!='0')this.sendbox.sendFormat(val,'message',id);}//condition avoid chat-app messages
     );
   }
 
