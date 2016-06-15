@@ -21,3 +21,9 @@ img{
 textarea{
   resize : none;
 }
+.pseudo>p{
+  display:inline-block;
+}
+.message{
+  line-height: 1em;
+}

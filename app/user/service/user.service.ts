@@ -77,6 +77,7 @@ export class UserService{
     nickname = nickname.replace(/\s/g,'&nbsp;');
     nickname = nickname.replace(new RegExp('/','g'),'&#47;');
     nickname = nickname.replace(/~/g,'&#126;');
+    nickname = nickname.replace(/(^#{1,6})&nbsp;/g,'$1 ');
     let id = data.id;
 
     let ok = false;

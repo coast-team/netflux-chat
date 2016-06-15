@@ -9,20 +9,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var UntagPipe = (function () {
-    function UntagPipe() {
+var nl2brPipe = (function () {
+    function nl2brPipe() {
     }
-    UntagPipe.prototype.transform = function (value) {
+    nl2brPipe.prototype.transform = function (value) {
         var ret = value;
         if (ret != undefined)
-            ret = ret.replace(/</g, '&lt;');
+            ret = ret.replace(/([^(</p>)])(\r\n|\n|\r)/gm, "$1<br />");
         return ret;
     };
-    UntagPipe = __decorate([
-        core_1.Pipe({ name: 'untag' }), 
+    nl2brPipe = __decorate([
+        core_1.Pipe({ name: 'nl2br' }), 
         __metadata('design:paramtypes', [])
-    ], UntagPipe);
-    return UntagPipe;
+    ], nl2brPipe);
+    return nl2brPipe;
 }());
-exports.UntagPipe = UntagPipe;
-//# sourceMappingURL=untag.pipe.js.map
+exports.nl2brPipe = nl2brPipe;
+//# sourceMappingURL=nl2br.pipe.js.map
