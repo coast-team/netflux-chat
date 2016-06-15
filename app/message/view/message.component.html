@@ -2,8 +2,8 @@
 [ngStyle]='setStyles()'
 [class.blockquote-reverse]="message.fromIdUser == currentUserId()"
 [class.whisp]="message.toIdUser != '0'">
-  <p [innerHTML]="message.content|untag|marked|emoji" [ngStyle]='setStyles()'></p>
-  <footer [ngStyle]='setStyles()'><span [innerHTML]="senderNickname()|untag|marked|emoji"></span> -
+  <p class="message" [innerHTML]="message.content|untag|marked|nl2br|emoji" [ngStyle]='setStyles()'></p>
+  <footer [ngStyle]='setStyles()'><span class="pseudo" [innerHTML]="senderNickname()|untag|marked|emoji"></span> -
     <i>{{getLocaleDate()}}</i>
     <span [hidden]="message.toIdUser == 0 || message.toIdUser == currentUserId()">- to <i  [innerHTML]="receiverNickname()|untag|marked|emoji"></i></span>
     <span [hidden]="senderIsOnline()" > --- (old)</span>
