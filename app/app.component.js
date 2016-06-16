@@ -37,6 +37,9 @@ var AppComponent = (function () {
     AppComponent.prototype.toggleUser = function (element) {
         this.hideUserList = !this.hideUserList;
     };
+    AppComponent.prototype.reload = function () {
+        location.reload();
+    };
     AppComponent.prototype.ngOnInit = function () {
         var us = this.userService;
         var med = this.mediator;
