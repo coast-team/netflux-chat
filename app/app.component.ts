@@ -24,6 +24,10 @@ export class AppComponent implements OnInit{
     this.hideUserList = !this.hideUserList;
   }
 
+  reload(){
+    location.reload();
+  }
+
   lastMessage= function(){
     return this.messageService.getLastMessage();
   }

@@ -1,4 +1,20 @@
-<li class="list-group-item"
-  [class.list-group-item-success]="user.id==currentUserId() && false"
-><span class="pseudo" [ngStyle]='setStyles()' [innerHTML]="user.nickname|untag|marked|emoji">
-</span><span [hidden]="user.id!=currentUserId()"><a type="button" class="btn btn-xs btn-primary" (click)='popChangeNickname()'><i class="fa fa-fw fa-pencil"></i></a></span></li>
+<li class="list-group-item">
+  <span class="pseudo" [ngStyle]='setStyles()' [innerHTML]="user.nickname|untag|marked|emoji">
+  </span>
+  <span [hidden]="!showId" [ngStyle]='setStyles()'>
+    ~{{user.id}}
+  </span>
+  <span>
+    <a type="button" class="btn btn-xs btn-primary" (click)='showId = !showId'>
+      <i class="fa fa-fw" [class.fa-plus-square]="!showId" [class.fa-minus-square]="showId"></i>
+    </a>
+  </span>
+  <span [hidden]="user.id!=currentUserId()">
+    <a type="button" class="btn btn-xs btn-primary" (click)='popChangeNickname()'>
+      <i class="fa fa-fw fa-pencil"></i>
+    </a>
+  </span>
+  <span [hidden]="user.online" [ngStyle]='setStyles()'>
+    [disconnected]
+  </span>
+</li>
