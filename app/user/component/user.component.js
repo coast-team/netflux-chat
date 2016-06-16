@@ -20,6 +20,7 @@ var UserComponent = (function () {
         this.currentUserId = function () {
             return this.userService.currentUserId;
         };
+        this.showId = false;
     }
     UserComponent.prototype.popChangeNickname = function () {
         var self = this;
@@ -50,10 +51,12 @@ var UserComponent = (function () {
     UserComponent.prototype.setStyles = function () {
         var user = this.userService.getUser(this.user.id);
         var colors = ["", "", ""];
-        if (user != null)
+        if (user != null && user.online)
             colors[2] = user.textColor;
+        else if (user != null) {
+            colors[2] = '727272';
+        }
         var styles = {
-            //'background-color':'#'+colors[0],
             'color': '#' + colors[2]
         };
         return styles;

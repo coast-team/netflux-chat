@@ -14,8 +14,11 @@ declare var BootstrapDialog:any;
 })
 export class UserComponent {
   @Input() user : User;
+  showId : boolean;
 
-  constructor(public userService:UserService){}
+  constructor(public userService:UserService){
+    this.showId = false;
+  }
 
   currentUserId = function(){
     return this.userService.currentUserId;
@@ -52,9 +55,11 @@ export class UserComponent {
   private setStyles(){
     let user = this.userService.getUser(this.user.id);
     let colors = ["","",""];
-    if(user != null) colors[2] = user.textColor;
+    if(user != null && user.online) colors[2] = user.textColor;
+    else if(user !=null) {
+      colors[2] = '727272';
+    }
     let styles = {
-      //'background-color':'#'+colors[0],
       'color' : '#'+colors[2]
     };
     return styles;
