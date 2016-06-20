@@ -23,7 +23,7 @@ var MessageComponent = (function () {
         };
         this.receiverNickname = function () {
             if (this.message.toIdUser != "0") {
-                return this.userService.getNickname(this.userService.getIdFromPeerId(this.message.toIdUser));
+                return this.userService.getNickname(this.message.toIdUser);
             }
             else
                 return "";

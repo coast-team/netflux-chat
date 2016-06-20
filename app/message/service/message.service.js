@@ -18,12 +18,13 @@ var MessageService = (function () {
         this.sendbox = sendbox;
         this.messages = new MessagesList_1.MessagesList();
         this.focus = true;
-        this.audio = new Audio();
-        this.playAudio = true;
         this.zone = new core_1.NgZone({ enableLongStackTrace: false });
         var self = this;
         document.body.onblur = function (e) { self.focus = false; };
         document.body.onfocus = function (e) { self.focus = true; };
+        this.audio = new Audio('smb_pipe.ogg');
+        this.audio.load();
+        this.playAudio = true;
     }
     MessageService.prototype.getMessages = function () {
         return this.messages.get();
@@ -35,7 +36,9 @@ var MessageService = (function () {
         return this.messages.get()[this.messages.get().length - 1];
     };
     MessageService.prototype.sendMessage = function (mes) {
-        var id = mes.toIdUser;
+        var id = '0';
+        if (mes.toIdUser != '0')
+            id = this.userService.getUser(mes.toIdUser).peerId;
         this.sendbox.sendFormat(mes, 'message', id); //0 = broadcast
         this.appendMessage(mes);
     };

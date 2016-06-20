@@ -37,6 +37,8 @@ var UserService = (function () {
                 v.nickname = user.nickname;
                 v.id = user.id;
                 // add other if needed
+                v.peerId = user.peerId;
+                v.online = true;
                 console.log('update user : ', v, ' to ', user);
                 return false;
             }

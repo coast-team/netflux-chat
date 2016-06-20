@@ -34,6 +34,8 @@ export class UserService{
         v.nickname = user.nickname;
         v.id = user.id;
         // add other if needed
+        v.peerId = user.peerId;
+        v.online = true;
 
         console.log('update user : ',v,' to ',user);
         return false;
@@ -126,7 +128,6 @@ export class UserService{
     }
 
     this.users.every(callback);
-
     return id;
   }
 
