@@ -131,12 +131,12 @@ export class MediatorService{
     }
 
     let onLeaving = (id:string)=>{
-      self.userService.removeUser(id);
-      console.log('Onleaving(id) : ',id);
+      self.userService.removeUser(this.userService.getIdFromPeerId(id));
+      console.log('Onleaving(id) : ',this.userService.getIdFromPeerId(id));
     };
     let onClose = (id:string)=>{
-      self.userService.removeUser(id);
-      console.log('OnClose(id) : ',id);
+      self.userService.removeUser(this.userService.getIdFromPeerId(id));
+      console.log('OnClose(id) : ',this.userService.getIdFromPeerId(id));
     }
 
     wc.onJoining = onJoining;
@@ -144,7 +144,6 @@ export class MediatorService{
     wc.onMessage = onMessage;
     wc.onClose = onClose;
   }
-
 
   leave(){
     let wc = this.wcs.getWebChannel(this.wcs.getActiveChannel());
