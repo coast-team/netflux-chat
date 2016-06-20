@@ -79,10 +79,11 @@ export class MediatorService{
 
         self.userService.setCurrentUserId(id);
         self.userService.addUser(new User(id,wc.myId,pseudo));
+        /**
         wc.channels.forEach(function(value) {
           //onJoining(value.peerId) need to define onJoining
           wc.onJoining(value.peerId);
-        })
+        })**/
         self.messageService.queryForHistory();
         self.userService.queryForUsers();
         self.userService.sendUserInfos();
@@ -92,9 +93,8 @@ export class MediatorService{
 
   config(wc:any){
     let self = this;
-
-
-    let onJoining = (id:string)=>{/**
+    let onJoining = (id:string)=>{
+      /**
       self.userService.addUser({id:id,nickname:"Default "+id,peerId:id,online:true});
 
       wc.sendTo(parseInt(id),JSON.stringify({type:"requestNickname",data:{requester:wc.myId}}));
@@ -131,12 +131,12 @@ export class MediatorService{
     }
 
     let onLeaving = (id:string)=>{
-      self.userService.removeUser(this.userService.getIdFromPeerId(id));
-      console.log('Onleaving(id) : ',this.userService.getIdFromPeerId(id));
+      self.userService.removeUser(self.userService.getIdFromPeerId(id));
+      console.log('Onleaving(id) : ',self.userService.getIdFromPeerId(id));
     };
     let onClose = (id:string)=>{
-      self.userService.removeUser(this.userService.getIdFromPeerId(id));
-      console.log('OnClose(id) : ',this.userService.getIdFromPeerId(id));
+      self.userService.removeUser(self.userService.getIdFromPeerId(id));
+      console.log('OnClose(id) : ',self.userService.getIdFromPeerId(id));
     }
 
     wc.onJoining = onJoining;
