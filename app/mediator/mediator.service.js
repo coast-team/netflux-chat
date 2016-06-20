@@ -80,10 +80,11 @@ var MediatorService = (function () {
             }
             self.userService.setCurrentUserId(id);
             self.userService.addUser(new user_1.User(id, wc.myId, pseudo));
-            wc.channels.forEach(function (value) {
-                //onJoining(value.peerId) need to define onJoining
-                wc.onJoining(value.peerId);
-            });
+            /**
+            wc.channels.forEach(function(value) {
+              //onJoining(value.peerId) need to define onJoining
+              wc.onJoining(value.peerId);
+            })**/
             self.messageService.queryForHistory();
             self.userService.queryForUsers();
             self.userService.sendUserInfos();
@@ -91,9 +92,13 @@ var MediatorService = (function () {
         this.wcs.setActiveChannel(this.wcs.addWebChannel(wc, key, sigAddress));
     };
     MediatorService.prototype.config = function (wc) {
-        var _this = this;
         var self = this;
         var onJoining = function (id) {
+            /**
+            self.userService.addUser({id:id,nickname:"Default "+id,peerId:id,online:true});
+      
+            wc.sendTo(parseInt(id),JSON.stringify({type:"requestNickname",data:{requester:wc.myId}}));
+            **/
         };
         var onMessage = function (id, data, isBroadcast) {
             var receive = JSON.parse(data);
@@ -124,12 +129,12 @@ var MediatorService = (function () {
             }
         };
         var onLeaving = function (id) {
-            self.userService.removeUser(_this.userService.getIdFromPeerId(id));
-            console.log('Onleaving(id) : ', _this.userService.getIdFromPeerId(id));
+            self.userService.removeUser(self.userService.getIdFromPeerId(id));
+            console.log('Onleaving(id) : ', self.userService.getIdFromPeerId(id));
         };
         var onClose = function (id) {
-            self.userService.removeUser(_this.userService.getIdFromPeerId(id));
-            console.log('OnClose(id) : ', _this.userService.getIdFromPeerId(id));
+            self.userService.removeUser(self.userService.getIdFromPeerId(id));
+            console.log('OnClose(id) : ', self.userService.getIdFromPeerId(id));
         };
         wc.onJoining = onJoining;
         wc.onLeaving = onLeaving;
