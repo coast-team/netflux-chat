@@ -18,6 +18,9 @@ export class MessageService{
     let self = this;
     document.body.onblur=(e)=>{self.focus=false};
     document.body.onfocus=(e)=>{self.focus=true};
+    this.audio = new Audio('smb_pipe.ogg');
+    this.audio.load();
+    this.playAudio = true ;
   }
 
   getMessages(){
@@ -33,13 +36,14 @@ export class MessageService{
 
 
   sendMessage(mes: Message){
-    let id = mes.toIdUser;
+    let id = '0';
+    if(mes.toIdUser!='0')id=this.userService.getUser(mes.toIdUser).peerId;
     this.sendbox.sendFormat(mes,'message',id);//0 = broadcast
     this.appendMessage(mes);
   }
 
-  audio = new Audio();
-  playAudio = true ;
+  audio : any;
+  playAudio :boolean ;
 
   appendMessage(mes:Message){
     this.zone.run(()=>{

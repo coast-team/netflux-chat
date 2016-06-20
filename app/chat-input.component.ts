@@ -90,7 +90,7 @@ export class ChatInput implements OnInit{
         let id = corresp[2];
         let usr = this.userService.getUser(id);
         if(usr != null){
-          idSend = ""+usr.peerId;
+          idSend = id; //will be send to peerId of user
           this.type = this.type.replace(matchNicknameId,'');
         }
       }

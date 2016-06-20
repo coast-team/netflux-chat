@@ -96,7 +96,7 @@ var ChatInput = (function () {
                 var id = corresp[2];
                 var usr = this.userService.getUser(id);
                 if (usr != null) {
-                    idSend = "" + usr.peerId;
+                    idSend = id; //will be send to peerId of user
                     this.type = this.type.replace(matchNicknameId, '');
                 }
             }
