@@ -5,7 +5,7 @@
   <p class="message" [innerHTML]="message.content|untag|marked|nl2br|emoji" [ngStyle]='setStyles()'></p>
   <footer [ngStyle]='setStyles()'><span class="pseudo" [innerHTML]="senderNickname()|untag|marked|emoji"></span> -
     <i>{{getLocaleDate()}}</i>
-    <span [hidden]="message.toIdUser == 0 || message.toIdUser == currentUserId()">- to <i  [innerHTML]="receiverNickname()|untag|marked|emoji"></i></span>
+    <span [hidden]="message.toIdUser == 0 || message.toIdUser == currentUserId()">- to <i class="pseudo" [innerHTML]="receiverNickname()|untag|marked|emoji"></i></span>
     <span [hidden]="senderIsOnline()" > --- (old)</span>
   </footer>
 </blockquote>
