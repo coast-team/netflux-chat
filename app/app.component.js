@@ -38,6 +38,7 @@ var AppComponent = (function () {
         this.hideUserList = !this.hideUserList;
     };
     AppComponent.prototype.reload = function () {
+        this.mediator.leave();
         location.reload();
     };
     AppComponent.prototype.ngOnInit = function () {
