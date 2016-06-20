@@ -30,13 +30,16 @@ var UserService = (function () {
         return tab;
     };
     UserService.prototype.addUser = function (user) {
+        var self = this;
         var possedeUser = false;
         function callback(v, i, a) {
             if (v.id == user.id) {
                 possedeUser = true;
-                v = user;
-                v.online = true;
-                console.log('update user : ', v, ' to ', user);
+                if (user.id != self.currentUserId) {
+                    console.log('update user : ', v, ' to ', user);
+                    a[i] = user;
+                    a[i].online = true;
+                }
                 return false;
             }
             return true;
@@ -50,7 +53,7 @@ var UserService = (function () {
     UserService.prototype.removeUser = function (id) {
         function callback(v, i, a) {
             if (v.id == id) {
-                v.online = false;
+                a[i].online = false;
                 return false;
             }
             return true;

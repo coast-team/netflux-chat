@@ -27,14 +27,16 @@ export class UserService{
   }
 
   addUser(user:User){
+    let self = this;
     let possedeUser = false;
     function callback(v:User,i:number,a){
       if(v.id == user.id){
         possedeUser = true;
-        v=user;
-        v.online = true;
-
-        console.log('update user : ',v,' to ',user);
+        if(user.id != self.currentUserId){
+          console.log('update user : ',v,' to ',user);
+          a[i]=user;
+          a[i].online = true;
+        }
         return false;
       }
       return true;
@@ -49,7 +51,7 @@ export class UserService{
   removeUser(id:string){
     function callback(v:User,i:number,a){
       if(v.id == id){
-        v.online=false;
+        a[i].online=false;
         return false;
       }
       return true;

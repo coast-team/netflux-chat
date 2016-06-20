@@ -39,6 +39,7 @@ var MessageService = (function () {
         var id = '0';
         if (mes.toIdUser != '0')
             id = this.userService.getUser(mes.toIdUser).peerId;
+        console.log('envoie de ', mes, ' à peerId ', id);
         this.sendbox.sendFormat(mes, 'message', id); //0 = broadcast
         this.appendMessage(mes);
     };
