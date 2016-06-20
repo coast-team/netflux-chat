@@ -44,7 +44,7 @@ var UserDisplay = (function () {
                     action: function (dialogRef) {
                         BootstrapDialog.show({
                             title: 'Invite user',
-                            message: 'Key: ' + d.key + ' <br>Signaling server : ' + d.url,
+                            message: 'Key: "' + d.key + '"<br>Signaling server : "' + d.url + '"',
                             closable: true,
                             draggable: true,
                             buttons: [{

@@ -31,7 +31,6 @@ export class UserService{
     function callback(v:User,i:number,a){
       if(v.id == user.id){
         possedeUser = true;
-        v.nickname = user.nickname;
         v=user;
         v.online = true;
 

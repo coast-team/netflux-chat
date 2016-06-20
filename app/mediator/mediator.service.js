@@ -28,7 +28,22 @@ var MediatorService = (function () {
         var f = function (obj) {
             console.log('obj : ', obj);
             self.key = obj.key;
-            alert('key = ' + self.key);
+            BootstrapDialog.show({
+                title: 'Chat infos',
+                message: 'Key: "' + self.key + '"<br>Signaling server : "' + sigAddress + '"',
+                closable: true,
+                draggable: true,
+                buttons: [{
+                        id: 'btn-ok',
+                        label: 'OK',
+                        cssClass: 'btn-primary',
+                        autospin: false,
+                        action: function (dialogRef) {
+                            dialogRef.close();
+                        }
+                    }
+                ]
+            });
             self.wcs.setActiveChannel(self.wcs.addWebChannel(wc, self.key, sigAddress));
         };
         wc.openForJoining().then(f);
