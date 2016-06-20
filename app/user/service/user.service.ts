@@ -32,9 +32,7 @@ export class UserService{
       if(v.id == user.id){
         possedeUser = true;
         v.nickname = user.nickname;
-        v.id = user.id;
-        // add other if needed
-        v.peerId = user.peerId;
+        v=user;
         v.online = true;
 
         console.log('update user : ',v,' to ',user);
