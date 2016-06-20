@@ -144,9 +144,10 @@ export class MediatorService{
     wc.onMessage = onMessage;
     wc.onClose = onClose;
   }
-/**
+
+
   leave(){
-    this.webChannel.leave();
-    //TODO
-  }**/
+    let wc = this.wcs.getWebChannel(this.wcs.getActiveChannel());
+    wc.leave();
+  }
 }

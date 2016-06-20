@@ -135,6 +135,10 @@ var MediatorService = (function () {
         wc.onMessage = onMessage;
         wc.onClose = onClose;
     };
+    MediatorService.prototype.leave = function () {
+        var wc = this.wcs.getWebChannel(this.wcs.getActiveChannel());
+        wc.leave();
+    };
     MediatorService = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [user_service_1.UserService, message_service_1.MessageService, webchannel_service_1.WebChannelService])

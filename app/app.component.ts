@@ -25,6 +25,7 @@ export class AppComponent implements OnInit{
   }
 
   reload(){
+    this.mediator.leave();
     location.reload();
   }
 
