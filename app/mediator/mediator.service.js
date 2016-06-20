@@ -91,6 +91,7 @@ var MediatorService = (function () {
         this.wcs.setActiveChannel(this.wcs.addWebChannel(wc, key, sigAddress));
     };
     MediatorService.prototype.config = function (wc) {
+        var _this = this;
         var self = this;
         var onJoining = function (id) {
         };
@@ -123,12 +124,12 @@ var MediatorService = (function () {
             }
         };
         var onLeaving = function (id) {
-            self.userService.removeUser(id);
-            console.log('Onleaving(id) : ', id);
+            self.userService.removeUser(_this.userService.getIdFromPeerId(id));
+            console.log('Onleaving(id) : ', _this.userService.getIdFromPeerId(id));
         };
         var onClose = function (id) {
-            self.userService.removeUser(id);
-            console.log('OnClose(id) : ', id);
+            self.userService.removeUser(_this.userService.getIdFromPeerId(id));
+            console.log('OnClose(id) : ', _this.userService.getIdFromPeerId(id));
         };
         wc.onJoining = onJoining;
         wc.onLeaving = onLeaving;
