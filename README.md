@@ -1,7 +1,7 @@
 # Netflux-chat #
 Chat application based on [Netflux](https://github.com/coast-team/netflux)
 
-The application is available on the [coast-team.github.io/netflux-chat](http://coast-team.github.io/netflux-chat/) of this repository.
+The application is available on [coast-team.github.io/netflux-chat](http://coast-team.github.io/netflux-chat/).
 
 
 The application is divised in three parts :
