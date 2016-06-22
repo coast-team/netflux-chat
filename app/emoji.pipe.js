@@ -14,8 +14,11 @@ var EmojiPipe = (function () {
     }
     EmojiPipe.prototype.transform = function (value) {
         var ret = value;
-        if (value != undefined)
+        if (value != undefined) {
             ret = emojione.toImage(value);
+            var regex = /(<img.*src=")(\/\/cdn.jsdelivr.net\/emojione\/assets\/png\/.+".*>)/g;
+            ret = ret.replace(regex, '$1http:$2');
+        }
         return ret;
     };
     EmojiPipe = __decorate([
