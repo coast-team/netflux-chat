@@ -74,3 +74,36 @@ fieldset[disabled] .btn-sample.active {
   color: #31366B;
   background-color: #ffffff;
 }
+
+
+#awesome-dots{
+        position:relative;
+        margin: 0 auto;
+        top: 300px;
+        width: 100px;
+        height: 30px;
+        background: radial-gradient(circle at 15px 10px , #FFFFFF 3px, rgba(0, 0, 0, 0) 4px), radial-gradient(circle at 40px 10px , #FFFFFF 3px, rgba(0, 0, 0, 0) 4px), radial-gradient(circle at 65px 10px , #FFFFFF 3px, rgba(0, 0, 0, 0) 4px), radial-gradient(circle at 90px 10px , #FFFFFF 3px, rgba(0, 0, 0, 0) 4px);
+        animation: load 3s 400ms linear infinite;
+      }
+      @keyframes load{
+        0% {
+          opacity: 0;
+          transform: translateX(-300px);
+        }
+        33% {
+          opacity: 0.8;
+          transform: translateX(-100px);
+        }
+        50%{
+          opacity: 1;
+          transform: translateX(0px);
+        }
+        66% {
+          opacity: 0.8;
+          tranform: translateX(100px);
+        }
+        100% {
+          opacity: 0;
+          transform: translateX(300px);
+        }
+      }
