@@ -20,5 +20,3 @@ Some specifications about the application :
 
 ## **Warning** 
 fix soon : when the chat's creator leaves the application, the application is closed for other users.
-
-fix soon : when you close the tab/window, the other users don't see you as disconnected user.

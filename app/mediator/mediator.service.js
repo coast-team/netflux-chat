@@ -46,7 +46,7 @@ var MediatorService = (function () {
             });
             self.wcs.setActiveChannel(self.wcs.addWebChannel(wc, self.key, sigAddress));
         };
-        wc.openForJoining().then(f);
+        wc.open().then(f);
         //define webChannel.onJoining and others ...
         this.config(wc);
         // ************ //
@@ -96,7 +96,7 @@ var MediatorService = (function () {
         var onJoining = function (id) {
             /**
             self.userService.addUser({id:id,nickname:"Default "+id,peerId:id,online:true});
-      
+
             wc.sendTo(parseInt(id),JSON.stringify({type:"requestNickname",data:{requester:wc.myId}}));
             **/
         };
@@ -146,7 +146,7 @@ var MediatorService = (function () {
         wc.leave();
     };
     MediatorService = __decorate([
-        core_1.Injectable(), 
+        core_1.Injectable(),
         __metadata('design:paramtypes', [user_service_1.UserService, message_service_1.MessageService, webchannel_service_1.WebChannelService])
     ], MediatorService);
     return MediatorService;
