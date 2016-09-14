@@ -115,8 +115,8 @@
 
     render: function (zippedData) {
       var contentsHtml = this._buildContents(zippedData);
-      var unzippedData = $.map(this.data, function (d) { return d.value; });
-      if (this.data.length) {
+      var unzippedData = $.map(zippedData, function (d) { return d.value; });
+      if (zippedData.length) {
         var strategy = zippedData[0].strategy;
         if (strategy.id) {
           this.$el.attr('data-strategy', strategy.id);
@@ -467,7 +467,7 @@
       // to the document width so we don't know if we would have overrun it. As a heuristic to avoid that clipping
       // (which makes our elements wrap onto the next line and corrupt the next item), if we're close to the right
       // edge, move left. We don't know how far to move left, so just keep nudging a bit.
-      var tolerance = 30; // pixels. Make wider than vertical scrollbar because we might not be able to use that space.
+      var tolerance = this.option.rightEdgeOffset; // pixels. Make wider than vertical scrollbar because we might not be able to use that space.
       var lastOffset = this.$el.offset().left, offset;
       var width = this.$el.width();
       var maxLeft = $window.width() - tolerance;
@@ -480,13 +480,12 @@
     },
 
     _applyPlacement: function (position) {
-      position.height = Math.min(this.$el.parent().height(), $window.height());
       // If the 'placement' option set to 'top', move the position above the element.
       if (this.placement.indexOf('top') !== -1) {
         // Overwrite the position object to set the 'bottom' property instead of the top.
         position = {
           top: 'auto',
-          bottom: position.height - position.top + position.lineHeight,
+          bottom: this.$el.parent().height() - position.top + position.lineHeight,
           left: position.left
         };
       } else {

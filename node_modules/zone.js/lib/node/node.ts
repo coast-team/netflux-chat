@@ -3,7 +3,7 @@ import {patchTimer} from '../common/timers';
 
 const set = 'set';
 const clear = 'clear';
-const _global = typeof window === 'undefined' ? global : window;
+const _global = typeof window === 'object' && window || typeof self === 'object' && self || global;
 
 // Timers
 const timers = require('timers');
@@ -40,7 +40,7 @@ if (crypto) {
   }.bind(crypto);
 
   let nativePbkdf2 = crypto.pbkdf2;
-  crypto.pbkdf2 = function pbkdf2Zone(...args) {
+  crypto.pbkdf2 = function pbkdf2Zone(...args: any[]) {
     let fn = args[args.length - 1];
     if (typeof fn === 'function') {
       let zone = Zone.current;
