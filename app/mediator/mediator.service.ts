@@ -38,7 +38,7 @@ export class MediatorService{
       });
       self.wcs.setActiveChannel(self.wcs.addWebChannel(wc,self.key,sigAddress));
     };
-    wc.openForJoining().then(f);
+    wc.open().then(f);
 
     //define webChannel.onJoining and others ...
     this.config(wc);

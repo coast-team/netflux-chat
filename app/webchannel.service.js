@@ -29,7 +29,7 @@ var WebChannelService = (function () {
         /**
         if(!this.webChannels[id].isOpen()){
            console.log('OpenForJoining');
-           return this.webChannels[id].openForJoining();
+           return this.webChannels[id].open();
          }
         else{
           console.log('getAccess');
