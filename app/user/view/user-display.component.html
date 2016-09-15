@@ -1,8 +1,9 @@
-<div class="col-md-2 col-sm-2 col-xs-4" style="overflow-y:scroll; max-height:87vh;">
+<div class="col-md-2 col-sm-2 col-xs-4" style="overflow-y:scroll; max-height:187vh;">
   <ul [class.hidden-sm]="isHidden" [class.hidden-xs]="isHidden" class="list-group">
     <li class="list-group-item active">
       <h2 class="text-center">Users</h2>
     </li>
+    <li class="list-group-item"><bot></bot></li>
     <li class="list-group-item btn btn-default" (click)="addUser()"><i class="fa fa-plus-circle fa-fw"></i>invite user</li>
     <user *ngFor="let user of users" [user]="user" [hidden]="user.id == 0"></user>
   </ul>

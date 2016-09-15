@@ -1,5 +1,4 @@
-<div class="col-md-2 col-sm-2 col-xs-4">
-  <div>@Host server<input [(ngModel)]="host" /></div>
-  <div>Port server<input [(ngModel)]="port" type="text" /></div>
-  <button class="btn btn-primary" (click)="addServer()">Add Bot</button>
-</div>
+<input style="display: inline-block; width: 70%; margin-right: 10px" [(ngModel)]="botUrl" type="text" class="form-control" placeholder="Bor URL">
+<button style="padding: 10" class="btn btn-primary" (click)="addServer()">
+  <i _ngcontent-pla-3="" class="fa fa-plus fa-fw"></i>
+</button>

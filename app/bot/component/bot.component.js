@@ -13,12 +13,11 @@ var webchannel_service_1 = require('../../webchannel.service');
 var BotComponent = (function () {
     function BotComponent(wcs) {
         this.wcs = wcs;
-        this.host = '';
-        this.port = '';
+        this.botUrl = '';
     }
     BotComponent.prototype.addServer = function () {
         var wc = this.wcs.getWebChannel(this.wcs.getActiveChannel());
-        wc.addBotServer(this.host, this.port).then(function () {
+        wc.addBotServer(this.botUrl).then(function () {
             console.log('Bot added');
         });
     };

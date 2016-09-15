@@ -11,7 +11,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var chat_display_component_1 = require('./chat-display.component');
 var user_display_component_1 = require('./user/component/user-display.component');
-var bot_component_1 = require('./bot/component/bot.component');
 var message_service_1 = require('./message/service/message.service');
 var user_service_1 = require('./user/service/user.service');
 var mediator_service_1 = require('./mediator/mediator.service');
@@ -88,7 +87,7 @@ var AppComponent = (function () {
         core_1.Component({
             selector: 'my-app',
             templateUrl: 'app/app.component.html',
-            directives: [chat_display_component_1.ChatDisplay, user_display_component_1.UserDisplay, bot_component_1.BotComponent],
+            directives: [chat_display_component_1.ChatDisplay, user_display_component_1.UserDisplay],
             pipes: [emoji_pipe_1.EmojiPipe, untag_pipe_1.UntagPipe, marked_pipe_1.MarkedPipe]
         }), 
         __metadata('design:paramtypes', [message_service_1.MessageService, user_service_1.UserService, mediator_service_1.MediatorService])

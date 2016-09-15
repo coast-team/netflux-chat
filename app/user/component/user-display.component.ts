@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { UserComponent } from './user.component';
+import { BotComponent } from '../../bot/component/bot.component';
 import { User } from '../model/user';
 import { UserService } from '../service/user.service';
 import { WebChannelService } from '../../webchannel.service';
@@ -8,7 +9,7 @@ declare var BootstrapDialog:any;
 @Component({
   selector : 'user-display',
   templateUrl : 'app/user/view/user-display.component.html',
-  directives : [UserComponent]
+  directives : [UserComponent, BotComponent]
 })
 export class UserDisplay {
   users : User[];

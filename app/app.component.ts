@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ChatDisplay } from './chat-display.component';
 import { UserDisplay } from './user/component/user-display.component';
-import { BotComponent } from './bot/component/bot.component';
 import { MessageService } from './message/service/message.service';
 import { UserService} from './user/service/user.service';
 import { MediatorService } from './mediator/mediator.service';
@@ -14,7 +13,7 @@ declare var BootstrapDialog:any;
 @Component({
   selector: 'my-app',
   templateUrl: 'app/app.component.html',
-  directives : [ChatDisplay, UserDisplay, BotComponent],
+  directives : [ChatDisplay, UserDisplay],
   pipes : [EmojiPipe, UntagPipe,MarkedPipe]
 })
 export class AppComponent implements OnInit{

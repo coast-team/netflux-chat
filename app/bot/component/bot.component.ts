@@ -6,17 +6,15 @@ import { WebChannelService } from '../../webchannel.service';
   templateUrl : 'app/bot/view/bot.component.html'
 })
 export class BotComponent {
-  host: string
-  port: string
+  botUrl: string
 
   constructor(public wcs:WebChannelService){
-    this.host = ''
-    this.port = ''
+    this.botUrl = ''
   }
 
   addServer() {
     let wc = this.wcs.getWebChannel(this.wcs.getActiveChannel())
-    wc.addBotServer(this.host, this.port).then(() => {
+    wc.addBotServer(this.botUrl).then(() => {
       console.log('Bot added')
     })
   }

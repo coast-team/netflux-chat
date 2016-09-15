@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var user_component_1 = require('./user.component');
+var bot_component_1 = require('../../bot/component/bot.component');
 var user_service_1 = require('../service/user.service');
 var webchannel_service_1 = require('../../webchannel.service');
 var UserDisplay = (function () {
@@ -81,7 +82,7 @@ var UserDisplay = (function () {
         core_1.Component({
             selector: 'user-display',
             templateUrl: 'app/user/view/user-display.component.html',
-            directives: [user_component_1.UserComponent]
+            directives: [user_component_1.UserComponent, bot_component_1.BotComponent]
         }), 
         __metadata('design:paramtypes', [user_service_1.UserService, webchannel_service_1.WebChannelService])
     ], UserDisplay);
