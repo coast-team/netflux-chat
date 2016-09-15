@@ -1,6 +1,9 @@
 import '../zone';
 import {patchTimer} from '../common/timers';
 
+import './events';
+import './fs';
+
 const set = 'set';
 const clear = 'clear';
 const _global = typeof window === 'object' && window || typeof self === 'object' && self || global;
@@ -51,4 +54,22 @@ if (crypto) {
       return nativePbkdf2(...args);
     }
   }.bind(crypto);
+}
+
+// HTTP Client
+let httpClient;
+try {
+  httpClient = require('_http_client');
+} catch (err) {}
+
+if (httpClient && httpClient.ClientRequest) {
+  let ClientRequest = httpClient.ClientRequest.bind(httpClient);
+  httpClient.ClientRequest = function(options: any, callback?: Function) {
+    if (!callback) {
+      return new ClientRequest(options);
+    } else {
+      let zone = Zone.current;
+      return new ClientRequest(options, zone.wrap(callback, 'http.ClientRequest'));
+    }
+  }
 }
