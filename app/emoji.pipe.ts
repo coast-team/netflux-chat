@@ -7,7 +7,7 @@ export class EmojiPipe implements PipeTransform {
     let ret = value;
     if(value!=undefined){
       ret = emojione.toImage(value);
-      let regex = /(<img.*src=")(\/\/cdn.jsdelivr.net\/emojione\/assets\/png\/.+".*>)/g;
+      let regex = /(<img.*src=")(js\/emojione\/assets\/png\/.+".*>)/g;
       ret = ret.replace(regex,'$1http:$2');
     }
     return ret;

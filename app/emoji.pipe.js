@@ -16,7 +16,7 @@ var EmojiPipe = (function () {
         var ret = value;
         if (value != undefined) {
             ret = emojione.toImage(value);
-            var regex = /(<img.*src=")(\/\/cdn.jsdelivr.net\/emojione\/assets\/png\/.+".*>)/g;
+            var regex = /(<img.*src=")(js\/emojione\/assets\/png\/.+".*>)/g;
             ret = ret.replace(regex, '$1http:$2');
         }
         return ret;

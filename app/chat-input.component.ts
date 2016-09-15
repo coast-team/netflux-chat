@@ -52,7 +52,7 @@ export class ChatInput implements OnInit{
             callback(newResults);
         },
         template: function (shortname) {
-            return '<img class="emojione" src="http://cdn.jsdelivr.net/emojione/assets/png/'+emojiStrategy[shortname].unicode+'.png"> :'+shortname+':';
+            return '<img class="emojione" src="js/emojione/assets/png/'+emojiStrategy[shortname].unicode+'.png"> :'+shortname+':';
         },
         replace: function (shortname) {
             return ':'+shortname+': ';
