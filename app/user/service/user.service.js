@@ -8,9 +8,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var mock_users_1 = require('../mock-users');
-var sendbox_service_1 = require('../../sendbox/sendbox.service');
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = require("@angular/core");
+var mock_users_1 = require("../mock-users");
+var sendbox_service_1 = require("../../sendbox/sendbox.service");
 var UserService = (function () {
     function UserService(sendbox) {
         this.sendbox = sendbox;
@@ -187,8 +188,8 @@ var UserService = (function () {
         return tab;
     };
     UserService = __decorate([
-        core_1.Injectable(), 
-        __metadata('design:paramtypes', [sendbox_service_1.SendBox])
+        core_1.Injectable(),
+        __metadata("design:paramtypes", [sendbox_service_1.SendBox])
     ], UserService);
     return UserService;
 }());

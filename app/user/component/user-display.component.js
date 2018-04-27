@@ -8,10 +8,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var user_component_1 = require('./user.component');
-var user_service_1 = require('../service/user.service');
-var webchannel_service_1 = require('../../webchannel.service');
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = require("@angular/core");
+var user_component_1 = require("./user.component");
+var user_service_1 = require("../service/user.service");
+var webchannel_service_1 = require("../../webchannel.service");
 var UserDisplay = (function () {
     function UserDisplay(userService, wcs) {
         this.userService = userService;
@@ -74,16 +75,16 @@ var UserDisplay = (function () {
         }); //);
     };
     __decorate([
-        core_1.Input(), 
-        __metadata('design:type', Object)
+        core_1.Input(),
+        __metadata("design:type", Object)
     ], UserDisplay.prototype, "isHidden", void 0);
     UserDisplay = __decorate([
         core_1.Component({
             selector: 'user-display',
             templateUrl: 'app/user/view/user-display.component.html',
             directives: [user_component_1.UserComponent]
-        }), 
-        __metadata('design:paramtypes', [user_service_1.UserService, webchannel_service_1.WebChannelService])
+        }),
+        __metadata("design:paramtypes", [user_service_1.UserService, webchannel_service_1.WebChannelService])
     ], UserDisplay);
     return UserDisplay;
 }());

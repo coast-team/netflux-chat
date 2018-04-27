@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var MessagesList = (function () {
     function MessagesList() {
         this.messages = [{ fromIdUser: "0", toIdUser: "0", content: "Starting the app ...", date: -1 }];

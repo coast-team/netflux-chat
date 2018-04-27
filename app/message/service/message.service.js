@@ -8,10 +8,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var user_service_1 = require('../../user/service/user.service');
-var sendbox_service_1 = require('../../sendbox/sendbox.service');
-var MessagesList_1 = require('../../MessagesList');
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = require("@angular/core");
+var user_service_1 = require("../../user/service/user.service");
+var sendbox_service_1 = require("../../sendbox/sendbox.service");
+var MessagesList_1 = require("../../MessagesList");
 var MessageService = (function () {
     function MessageService(userService, sendbox) {
         this.userService = userService;
@@ -78,7 +79,6 @@ var MessageService = (function () {
         var _this = this;
         this.messages.getSince(data.parameter).forEach(function (val, e, arr) { if (val.fromIdUser != '0')
             _this.sendbox.sendFormat(val, 'message', id); } //condition avoid chat-app messages
-         //condition avoid chat-app messages
         );
     };
     MessageService.prototype.queryForHistory = function () {
@@ -86,8 +86,8 @@ var MessageService = (function () {
         this.sendbox.sendFormat({ parameter: { timestamp: yesterday, id: "0" } }, "queryForHistory", "0");
     };
     MessageService = __decorate([
-        core_1.Injectable(), 
-        __metadata('design:paramtypes', [user_service_1.UserService, sendbox_service_1.SendBox])
+        core_1.Injectable(),
+        __metadata("design:paramtypes", [user_service_1.UserService, sendbox_service_1.SendBox])
     ], MessageService);
     return MessageService;
 }());

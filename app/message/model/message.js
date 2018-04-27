@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var Message = (function () {
     function Message(fromIdUser, toIdUser, content, date) {
         this.fromIdUser = fromIdUser;

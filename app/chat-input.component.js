@@ -8,10 +8,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var message_service_1 = require('./message/service/message.service');
-var message_1 = require('./message/model/message');
-var user_service_1 = require('./user/service/user.service');
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = require("@angular/core");
+var message_service_1 = require("./message/service/message.service");
+var message_1 = require("./message/model/message");
+var user_service_1 = require("./user/service/user.service");
 var ChatInput = (function () {
     function ChatInput(messageService, userService) {
         this.messageService = messageService;
@@ -184,8 +185,8 @@ var ChatInput = (function () {
             selector: 'chat-input',
             templateUrl: 'app/chat-input.component.html',
             styleUrls: ['app/chat-input.component.css']
-        }), 
-        __metadata('design:paramtypes', [message_service_1.MessageService, user_service_1.UserService])
+        }),
+        __metadata("design:paramtypes", [message_service_1.MessageService, user_service_1.UserService])
     ], ChatInput);
     return ChatInput;
 }());

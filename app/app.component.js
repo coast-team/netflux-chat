@@ -8,16 +8,17 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var chat_display_component_1 = require('./chat-display.component');
-var user_display_component_1 = require('./user/component/user-display.component');
-var bot_component_1 = require('./bot/component/bot.component');
-var message_service_1 = require('./message/service/message.service');
-var user_service_1 = require('./user/service/user.service');
-var mediator_service_1 = require('./mediator/mediator.service');
-var emoji_pipe_1 = require('./emoji.pipe');
-var untag_pipe_1 = require('./untag.pipe');
-var marked_pipe_1 = require('./marked.pipe');
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = require("@angular/core");
+var chat_display_component_1 = require("./chat-display.component");
+var user_display_component_1 = require("./user/component/user-display.component");
+var bot_component_1 = require("./bot/component/bot.component");
+var message_service_1 = require("./message/service/message.service");
+var user_service_1 = require("./user/service/user.service");
+var mediator_service_1 = require("./mediator/mediator.service");
+var emoji_pipe_1 = require("./emoji.pipe");
+var untag_pipe_1 = require("./untag.pipe");
+var marked_pipe_1 = require("./marked.pipe");
 var AppComponent = (function () {
     function AppComponent(messageService, userService, mediator) {
         this.messageService = messageService;
@@ -90,8 +91,8 @@ var AppComponent = (function () {
             templateUrl: 'app/app.component.html',
             directives: [chat_display_component_1.ChatDisplay, user_display_component_1.UserDisplay, bot_component_1.BotComponent],
             pipes: [emoji_pipe_1.EmojiPipe, untag_pipe_1.UntagPipe, marked_pipe_1.MarkedPipe]
-        }), 
-        __metadata('design:paramtypes', [message_service_1.MessageService, user_service_1.UserService, mediator_service_1.MediatorService])
+        }),
+        __metadata("design:paramtypes", [message_service_1.MessageService, user_service_1.UserService, mediator_service_1.MediatorService])
     ], AppComponent);
     return AppComponent;
 }());

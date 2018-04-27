@@ -25,7 +25,7 @@
     "core-js": "^2.4.0",
     "jquery-textcomplete": "^1.4.0",
     "marked": "^0.3.5",
-    "netflux": "^0.10.4",
+    "netflux": "2.0.3   ",
     "reflect-metadata": "^0.1.3",
     "rxjs": "5.0.0-beta.6",
     "systemjs": "0.19.27",
@@ -35,6 +35,6 @@
   "devDependencies": {
     "concurrently": "^2.0.0",
     "lite-server": "^2.2.0",
-    "typescript": "^1.8.10"
+    "typescript": "~2.4.1"
   }
 }

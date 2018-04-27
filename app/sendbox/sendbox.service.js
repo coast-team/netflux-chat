@@ -8,8 +8,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var webchannel_service_1 = require('../webchannel.service');
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = require("@angular/core");
+var webchannel_service_1 = require("../webchannel.service");
 var SendBox = (function () {
     function SendBox(wcs) {
         this.wcs = wcs;
@@ -26,8 +27,8 @@ var SendBox = (function () {
         }
     };
     SendBox = __decorate([
-        core_1.Injectable(), 
-        __metadata('design:paramtypes', [webchannel_service_1.WebChannelService])
+        core_1.Injectable(),
+        __metadata("design:paramtypes", [webchannel_service_1.WebChannelService])
     ], SendBox);
     return SendBox;
 }());

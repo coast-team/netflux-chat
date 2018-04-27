@@ -2,6 +2,7 @@
   "compilerOptions": {
     "target": "es5",
     "module": "commonjs",
+    "lib": ["es2017", "dom"],
     "moduleResolution": "node",
     "sourceMap": true,
     "emitDecoratorMetadata": true,
@@ -9,6 +10,9 @@
     "removeComments": false,
     "noImplicitAny": false
   },
+  "include": [
+    "app/**/*.ts"
+  ],
   "exclude": [
     "node_modules",
     "typings/main",

@@ -4,9 +4,18 @@ import { User } from '../user/model/user';
 import { Message } from '../message/model/message';
 import { WebChannelService } from '../webchannel.service';
 import { Injectable } from '@angular/core';
+import { WebGroup, WebGroupState } from 'netflux/dist/esm/index.browser';
 
 declare var BootstrapDialog:any;
-declare var netflux:any;
+
+const webGroupConfig = {
+  signalingURL: 'wss://signaling.netflux.coedit.re',
+  iceServers: [
+    {
+      urls: 'stun:stun.l.google.com:19302'
+    }
+  ]
+}
 
 @Injectable()
 export class MediatorService{
@@ -15,30 +24,35 @@ export class MediatorService{
   key: string;
 
   create(sigAddress : string = 'ws://sigver-coastteam.rhcloud.com:8000'){ // ws://'+location.hostname+':8000
-    let wc = new netflux.WebChannel({signaling: sigAddress});
+    let wc = new WebGroup(webGroupConfig);
     let self = this;
-    let f = (obj)=>{
-      console.log('obj : ',obj);
-      self.key = obj.key;
-      BootstrapDialog.show({
-          title: 'Chat infos',
-          message: 'Key: "'+self.key+'"<br>Signaling server : "'+sigAddress+'"',
-          closable: true, // <-- Default value is false
-          draggable: true, // <-- Default value is false
-          buttons: [{
-                      id: 'btn-ok',
-                      label: 'OK',
-                      cssClass: 'btn-primary',
-                      autospin: false,
-                      action: function(dialogRef){
-                          dialogRef.close();
-                      }
-                  }
-                ]
-      });
-      self.wcs.setActiveChannel(self.wcs.addWebChannel(wc,self.key,sigAddress));
-    };
-    wc.open().then(f);
+    wc.onStateChange = (state: WebGroupState) => {
+      if (state === (WebGroupState as any).JOINED) {
+        self.key = wc.key;
+        BootstrapDialog.show({
+            title: 'Chat infos',
+            message: 'Key: "'+self.key+'"<br>Signaling server : "'+sigAddress+'"',
+            closable: true, // <-- Default value is false
+            draggable: true, // <-- Default value is false
+            buttons: [{
+                        id: 'btn-ok',
+                        label: 'OK',
+                        cssClass: 'btn-primary',
+                        autospin: false,
+                        action: function(dialogRef){
+                            dialogRef.close();
+                        }
+                    }
+                  ]
+        });
+        self.wcs.setActiveChannel(self.wcs.addWebChannel(wc,self.key,sigAddress));
+      } else if (state === (WebGroupState as any).LEFT) {
+        (id: number)=>{
+          self.userService.removeUser(self.userService.getIdFromPeerId(id + ''));
+          console.log('OnClose(id) : ',self.userService.getIdFromPeerId(id + ''));
+        }
+      }
+    }
 
     //define webChannel.onJoining and others ...
     this.config(wc);
@@ -53,22 +67,22 @@ export class MediatorService{
 
     this.userService.setCurrentUserId(id);
 
-    this.userService.addUser(new User(id,wc.myId,pseudo));
+    this.userService.addUser(new User(id,wc.myId + '',pseudo));
     this.messageService.appendMessage({fromIdUser : "0",toIdUser : "0", content : "Welcome to the chat !", date :new Date().getTime()});
-
+    wc.join()
     console.log('WC créé.');
   }
 
   join(key:string, sigAddress : string = 'ws://sigver-coastteam.rhcloud.com:8000'){//default address ws://192.168.0.102:8081
-    let wc = new netflux.WebChannel({signaling: sigAddress});
+    let wc = new WebGroup(webGroupConfig);
     this.key=key;
 
     this.config(wc);
 
 
     let self = this;
-    wc.join(key).then(function () {
-
+    wc.onStateChange = (state: WebGroupState) => {
+      if (state === (WebGroupState as any).JOINED) {
         let pseudo = localStorage.getItem("netflux-chat-nickname");
         if(pseudo === null) pseudo = 'Default '+wc.myId;
         let id = localStorage.getItem("netflux-chat-id");
@@ -78,7 +92,7 @@ export class MediatorService{
         }
 
         self.userService.setCurrentUserId(id);
-        self.userService.addUser(new User(id,wc.myId,pseudo));
+        self.userService.addUser(new User(id,wc.myId + '',pseudo));
         /**
         wc.channels.forEach(function(value) {
           //onJoining(value.peerId) need to define onJoining
@@ -87,13 +101,20 @@ export class MediatorService{
         self.messageService.queryForHistory();
         self.userService.queryForUsers();
         self.userService.sendUserInfos();
-      });
-    this.wcs.setActiveChannel(this.wcs.addWebChannel(wc,key,sigAddress));
+        self.wcs.setActiveChannel(self.wcs.addWebChannel(wc,self.key,sigAddress));
+      } else if (state === (WebGroupState as any).LEFT) {
+        (id: number)=>{
+          self.userService.removeUser(self.userService.getIdFromPeerId(id + ''));
+          console.log('OnClose(id) : ',self.userService.getIdFromPeerId(id + ''));
+        }
+      }
+    };
+    wc.join(key)
   }
 
-  config(wc:any){
+  config(wc: WebGroup){
     let self = this;
-    let onJoining = (id:string)=>{
+    let onJoining = (id: number)=>{
       /**
       self.userService.addUser({id:id,nickname:"Default "+id,peerId:id,online:true});
 
@@ -101,7 +122,7 @@ export class MediatorService{
       **/
     }
 
-    let onMessage = (id:string, data: string, isBroadcast:boolean)=>{
+    let onMessage = (id: number, data: string, isBroadcast:boolean)=>{
       let receive = JSON.parse(data);
       let type = receive.type;
       let data2 = receive.data;
@@ -118,7 +139,7 @@ export class MediatorService{
           console.log('Working on requestNickname');
           break;
         case "queryForHistory":
-          self.messageService.sendHistory(id,data2);
+          self.messageService.sendHistory(id + '',data2);
           break;
         case "userInfos": // {{id: "3180763113", peerId: 3180763113, nickname: "Thomas :smiley_cat:", online: true}}
           self.userService.addUser(data2);
@@ -130,19 +151,14 @@ export class MediatorService{
       }
     }
 
-    let onLeaving = (id:string)=>{
-      self.userService.removeUser(self.userService.getIdFromPeerId(id));
-      console.log('Onleaving(id) : ',self.userService.getIdFromPeerId(id));
+    let onLeaving = (id: number)=>{
+      self.userService.removeUser(self.userService.getIdFromPeerId(id + ''));
+      console.log('Onleaving(id) : ',self.userService.getIdFromPeerId(id + ''));
     };
-    let onClose = (id:string)=>{
-      self.userService.removeUser(self.userService.getIdFromPeerId(id));
-      console.log('OnClose(id) : ',self.userService.getIdFromPeerId(id));
-    }
 
-    wc.onJoining = onJoining;
-    wc.onLeaving = onLeaving;
+    wc.onMemberJoin = onJoining;
+    wc.onMemberLeave = onLeaving;
     wc.onMessage = onMessage;
-    wc.onClose = onClose;
   }
 
   leave(){

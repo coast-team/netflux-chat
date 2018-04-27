@@ -8,12 +8,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var user_1 = require('../model/user');
-var user_service_1 = require('../service/user.service');
-var emoji_pipe_1 = require('../../emoji.pipe');
-var untag_pipe_1 = require('../../untag.pipe');
-var marked_pipe_1 = require('../../marked.pipe');
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = require("@angular/core");
+var user_1 = require("../model/user");
+var user_service_1 = require("../service/user.service");
+var emoji_pipe_1 = require("../../emoji.pipe");
+var untag_pipe_1 = require("../../untag.pipe");
+var marked_pipe_1 = require("../../marked.pipe");
 var UserComponent = (function () {
     function UserComponent(userService) {
         this.userService = userService;
@@ -62,16 +63,16 @@ var UserComponent = (function () {
         return styles;
     };
     __decorate([
-        core_1.Input(), 
-        __metadata('design:type', user_1.User)
+        core_1.Input(),
+        __metadata("design:type", user_1.User)
     ], UserComponent.prototype, "user", void 0);
     UserComponent = __decorate([
         core_1.Component({
             selector: 'user',
             templateUrl: 'app/user/view/user.component.html',
             pipes: [emoji_pipe_1.EmojiPipe, untag_pipe_1.UntagPipe, marked_pipe_1.MarkedPipe]
-        }), 
-        __metadata('design:paramtypes', [user_service_1.UserService])
+        }),
+        __metadata("design:paramtypes", [user_service_1.UserService])
     ], UserComponent);
     return UserComponent;
 }());

@@ -8,8 +8,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var webchannel_service_1 = require('../../webchannel.service');
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = require("@angular/core");
+var webchannel_service_1 = require("../../webchannel.service");
 var BotComponent = (function () {
     function BotComponent(wcs) {
         this.wcs = wcs;
@@ -26,8 +27,8 @@ var BotComponent = (function () {
         core_1.Component({
             selector: 'bot',
             templateUrl: 'app/bot/view/bot.component.html'
-        }), 
-        __metadata('design:paramtypes', [webchannel_service_1.WebChannelService])
+        }),
+        __metadata("design:paramtypes", [webchannel_service_1.WebChannelService])
     ], BotComponent);
     return BotComponent;
 }());
