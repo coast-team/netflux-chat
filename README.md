@@ -1,4 +1,7 @@
 # Netflux-chat #
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/coast-team/netflux-chat.svg)](https://greenkeeper.io/)
+
 Chat application based on [Netflux](https://github.com/coast-team/netflux)
 
 The application is available on [coast-team.github.io/netflux-chat](http://coast-team.github.io/netflux-chat/).
